@@ -1,13 +1,13 @@
-var fs = require('fs');
-var path = require('path');
-var webpack = require('webpack');
-var postcssAssets = require('postcss-assets');
-var postcssNext = require('postcss-cssnext');
-var stylelint = require('stylelint');
-var ManifestPlugin = require('webpack-manifest-plugin');
-var CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
+let fs = require('fs');
+let path = require('path');
+let webpack = require('webpack');
+let postcssAssets = require('postcss-assets');
+let postcssNext = require('postcss-cssnext');
+let stylelint = require('stylelint');
+let ManifestPlugin = require('webpack-manifest-plugin');
+let CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 
-var config = {
+let config = {
   // Enable sourcemaps for debugging webpack's output.
   devtool: 'source-map',
 
@@ -66,7 +66,6 @@ var config = {
           'css-loader'
         ]
       },
-
       {
         test: /\.eot(\?.*)?$/,
         loader: 'file-loader?name=fonts/[hash].[ext]'
@@ -95,6 +94,7 @@ var config = {
     new webpack.LoaderOptionsPlugin({
       debug: true,
       options: {
+        context: __dirname,
         tslint: {
           failOnHint: true
         },
@@ -131,13 +131,13 @@ const copySync = (src, dest, overwrite) => {
   }
   const data = fs.readFileSync(src);
   fs.writeFileSync(dest, data);
-}
+};
 
 const createIfDoesntExist = dest => {
   if (!fs.existsSync(dest)) {
     fs.mkdirSync(dest);
   }
-}
+};
 
 createIfDoesntExist('./build');
 createIfDoesntExist('./build/public');

@@ -3,7 +3,7 @@ import { renderComponent } from 'helpers/TestHelper';
 import { Counter } from './index';
 
 /** Mock App. State */
-const state: Object = {
+const state: any = {
   counter: { count: 1 },
 };
 
