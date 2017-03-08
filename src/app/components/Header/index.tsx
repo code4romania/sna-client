@@ -5,11 +5,14 @@ const style = require('./style.css');
 
 export const Header = () => (
   <nav className={style.Nav}>
+    <div className={style.Logo}>
+      <Link to="/"><img src={require('./logo.png')} /></Link>
+      <span>Portalul Strategiei Naționale Anticorupție</span>
+    </div>
+
     <ul>
-      <li><Link to="/">Home</Link></li>
-      <li><Link to="about">About</Link></li>
-      <li><Link to="counter">Counter</Link></li>
-      <li><Link to="stars">Stars</Link></li>
+      <li><Link to="about">Despre aplicație</Link></li>
+      <li><Link to="help">Ajutor</Link></li>
     </ul>
   </nav>
 );

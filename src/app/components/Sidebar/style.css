@@ -1,0 +1,14 @@
+.Sidebar {
+  background-color: #f7f9fa;
+  width: 22%;
+  padding-top: 70px;
+
+  & .title {
+    text-align: left;
+    color: #a5b5be;
+    font-size: 1.1em;
+    margin: 0 25px 10px 45px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eef2f4;
+  }
+}

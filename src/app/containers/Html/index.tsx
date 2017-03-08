@@ -8,6 +8,8 @@ interface IHtmlProps {
   store?: Redux.Store<IStore>;
 }
 
+const style = require('./style.css');
+
 class Html extends React.Component<IHtmlProps, {}> {
   private resolve(files) {
     return files.map((src) => {
@@ -45,7 +47,7 @@ class Html extends React.Component<IHtmlProps, {}> {
           {renderStyles}
           <link rel="shortcut icon" href="/favicon.ico" />
         </head>
-        <body>
+        <body className={style.App}>
           <main id="app" dangerouslySetInnerHTML={{ __html: markup }} />
           {initialState}
           {renderScripts}
