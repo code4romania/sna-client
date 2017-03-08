@@ -27,7 +27,6 @@ interface SidebarDispatchProps {
 export class Sidebar extends React.Component<SidebarProps & SidebarDispatchProps, {}> {
   public render() {
     const { loader } = this.props;
-    console.log('sidebar props', this.props);
 
     let content = [<li key="0">Se încarcă</li>];
 
@@ -37,7 +36,6 @@ export class Sidebar extends React.Component<SidebarProps & SidebarDispatchProps
       });
     }
 
-    console.log('content', content);
     return (<div className={style.Sidebar}>
       <div className={style.title}>
         Indicatori SNA

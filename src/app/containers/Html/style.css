@@ -47,6 +47,10 @@ table {
   border-spacing: 0;
 }
 
+body, html, main {
+  height: 100%;
+}
+
 .App {
   width: 1280px;
   margin: 0 80px;

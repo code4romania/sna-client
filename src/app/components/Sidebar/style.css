@@ -1,6 +1,7 @@
 .Sidebar {
   background-color: #f7f9fa;
   width: 22%;
+  height: 100%;
   padding-top: 70px;
 
   & .title {
