@@ -11,4 +11,14 @@
     padding-bottom: 10px;
     border-bottom: 1px solid #eef2f4;
   }
+
+  & ul {
+    margin: 0 25px 10px 45px;
+
+    & li {
+      text-align: left;
+      color: #7c8d97;
+      margin-bottom: 0.7em;
+    }
+  }
 }

@@ -11,6 +11,7 @@ const { ReduxAsyncConnect } = require('redux-connect');
 import { configureStore } from './app/redux/store';
 import 'isomorphic-fetch';
 import routes from './app/routes';
+import {getIndicators} from './app/redux/modules/indicator/index';
 
 const store = configureStore(
   browserHistory,
@@ -30,3 +31,7 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app'),
 );
+
+window.setTimeout(() => {
+  store.dispatch(getIndicators() as any);
+}, 200);

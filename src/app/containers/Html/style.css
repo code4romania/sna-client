@@ -48,5 +48,6 @@ table {
 }
 
 .App {
+  width: 1280px;
   margin: 0 80px;
 }

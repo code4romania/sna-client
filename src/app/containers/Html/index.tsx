@@ -1,11 +1,11 @@
-import { IStore } from 'redux/IStore';
+import { ApplicationState } from 'application_state.ts';
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
 
 interface IHtmlProps {
   manifest?: any;
   markup?: string;
-  store?: Redux.Store<IStore>;
+  store?: Redux.Store<ApplicationState>;
 }
 
 const style = require('./style.css');
