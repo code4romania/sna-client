@@ -1,13 +1,13 @@
-var fs = require('fs');
-var path = require('path');
-var webpack = require('webpack');
-var postcssAssets = require('postcss-assets');
-var postcssNext = require('postcss-cssnext');
-var stylelint = require('stylelint');
-var ManifestPlugin = require('webpack-manifest-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+let fs = require('fs');
+let path = require('path');
+let webpack = require('webpack');
+let postcssAssets = require('postcss-assets');
+let postcssNext = require('postcss-cssnext');
+let stylelint = require('stylelint');
+let ManifestPlugin = require('webpack-manifest-plugin');
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var config = {
+let config = {
   bail: true,
 
   resolve: {
@@ -58,9 +58,9 @@ var config = {
       {
         test: /\.css$/,
         include: path.resolve('./src/app'),
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: [
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
             'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]',
             'postcss-loader'
           ]
@@ -69,9 +69,9 @@ var config = {
       {
         test: /\.css$/,
         exclude: path.resolve('./src/app'),
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: [
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
             'css-loader',
           ]
         })
@@ -103,6 +103,7 @@ var config = {
     new webpack.LoaderOptionsPlugin({
       debug: true,
       options: {
+        context: __dirname,
         tslint: {
           failOnHint: true
         },
@@ -117,19 +118,18 @@ var config = {
             }),
           ];
         },
-      }
+      },
+      minimize: true
     }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: 'js/[name].[chunkhash].js',
       minChunks: Infinity
     }),
     new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
+      sourceMap: false,
+      compress: { warnings: true }
+}),
     new ExtractTextPlugin('css/[name].[hash].css'),
     new ManifestPlugin({
       fileName: '../manifest.json'
@@ -149,13 +149,13 @@ const copySync = (src, dest, overwrite) => {
   }
   const data = fs.readFileSync(src);
   fs.writeFileSync(dest, data);
-}
+};
 
 const createIfDoesntExist = dest => {
   if (!fs.existsSync(dest)) {
     fs.mkdirSync(dest);
   }
-}
+};
 
 createIfDoesntExist('./build');
 createIfDoesntExist('./build/public');
