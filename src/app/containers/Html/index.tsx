@@ -1,12 +1,14 @@
-import { IStore } from 'redux/IStore';
+import { ApplicationState } from 'application_state.ts';
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
 
 interface IHtmlProps {
   manifest?: any;
   markup?: string;
-  store?: Redux.Store<IStore>;
+  store?: Redux.Store<ApplicationState>;
 }
+
+const style = require('./style.css');
 
 class Html extends React.Component<IHtmlProps, {}> {
   private resolve(files) {
@@ -45,7 +47,7 @@ class Html extends React.Component<IHtmlProps, {}> {
           {renderStyles}
           <link rel="shortcut icon" href="/favicon.ico" />
         </head>
-        <body>
+        <body className={style.App}>
           <main id="app" dangerouslySetInnerHTML={{ __html: markup }} />
           {initialState}
           {renderScripts}

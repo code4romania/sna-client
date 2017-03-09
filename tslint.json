@@ -4,12 +4,14 @@
     "tslint-react"
   ],
   "rules": {
+    "interface-name": false,
+    "no-empty-interface": false,
     "indent": [
       true,
       "spaces"
     ],
     "quotemark": [
-      true,
+      false,
       "single",
       "jsx-double"
     ],
