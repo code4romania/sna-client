@@ -1,4 +1,3 @@
-let fs = require('fs');
 let path = require('path');
 let webpack = require('webpack');
 let postcssAssets = require('postcss-assets');
@@ -130,22 +129,6 @@ let config = {
   ]
 };
 
-const copySync = (src, dest, overwrite) => {
-  if (overwrite && fs.existsSync(dest)) {
-    fs.unlinkSync(dest);
-  }
-  const data = fs.readFileSync(src);
-  fs.writeFileSync(dest, data);
-};
-
-const createIfDoesntExist = dest => {
-  if (!fs.existsSync(dest)) {
-    fs.mkdirSync(dest);
-  }
-};
-
-createIfDoesntExist('./build');
-createIfDoesntExist('./build/public');
-copySync('./src/favicon.ico', './build/public/favicon.ico', true);
+require('./copy_files');
 
 module.exports = config;

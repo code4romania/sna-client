@@ -2,7 +2,6 @@ import {
   IndicatorAction, IndicatorState, Indicator, IndicatorErrorAction,
   IndicatorSuccessAction,
 } from '../../../models/indicator';
-import {Promise} from 'es6-promise';
 
 /** Action Types */
 export const GET_REQUEST: string = 'indicators/GET_REQUEST';
@@ -49,26 +48,17 @@ export function getIndicators() {
     console.log("Loading indicators");
     dispatch(indicatorsRequest());
 
-    dispatch(indicatorsSuccess([
-      {id: 'guid1', name: 'Cod etic/deontologic/de conduită'},
-      {id: 'guid2', name: 'Declararea averilor'},
-      {id: 'guid3', name: 'Declararea cadourilor'},
-      {id: 'guid4', name: 'Conflicte de interese'},
-    ]));
-
-    return Promise.resolve();
-
-    // return fetch('https://api.github.com/repos/barbar/vortigern')
-    //   .then((res) => {
-    //     if (res.ok) {
-    //       return res.json()
-    //         .then((res) => dispatch(indicatorsSuccess(res.stargazers_count)));
-    //     } else {
-    //       return res.json()
-    //         .then((res) => dispatch(indicatorsFailure(res)));
-    //     }
-    //   })
-    //   .catch((err) => dispatch(indicatorsFailure(err)));
+    return fetch('/public/data/indicators.json')
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+            .then((res) => dispatch(indicatorsSuccess(res.data)));
+        } else {
+          return res.json()
+            .then((res) => dispatch(indicatorsFailure(res)));
+        }
+      })
+      .catch((err) => dispatch(indicatorsFailure(err)));
   };
 }
 

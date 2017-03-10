@@ -1,0 +1,21 @@
+{
+  "status": "ok",
+  "data": [
+    {
+      "id": "guid1",
+      "name": "Cod etic/deontologic/de conduită"
+    },
+    {
+      "id": "guid2",
+      "name": "Declararea averilor"
+    },
+    {
+      "id": "guid3",
+      "name": "Declararea cadourilor"
+    },
+    {
+      "id": "guid4",
+      "name": "Conflicte de interese"
+    }
+  ]
+}
