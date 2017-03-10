@@ -2,6 +2,8 @@ import * as React from 'react';
 import {IndicatorState, IndicatorAction, Indicator} from '../../models/indicator';
 import {getIndicators} from '../../redux/modules/indicator/index';
 import {Badge} from '../Badge/index';
+import {ApplicationState} from '../../redux/application_state';
+import {Link} from 'react-router';
 
 const { connect } = require('react-redux');
 const { asyncConnect } = require('redux-connect');
@@ -22,7 +24,7 @@ interface SidebarDispatchProps {
   },
 }])
 @connect(
-  (state) => ({ loader: state.indicators }),
+  (state: ApplicationState) => ({ loader: state.indicators }),
 )
 export class Sidebar extends React.Component<SidebarProps & SidebarDispatchProps, {}> {
   public render() {
@@ -32,11 +34,14 @@ export class Sidebar extends React.Component<SidebarProps & SidebarDispatchProps
 
     if (!loader.isFetching) {
       content = loader.indicators.map((indicator: Indicator, idx: number) => {
-        return <li key={indicator.id}><Badge text={(idx + 1).toString()}/> {indicator.name}</li>;
+        return <li key={indicator.id}><Badge text={(idx + 1).toString()}/>
+          <Link to={`selectAdministration/${idx + 1}`}>{indicator.name}</Link>
+          </li>;
       });
     }
 
     return (<div className={style.Sidebar}>
+      <div className={style.spacer} />
       <div className={style.title}>
         Indicatori SNA
       </div>

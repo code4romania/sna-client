@@ -2,7 +2,28 @@
   background-color: #f7f9fa;
   width: 22%;
   height: 100%;
-  padding-top: 70px;
+
+  & .backLink {
+    text-transform: uppercase;
+    height: 51px;
+    color: #516178;
+    text-align: left;
+    border-bottom: 1px solid #eef2f4;
+    margin-bottom: 10px;
+    padding: 10px 0 10px 45px;
+
+    & a {
+      font-family: Roboto-Bold;
+      font-size: 13px;
+      color: #516178;
+      letter-spacing: 0.87px;
+      line-height: 8px;
+    }
+  }
+
+  & .spacer {
+    padding-top: 70px;
+  }
 
   & .title {
     text-align: left;
@@ -15,11 +36,21 @@
 
   & ul {
     margin: 0 25px 10px 45px;
+    list-style-type: none;
 
     & li {
       text-align: left;
-      color: #7c8d97;
+      color: #0D2B3E;
       margin-bottom: 0.7em;
+      font-size: 15px;
+
+      & a {
+        color: #0D2B3E;
+      }
     }
+  }
+
+  & ul.adminType {
+    padding: 0;
   }
 }

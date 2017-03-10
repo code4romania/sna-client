@@ -4,6 +4,10 @@ body, html, main {
   height: 100vh;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .App {
   max-width: 1280px;
 }

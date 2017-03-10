@@ -6,7 +6,8 @@
     position: absolute;
     top: 0;
     right: 8px;
-    font-size: .7em;
+    font-size: 11px;
+    font-family: Roboto-Regular;
     font-weight: bold;
     background: #ebf0f2;
     color: #93a6b1;
