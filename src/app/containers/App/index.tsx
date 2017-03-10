@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
+
 import { Header, Sidebar, Content } from 'components';
 
 const appConfig = require('../../../../config/main');
