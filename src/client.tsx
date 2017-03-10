@@ -8,8 +8,8 @@ import { Provider } from 'react-redux';
 const { Router, browserHistory } = require('react-router');
 import { syncHistoryWithStore } from 'react-router-redux';
 const { ReduxAsyncConnect } = require('redux-connect');
+
 import { configureStore } from './app/redux/store';
-import 'isomorphic-fetch';
 import routes from './app/routes';
 import {getIndicators} from './app/redux/modules/indicator/index';
 
@@ -24,8 +24,7 @@ ReactDOM.render(
   <Provider store={store} key="provider">
     <Router
       history={history}
-      render={connectedCmp}
-    >
+      render={connectedCmp}>
       {routes}
     </Router>
   </Provider>,

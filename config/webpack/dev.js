@@ -19,7 +19,9 @@ let config = {
   entry: {
     app: [
       'webpack-hot-middleware/client?reload=true',
-      './src/client.tsx',
+      './src/client.tsx'
+    ],
+    vendor: [
       './src/vendor/main.ts'
     ]
   },
@@ -101,7 +103,10 @@ let config = {
         postcss: function () {
           return [
             stylelint({
-              files: '../../src/app/*.css'
+              files: '../../src/app/**/*.css',
+              rules: {
+                "unit-blacklist": []
+              }
             }),
             postcssNext(),
             postcssAssets({
