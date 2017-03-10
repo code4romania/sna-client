@@ -35,7 +35,7 @@ export class Sidebar extends React.Component<SidebarProps & SidebarDispatchProps
     if (!loader.isFetching) {
       content = loader.indicators.map((indicator: Indicator, idx: number) => {
         return <li key={indicator.id}><Badge text={(idx + 1).toString()}/>
-          <Link to={`selectAdministration/${idx + 1}`}>{indicator.name}</Link>
+          <Link to={`/selectAdministration/${idx + 1}`}>{indicator.name}</Link>
           </li>;
       });
     }

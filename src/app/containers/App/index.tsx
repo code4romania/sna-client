@@ -3,7 +3,6 @@ import * as Helmet from 'react-helmet';
 
 import { Header, Sidebar, Content } from 'components';
 import {ApplicationState} from '../../redux/application_state';
-import {AdministationSidebar} from '../../components/Sidebar/administration_sidebar';
 
 const { connect } = require('react-redux');
 

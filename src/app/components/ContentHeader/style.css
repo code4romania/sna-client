@@ -1,0 +1,19 @@
+.ContentHeader {
+  min-height: 180px;
+  border-bottom: 1px solid #EBF0F2;
+  padding-left: 60px;
+  text-align: left;
+
+  & .title {
+    font-size: 40px;
+    font-family: RobotoSlab-Regular;
+    color: #0D2B3E;
+    letter-spacing: 0;
+  }
+
+  & .parentTitle {
+    font-family: Roboto-Regular;
+    font-size: 24px;
+    color: #93A6B1;
+  }
+}
