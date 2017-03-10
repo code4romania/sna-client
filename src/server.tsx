@@ -94,5 +94,5 @@ function renderHTML(markup: string, store: any) {
     <Html markup={markup} manifest={manifest} store={store} />,
   );
 
-  return `<!doctype html> ${html}`;
+  return `<!DOCTYPE html> ${html}`;
 }

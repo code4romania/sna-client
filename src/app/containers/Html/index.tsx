@@ -1,6 +1,7 @@
-import { ApplicationState } from 'application_state.ts';
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
+
+import { ApplicationState } from 'application_state';
 
 interface IHtmlProps {
   manifest?: any;
@@ -57,4 +58,4 @@ class Html extends React.Component<IHtmlProps, {}> {
   }
 }
 
-export { Html }
+export { Html };
