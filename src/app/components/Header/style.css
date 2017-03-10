@@ -7,9 +7,11 @@
   padding: 0 20px;
 
   & .Logo {
-    font-size: 1.3em;
     display: flex;
     align-items: center;
+    font-family: RobotoSlab-Bold, sans-serif;
+    font-size: 18px;
+    line-height: 24px;
 
     & img {
       width: 64px;
@@ -35,6 +37,8 @@
       & a {
         text-decoration: none;
         color: white;
+        font-family: RobotoSlab-Regular;
+        font-size: 15px;
       }
     }
   }

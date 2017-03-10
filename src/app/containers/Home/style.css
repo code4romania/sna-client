@@ -1,4 +1,8 @@
 .Home {
   text-align: center;
-  color: blue;
+
+  & .title {
+    font-family: RobotoSlab-Regular;
+    font-size: 40px;
+  }
 }
