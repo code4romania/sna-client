@@ -9,7 +9,7 @@
   & .Logo {
     display: flex;
     align-items: center;
-    font-family: RobotoSlab-Bold, sans-serif;
+    font-family: Roboto-Slab-Bold, sans-serif;
     font-size: 18px;
     line-height: 24px;
 
@@ -37,7 +37,7 @@
       & a {
         text-decoration: none;
         color: white;
-        font-family: RobotoSlab-Regular;
+        font-family: Roboto-Slab-Regular;
         font-size: 15px;
       }
     }
