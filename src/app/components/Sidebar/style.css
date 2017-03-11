@@ -18,6 +18,13 @@
     & .viewAll {
       font-family: Roboto-Bold;
       font-size: 15px;
+      margin-left: -25px;
+
+      & svg {
+        position: relative;
+        left: -5px;
+        top: 5px;
+      }
     }
   }
 

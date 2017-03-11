@@ -3,6 +3,8 @@
   border-bottom: 1px solid #EBF0F2;
   padding-left: 60px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
 
   & .title {
     font-size: 40px;
@@ -15,5 +17,9 @@
     font-family: Roboto-Regular;
     font-size: 24px;
     color: #93A6B1;
+
+    &:empty {
+      visibility: hidden;
+    }
   }
 }

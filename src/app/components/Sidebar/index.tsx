@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {IndicatorState, IndicatorAction, Indicator} from '../../models/indicator';
-import {getIndicators} from '../../redux/modules/indicator/index';
+import {Indicator} from '../../models/indicator';
 import {Badge} from '../Badge/index';
-import {ApplicationState} from '../../redux/application_state';
+import {ApplicationState, LoadEntryState, isContentLoaded} from '../../redux/application_state';
 import {Link} from 'react-router';
+import {loadIndicatorsConfig} from '../../redux/modules/indicator/index';
 
 const { connect } = require('react-redux');
 const { asyncConnect } = require('redux-connect');
@@ -11,29 +11,32 @@ const { asyncConnect } = require('redux-connect');
 const style = require('./style.css');
 
 interface SidebarProps {
-  loader?: IndicatorState;
-  getIndicators?: Redux.ActionCreator<IndicatorAction>;
+  loader?: LoadEntryState;
+  indicators?: Indicator[];
 }
 
 interface SidebarDispatchProps {
 }
 
-@asyncConnect([{
-  load: ({ store: { dispatch } }) => {
-    return dispatch(getIndicators());
-  },
-}])
+@asyncConnect([
+  loadIndicatorsConfig(),
+])
 @connect(
-  (state: ApplicationState) => ({ loader: state.indicators }),
+  (state: ApplicationState): SidebarProps  => ({
+    loader: state.reduxAsyncConnect.loadState.indicators,
+    indicators: state.reduxAsyncConnect.indicators,
+  }),
 )
 export class Sidebar extends React.Component<SidebarProps & SidebarDispatchProps, {}> {
   public render() {
     const { loader } = this.props;
 
-    let content = [<li key="0">Se încarcă</li>];
+    let content = null;
 
-    if (!loader.isFetching) {
-      content = loader.indicators.map((indicator: Indicator, idx: number) => {
+    if (!isContentLoaded(loader)) {
+      content = <li key="0">Se încarcă</li>;
+    } else {
+      content = this.props.indicators.map((indicator: Indicator, idx: number) => {
         return <li key={indicator.id}><Badge text={(idx + 1).toString()}/>
           <Link to={`/selectAdministration/${idx + 1}`}>{indicator.name}</Link>
           </li>;

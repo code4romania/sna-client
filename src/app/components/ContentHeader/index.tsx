@@ -3,7 +3,7 @@ import * as React from 'react';
 const style = require('./style.css');
 
 interface Props {
-  parentTitle: string;
+  parentTitle?: string;
   title: string;
 }
 

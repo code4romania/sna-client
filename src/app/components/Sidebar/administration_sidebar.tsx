@@ -1,6 +1,11 @@
 import * as React from 'react';
 import {Link} from 'react-router';
 import {BackLink} from '../BackLink/index';
+import {report_path} from '../../helpers/url_helper';
+
+export const ADMIN_TYPE_MINISTRIES = 1;
+export const ADMIN_TYPE_OTHER = 2;
+export const ADMIN_TYPE_COUNTIES = 3;
 
 const style = require('./style.css');
 
@@ -14,7 +19,7 @@ interface Props {
 
 export class AdministationSidebar extends React.Component<Props, {}> {
   public render() {
-    const indId = this.props.params.id;
+    const indId = parseInt(this.props.params.id, 10);
 
     return (<div className={style.Sidebar}>
       <BackLink link="/" />
@@ -23,17 +28,17 @@ export class AdministationSidebar extends React.Component<Props, {}> {
       </div>
       <ul className={style.adminType}>
         <li>
-          <Link to={`/report/${indId}/1`}>
+          <Link to={report_path(indId, ADMIN_TYPE_MINISTRIES)}>
             Ministere
           </Link>
         </li>
         <li>
-          <Link to={`/report/${indId}/2`}>
+          <Link to={report_path(indId, ADMIN_TYPE_OTHER)}>
             Independente și anticorupție
           </Link>
         </li>
         <li>
-          <Link to={`/report/${indId}/3`}>
+          <Link to={report_path(indId, ADMIN_TYPE_COUNTIES)}>
             Administrații locale
           </Link>
         </li>

@@ -2,6 +2,8 @@ import {
   IndicatorAction, IndicatorState, Indicator, IndicatorErrorAction,
   IndicatorSuccessAction,
 } from '../../../models/indicator';
+import {Promise} from 'es6-promise';
+import {AsyncLoaderEntry, AsyncContext, isContentLoaded} from '../../application_state';
 
 /** Action Types */
 export const GET_REQUEST: string = 'indicators/GET_REQUEST';
@@ -42,24 +44,42 @@ export function indicatorsReducer(state = initialState, action: IndicatorAction)
   }
 }
 
-/** Async Action Creator */
-export function getIndicators() {
-  return (dispatch) => {
-    console.log("Loading indicators");
-    dispatch(indicatorsRequest());
-
-    return fetch('/public/data/indicators.json')
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-            .then((res) => dispatch(indicatorsSuccess(res.data)));
-        } else {
-          return res.json()
-            .then((res) => dispatch(indicatorsFailure(res)));
-        }
-      })
-      .catch((err) => dispatch(indicatorsFailure(err)));
+export function loadIndicatorsConfig(): AsyncLoaderEntry {
+  return {
+    key: 'indicators',
+    promise: (context: AsyncContext) => {
+      return loadIndicators(context);
+    },
   };
+}
+
+/** Async Action Creator */
+export function loadIndicators(context: AsyncContext) {
+  const {store} = context;
+  const {dispatch} = store;
+
+  const loader = store.getState().reduxAsyncConnect.loadState.indicators;
+
+  if (isContentLoaded(loader)) {
+    return Promise.resolve(store.getState().reduxAsyncConnect.indicators);
+  }
+
+  return fetch('http://localhost:8889/public/data/indicators.json')
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+          .then((res) => {
+            return Promise.resolve(res.data);
+          });
+      } else {
+        return res.json()
+          .then((res) => dispatch(indicatorsFailure(res)));
+      }
+    })
+    .catch((err) => {
+      console.log('main failure', err);
+      dispatch(indicatorsFailure(err));
+  });
 }
 
 /** Action Creator */
