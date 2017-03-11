@@ -8,13 +8,13 @@
 
   & .title {
     font-size: 40px;
-    font-family: Roboto-Slab-Regular;
+    font-family: Roboto Slab;
     color: #0D2B3E;
     letter-spacing: 0;
   }
 
   & .parentTitle {
-    font-family: Roboto-Regular;
+    font-family: Roboto;
     font-size: 24px;
     color: #93A6B1;
 
