@@ -5,6 +5,8 @@
   text-align: left;
   display: flex;
   flex-direction: column;
+  padding-bottom: 40px;
+  justify-content: flex-end;
 
   & .title {
     font-size: 40px;
