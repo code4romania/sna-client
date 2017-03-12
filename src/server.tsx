@@ -32,6 +32,21 @@ if (process.env.NODE_ENV !== 'production') {
   const webpackConfig = require('../config/webpack/dev');
   const webpackCompiler = webpack(webpackConfig);
 
+  const logger = (req, res, next) => {
+    next();
+    console.log(`${req.method} ${req.url} ${res.statusCode}`); // req.headers['user-agent']
+  };
+
+  app.use(logger);
+
+  app.use((req, res, next) => {
+    if (req.method === "GET") {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    }
+    next();
+  });
+
   app.use(require('webpack-dev-middleware')(webpackCompiler, {
     publicPath: webpackConfig.output.publicPath,
     stats: { colors: true },

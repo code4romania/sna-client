@@ -2,7 +2,11 @@
   background-color: #f7f9fa;
   width: 22%;
   height: 100%;
-  padding-top: 70px;
+  font-family: Roboto;
+
+  & .spacer {
+    padding-top: 70px;
+  }
 
   & .title {
     text-align: left;
@@ -11,15 +15,37 @@
     margin: 0 25px 10px 45px;
     padding-bottom: 10px;
     border-bottom: 1px solid #eef2f4;
+
+    & .viewAll {
+      font-family: Roboto-Bold;
+      font-size: 15px;
+      margin-left: -25px;
+
+      & svg {
+        position: relative;
+        left: -5px;
+        top: 5px;
+      }
+    }
   }
 
   & ul {
     margin: 0 25px 10px 45px;
+    list-style-type: none;
 
     & li {
       text-align: left;
-      color: #7c8d97;
+      color: #0D2B3E;
       margin-bottom: 0.7em;
+      font-size: 15px;
+
+      & a {
+        color: #0D2B3E;
+      }
     }
+  }
+
+  & ul.adminType {
+    padding: 0;
   }
 }

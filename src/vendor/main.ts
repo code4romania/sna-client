@@ -7,4 +7,8 @@
 require('bootstrap/dist/css/bootstrap-reboot.css');
 require('bootstrap/dist/css/bootstrap-grid.css');
 require('roboto-fontface/css/roboto/roboto-fontface.css');
-require('roboto-fontface/css/roboto-slab/roboto-slab-fontface.css');
+
+// it does not have romanian ăâșîț
+// require('roboto-fontface/css/roboto-slab/roboto-slab-fontface.css');
+
+require('./roboto-slab.css');

@@ -1,0 +1,23 @@
+.backLink {
+  text-transform: uppercase;
+  height: 51px;
+  color: #516178;
+  text-align: left;
+  border-bottom: 1px solid #eef2f4;
+  margin-bottom: 10px;
+  padding: 10px 0 10px 45px;
+
+  & svg {
+    position: relative;
+    left: -10px;
+    top: 2px;
+  }
+
+  & a {
+    font-family: Roboto-Bold;
+    font-size: 13px;
+    color: #516178;
+    letter-spacing: 0.87px;
+    line-height: 8px;
+  }
+}
