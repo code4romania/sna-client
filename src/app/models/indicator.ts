@@ -1,8 +1,14 @@
 import {Action} from 'redux';
 
+export interface Category {
+  id: number;
+  name: string;
+}
+
 export interface Indicator {
   id: string;
   name: string;
+  categories: Category[];
 }
 
 export interface IndicatorState {

@@ -3,19 +3,91 @@
   "data": [
     {
       "id": "guid1",
-      "name": "Cod etic/deontologic/de conduită"
+      "name": "Cod etic/deontologic/de conduită",
+      "categories": [
+        {
+          "id": 1,
+          "name": "Număr de sesizări privind încălcări ale normelor"
+        },
+        {
+          "id": 2,
+          "name": "Număr de sesizări în curs de soluţionare"
+        },
+        {
+          "id": 3,
+          "name": "Număr de sesizări soluţionate"
+        },
+        {
+          "id": 4,
+          "name": "Durata medie a procedurilor"
+        }
+      ]
     },
     {
       "id": "guid2",
-      "name": "Declararea averilor"
+      "name": "Declararea averilor",
+      "categories": [
+        {
+          "id": 1,
+          "name": "Număr de persoane care au obligaţia depunerii declaraţiei de avere"
+        },
+        {
+          "id": 2,
+          "name": "Număr de persoane care nu au depus în termen declaraţii de avere"
+        },
+        {
+          "id": 3,
+          "name": "Număr de persoane care nu au depus declaraţii de avere"
+        },
+        {
+          "id": 4,
+          "name": "Număr de sesizări ale ANI"
+        }
+      ]
     },
     {
       "id": "guid3",
-      "name": "Declararea cadourilor"
+      "name": "Declararea cadourilor",
+      "categories": [
+        {
+          "id": 1,
+          "name": "Număr de cadouri  primite şi înregistrate în registru"
+        },
+        {
+          "id": 2,
+          "name": "Publicarea anuală a inventarului pe site-ul instituţiei"
+        },
+        {
+          "id": 3,
+          "name": "Număr de situaţii în care s-a achiziţionat cadoul"
+        },
+        {
+          "id": 4,
+          "name": "Valoarea cadourilor achiziţionate"
+        }
+      ]
     },
     {
       "id": "guid4",
-      "name": "Conflicte de interese"
+      "name": "Conflicte de interese",
+      "categories": [
+        {
+          "id": 1,
+          "name": "Număr de declaraţii de abţinere"
+        },
+        {
+          "id": 2,
+          "name": "Număr de situaţii în care superiorul ierarhic a dispus înlocuirea persoanei aflată în situaţia de potenţial conflict de interese"
+        },
+        {
+          "id": 3,
+          "name": "Număr sesizări primite de instituţie de la terţe persoane cu privire la existenţa unui conflict de interese"
+        },
+        {
+          "id": 4,
+          "name": "Număr de decizii ANI prin care s-a constatat starea de conflict de interese"
+        }
+      ]
     }
   ]
 }

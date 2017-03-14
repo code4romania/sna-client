@@ -1,0 +1,29 @@
+.MinistryOverview {
+  text-align: left;
+
+  & .main {
+    padding: 40px 65px;
+  }
+
+  & .title {
+    font-family: Roboto;
+    font-size: 15px;
+    color: #0D2B3E;
+  }
+
+  & .params {
+    margin: 45px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  & .year_slider, & .chart_type, & .ministry_filter, & .chart_display {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .content {
+    display: flex;
+    flex-direction: row;
+  }
+}
