@@ -11,3 +11,17 @@ interface Window {
 interface ObjectConstructor {
   assign(target: any, ...sources: any[]): any;
 }
+
+interface SliderProps {
+  min?: number;
+  max?: number;
+  step?: number;
+  value?: number | Array<number>;
+  disabled?: string;
+  tooltip?: string;
+  change?: () => void;
+  handleChange?: () => void;
+  slideStop?: () => void;
+}
+
+declare class ReactBootstrapSlider extends React.Component<SliderProps, {}> { }

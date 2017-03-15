@@ -5,6 +5,7 @@
  * require('./bootstrap/css/bootstrap.min.css');
  */
 require('bootstrap/dist/css/bootstrap.min.css');
+require('bootstrap-slider/dist/css/bootstrap-slider.min.css');
 require('roboto-fontface/css/roboto/roboto-fontface.css');
 
 // it does not have romanian ăâșîț

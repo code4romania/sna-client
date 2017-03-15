@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {DropdownButton} from "react-bootstrap";
 import {MenuItem} from "react-bootstrap";
+import ReactBootstrapSlider from "react-bootstrap-slider";
 const { asyncConnect } = require('redux-connect');
 const { connect } = require('react-redux');
 
@@ -40,6 +41,9 @@ export class MinistryOverview extends React.Component<Props, any> {
   };
 
   public render() {
+    const yearStr = this.props.location.query.year;
+    const year = yearStr ? parseInt(yearStr, 10) : 2016;
+
     return (
       <div className={style.MinistryOverview}>
         <ContentHeader parentTitle="Prezentare generală ministere" title={this.title()}/>
@@ -53,7 +57,7 @@ export class MinistryOverview extends React.Component<Props, any> {
           <div className={style.params}>
             <div className={style.year_slider}>
               <div className={style.title}>Anul afișat</div>
-              <input type="range" min="2011" max="2016" defaultValue={'2016'}/>
+              <ReactBootstrapSlider min={2011} max={2016} handleChange={this.fireChangeYear.bind(this)} value={year} />
             </div>
             <div className={style.chart_type}>
               <div className={style.title}>Tip vizualizare</div>
@@ -129,13 +133,24 @@ export class MinistryOverview extends React.Component<Props, any> {
     return indicators[parseInt(params.id, 10) - 1];
   }
 
-  private fireChangeCategory(eventKey: number) {
-    console.log(this.props);
-    const {id, mid} = this.props.params;
+  private fireChangeYear(event: any) {
+    console.log("fire year");
 
     this.context.router.push({
-      pathname: report_path(parseInt(id, 10), ADMIN_TYPE_MINISTRIES, mid && parseInt(mid, 10)),
+      pathname: this.path(),
+      query: Object.assign({}, this.props.location.query, {year: event.target.value}),
+    });
+  }
+
+  private fireChangeCategory(eventKey: number) {
+    this.context.router.push({
+      pathname: this.path(),
       query: Object.assign({}, this.props.location.query, {category_id: eventKey}),
     });
+  }
+
+  private path(): string {
+    const {id, mid} = this.props.params;
+    return report_path(parseInt(id, 10), ADMIN_TYPE_MINISTRIES, mid && parseInt(mid, 10));
   }
 }
