@@ -13,6 +13,7 @@ import {report_path} from "../../helpers/url_helper";
 import {ADMIN_TYPE_MINISTRIES} from "../../components/Sidebar/administration_sidebar";
 import {ChartIcon} from "../../components/ChartIcon/index";
 import {ScatterChartIcon} from "../../components/ScatterChartIcon/index";
+import {SimpleBarChart} from "../../components/BarChart/index";
 
 export const PASSIVE_COLOR = "#A5B3BB";
 
@@ -88,7 +89,9 @@ export class MinistryOverview extends React.Component<Props, any> {
             </div>
             <div className={style.chart_display}>
               <div className={style.title}>Număr sesizări</div>
-              <div>chart</div>
+              <div>
+                <SimpleBarChart />
+              </div>
             </div>
           </div>
         </div>
