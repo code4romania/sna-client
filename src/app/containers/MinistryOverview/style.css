@@ -3,27 +3,44 @@
 
   & .main {
     padding: 40px 65px;
-  }
-
-  & .title {
     font-family: Roboto;
-    font-size: 15px;
-    color: #0D2B3E;
-  }
 
-  & .params {
-    margin: 45px 0;
-    display: flex;
-    justify-content: space-between;
-  }
+    & .title {
+      font-size: 15px;
+      color: #0D2B3E;
+    }
 
-  & .year_slider, & .chart_type, & .ministry_filter, & .chart_display {
-    display: flex;
-    flex-direction: column;
-  }
+    & .params {
+      margin: 45px 0;
+      display: flex;
+      justify-content: space-between;
+    }
 
-  & .content {
-    display: flex;
-    flex-direction: row;
+    & .year_slider, & .chart_type, & .ministry_filter, & .chart_display {
+      display: flex;
+      flex-direction: column;
+    }
+
+    & .content {
+      display: flex;
+      flex-direction: row;
+    }
+
+    & .category {
+      & :global(.dropdown) {
+        width: 70%;
+
+        & .select_category {
+          font-size: 20px;
+          padding: 10px 0 12px 16px;
+          width: 100%;
+          text-align: left;
+        }
+
+        & :global(.dropdown-menu) {
+          font-size: 20px;
+        }
+      }
+    }
   }
 }
