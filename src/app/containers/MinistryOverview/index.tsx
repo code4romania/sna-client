@@ -14,6 +14,7 @@ import {ADMIN_TYPE_MINISTRIES} from "../../components/Sidebar/administration_sid
 import {ChartIcon} from "../../components/ChartIcon/index";
 import {ScatterChartIcon} from "../../components/ScatterChartIcon/index";
 import {SimpleBarChart} from "../../components/BarChart/index";
+import {SimpleScatterChart} from "../../components/ScatterChart/index";
 
 export const PASSIVE_COLOR = "#A5B3BB";
 
@@ -90,13 +91,21 @@ export class MinistryOverview extends React.Component<Props, any> {
             <div className={style.chart_display}>
               <div className={style.title}>Număr sesizări</div>
               <div>
-                <SimpleBarChart />
+                {this.chartElement(chart)}
               </div>
             </div>
           </div>
         </div>
       </div>
     );
+  }
+
+  private chartElement(chart: ChartType): JSX.Element {
+    if (chart === "bar") {
+      return <SimpleBarChart />;
+    } else {
+      return <SimpleScatterChart />;
+    }
   }
 
   private title(): string {

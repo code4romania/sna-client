@@ -35,8 +35,12 @@ declare module "recharts" {
   export const AreaChart: any;
   export const LineChart: any;
   export const Line: any;
+  export const Text: any;
   export const XAxis: any;
   export const YAxis: any;
+  export const ZAxis: any;
   export const CartesianGrid: any;
   export const ResponsiveContainer: any;
+  export const ScatterChart: any;
+  export const Scatter: any;
 }
