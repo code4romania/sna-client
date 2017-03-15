@@ -11,8 +11,13 @@ import {ApplicationState, LoadEntryState, isContentLoaded} from '../../redux/app
 import {Indicator} from '../../models/indicator';
 import {report_path} from "../../helpers/url_helper";
 import {ADMIN_TYPE_MINISTRIES} from "../../components/Sidebar/administration_sidebar";
+import {ChartIcon} from "../../components/ChartIcon/index";
+import {ScatterChartIcon} from "../../components/ScatterChartIcon/index";
+
+export const PASSIVE_COLOR = "#A5B3BB";
 
 const style = require('./style.css');
+type ChartType = "bar" | "scatter";
 
 interface RouteParams {
   id: string;
@@ -42,6 +47,12 @@ export class MinistryOverview extends React.Component<Props, any> {
 
   public render() {
     const yearStr = this.props.location.query.year;
+    let chart = this.props.location.query.chart;
+
+    if (!chart) {
+      chart = "bar";
+    }
+
     const year = yearStr ? parseInt(yearStr, 10) : 2016;
 
     return (
@@ -61,8 +72,9 @@ export class MinistryOverview extends React.Component<Props, any> {
             </div>
             <div className={style.chart_type}>
               <div className={style.title}>Tip vizualizare</div>
-              <div>
-                chart1 chart2
+              <div className={style.chart_options}>
+                {this.selectChartButton("bar", ChartIcon, chart)}
+                {this.selectChartButton("scatter", ScatterChartIcon, chart)}
               </div>
             </div>
           </div>
@@ -133,9 +145,28 @@ export class MinistryOverview extends React.Component<Props, any> {
     return indicators[parseInt(params.id, 10) - 1];
   }
 
-  private fireChangeYear(event: any) {
-    console.log("fire year");
+  private selectChartButton(chartType: ChartType, Icon: any, selectedType: ChartType) {
+    return <button key={chartType} onClick={this.fireChangeChart.bind(this)} data-chart={chartType}
+      className={`${style.button} ${selectedType === chartType ? style.active : ""}`}>
+      <Icon color={selectedType !== chartType ? PASSIVE_COLOR : null} />
+    </button>;
+  }
 
+  private fireChangeChart(event: any) {
+    const {chart} = event.target.dataset;
+    const query = this.props.location.query;
+
+    if (chart === query.chart) {
+      return;
+    }
+
+    this.context.router.push({
+      pathname: this.path(),
+      query: Object.assign({}, query, {chart}),
+    });
+  }
+
+  private fireChangeYear(event: any) {
     this.context.router.push({
       pathname: this.path(),
       query: Object.assign({}, this.props.location.query, {year: event.target.value}),

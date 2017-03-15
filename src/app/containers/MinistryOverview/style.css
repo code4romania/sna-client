@@ -21,6 +21,14 @@
       flex-direction: column;
     }
 
+    & .chart_type {
+      & .chart_options {
+        background: #EBF0F2;
+        border-radius: 3px;
+        padding: 5px;
+      }
+    }
+
     & .content {
       display: flex;
       flex-direction: row;
@@ -41,6 +49,23 @@
           font-size: 20px;
         }
       }
+    }
+  }
+
+  & .button {
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    outline: none;
+    background-color: transparent;
+    padding: 5px 10px;
+
+    &.active {
+      background-color: #FFFFFF;
+    }
+
+    & svg {
+      pointer-events: none;
     }
   }
 }
