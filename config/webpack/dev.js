@@ -1,5 +1,6 @@
 let path = require('path');
 let webpack = require('webpack');
+let atImport = require("postcss-import");
 let postcssAssets = require('postcss-assets');
 let postcssNext = require('postcss-cssnext');
 let stylelint = require('stylelint');
@@ -101,6 +102,7 @@ let config = {
         },
         postcss: function () {
           return [
+            atImport(),
             stylelint({
               files: '../../src/app/**/*.css',
               rules: {
