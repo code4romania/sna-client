@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Set} from "immutable";
 import {Dispatch} from "react-redux";
 import {push} from "react-router-redux";
 import {DropdownButton} from "react-bootstrap";
@@ -16,6 +17,7 @@ import {SimpleScatterChart} from "../../components/ScatterChart/index";
 import {loadMinistriesStatsConfig} from "../../redux/modules/stats/index";
 import {
   currentIndicatorTitle, areIndicatorsLoaded, currentIndicator, currentCategory, areMinistriesStatsLoaded, currentYear,
+  years,
 } from "../../selectors/index";
 import {MinistryBarChart} from "../../components/BarChart/ministries_bar_chart";
 
@@ -36,6 +38,7 @@ interface Props {
   indicator?: Indicator;
   category?: Category;
   year?: number;
+  years?: Set<number>;
   params?: RouteParams;
   location?: any;
 }
@@ -54,6 +57,7 @@ interface DispatchProps {
     indicator: currentIndicator(state),
     category: currentCategory(state),
     year: currentYear(state),
+    years: years(),
   }),
   (dispatch: Dispatch<ApplicationState>) => ({ onAction: dispatch }),
 )
@@ -69,7 +73,7 @@ export class MinistryOverview extends React.Component<Props & DispatchProps, any
       chart = "bar";
     }
 
-    const { year } = this.props;
+    const { year, years } = this.props;
 
     return (
       <div className={style.MinistryOverview}>
@@ -84,8 +88,10 @@ export class MinistryOverview extends React.Component<Props & DispatchProps, any
           <div className={style.params}>
             <div className={style.year_slider}>
               <div className={style.title}>Anul afișat</div>
-              <ReactBootstrapSlider min={2012} max={2016} handleChange={this.fireChangeYear.bind(this)} value={year} />
-              <div className="value">{year}</div>
+              <ReactBootstrapSlider min={years.first()} max={years.last()} tooltip="hide"
+                                    ticks={years.toArray()}
+                                    ticks_labels={years.toArray()}
+                                    handleChange={this.fireChangeYear.bind(this)} value={year} />
             </div>
             <div className={style.chart_type}>
               <div className={style.title}>Tip vizualizare</div>

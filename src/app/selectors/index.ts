@@ -1,4 +1,4 @@
-import {List, Map} from "immutable";
+import {List, Map, Set} from "immutable";
 import {createSelector} from "reselect";
 import {isContentLoaded} from "../redux/application_state";
 import {Indicator} from "../models/indicator";
@@ -34,6 +34,9 @@ export const currentCategory = createSelector(
   ),
 );
 
+// TODO parse stats and get years
+export const years = () => Set([2012, 2013, 2014, 2015, 2016]);
+
 // TODO get max year from stats
 export const currentYear = (state) => parseInt(state.routing.locationBeforeTransitions.query.year, 10) || 2016;
 
@@ -43,15 +46,14 @@ const ministries = Map([
 ]);
 
 export const ministryBarChartData = createSelector(
-  areMinistriesStatsLoaded, paramIndicatorId, paramCategoryId, currentYear, mstatsRaw,
-  (loaded, indId, catId, year, rows) => {
-    if (!loaded) {
+  areMinistriesStatsLoaded, paramIndicatorId, currentCategory, currentYear, mstatsRaw,
+  (loaded, indId, category, year, rows) => {
+    if (!loaded || !category) {
       return [];
     }
+
     const y = year.toString();
-    const entries = rows.filter((item) => item.i_id === indId && item.c_id === catId);
-    const result = entries.map((entry) => ({name: ministries.get(entry.m_id), value: entry.v[y]})).toArray();
-    console.log('data', result);
-    return result;
+    const entries = rows.filter((item) => item.i_id === indId && item.c_id === category.id);
+    return entries.map((entry) => ({name: ministries.get(entry.m_id), value: entry.v[y]})).toArray();
   },
 );
