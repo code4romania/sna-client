@@ -4,7 +4,7 @@ const style = require('./style.css');
 
 interface CheckboxProps {
   checked: boolean;
-  name: string;
+  name?: string;
   label: string;
   value: string;
 }
