@@ -22,27 +22,31 @@ export class EmptySidebar extends React.Component<Props, {}> {
     const items = [
     ];
 
-    const menus = items.map((i) => <li key={`item-${i.id}`}>
-      <Link to={report_path(indId, ADMIN_TYPE_OTHER, i.id)}>
-        {i.name}
-      </Link>
-    </li>);
+    const menus = items.map((i) => (
+      <li key={`item-${i.id}`}>
+        <Link to={report_path(indId, ADMIN_TYPE_OTHER, i.id)}>
+          {i.name}
+        </Link>
+      </li>
+    ));
 
-    return (<div className={style.Sidebar}>
-      <BackLink link={`/selectAdministration/${indId}`} />
-      <div className={style.title}>
-        <div>Județul</div>
-        <div className={style.viewAll}>
-          <ChartIcon />
-          <Link to={report_path(indId, ADMIN_TYPE_OTHER)}>
-            Prezentare Generală
-          </Link>
+    return (
+      <div className={style.Sidebar}>
+        <BackLink link={`/selectAdministration/${indId}`} />
+        <div className={style.title}>
+          <div>Județul</div>
+          <div className={style.viewAll}>
+            <ChartIcon />
+            <Link to={report_path(indId, ADMIN_TYPE_OTHER)}>
+              Prezentare Generală
+            </Link>
+          </div>
         </div>
-      </div>
 
-      <ul className={style.adminType}>
-        {menus}
-      </ul>
-    </div>);
+        <ul className={style.adminType}>
+          {menus}
+        </ul>
+      </div>
+    );
   }
 }

@@ -37,20 +37,24 @@ export class Sidebar extends React.Component<SidebarProps & SidebarDispatchProps
       content = <li key="0">Se încarcă</li>;
     } else {
       content = this.props.indicators.map((indicator: Indicator, idx: number) => {
-        return <li key={indicator.id}><Badge text={(idx + 1).toString()}/>
-          <Link to={`/selectAdministration/${idx + 1}`}>{indicator.name}</Link>
-          </li>;
-      });
+        return (
+          <li key={indicator.id}><Badge text={(idx + 1).toString()}/>
+            <Link to={`/selectAdministration/${idx + 1}`}>{indicator.name}</Link>
+            </li>
+          );
+        });
     }
 
-    return (<div className={style.Sidebar}>
-      <div className={style.spacer} />
-      <div className={style.title}>
-        Indicatori SNA
+    return (
+      <div className={style.Sidebar}>
+        <div className={style.spacer} />
+        <div className={style.title}>
+          Indicatori SNA
+        </div>
+        <ul>
+          {content}
+        </ul>
       </div>
-      <ul>
-        {content}
-      </ul>
-    </div>);
+    );
   }
 }

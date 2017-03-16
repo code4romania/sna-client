@@ -24,27 +24,31 @@ export class MinistriesSidebar extends React.Component<Props, {}> {
       { id: 2, name: "Ministerul Afacerilor Interne" },
     ];
 
-    const menus = items.map((i) => <li key={`item-${i.id}`}>
-      <Link to={report_path(indId, ADMIN_TYPE_MINISTRIES, i.id)}>
-        {i.name}
-      </Link>
-    </li>);
+    const menus = items.map((i) => (
+      <li key={`item-${i.id}`}>
+        <Link to={report_path(indId, ADMIN_TYPE_MINISTRIES, i.id)}>
+          {i.name}
+        </Link>
+      </li>
+    ));
 
-    return (<div className={style.Sidebar}>
-      <BackLink link={`/selectAdministration/${indId}`} />
-      <div className={style.title}>
-        <div>Instituție</div>
-        <div className={style.viewAll}>
-          <ChartIcon />
-          <Link to={report_path(indId, ADMIN_TYPE_MINISTRIES)}>
-            Prezentare Generală
-          </Link>
+    return (
+      <div className={style.Sidebar}>
+        <BackLink link={`/selectAdministration/${indId}`} />
+        <div className={style.title}>
+          <div>Instituție</div>
+          <div className={style.viewAll}>
+            <ChartIcon />
+            <Link to={report_path(indId, ADMIN_TYPE_MINISTRIES)}>
+              Prezentare Generală
+            </Link>
+          </div>
         </div>
-      </div>
 
-      <ul className={style.adminType}>
-        {menus}
-      </ul>
-    </div>);
+        <ul className={style.adminType}>
+          {menus}
+        </ul>
+      </div>
+    );
   }
 }
