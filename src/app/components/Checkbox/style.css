@@ -1,0 +1,41 @@
+@import "../../style/variables.css";
+
+.Checkbox {
+  cursor: pointer;
+  display: inline-block;
+  line-height: 30px;
+  margin: 0 var(--default-margin);
+}
+
+.CheckboxInput {
+  position: absolute;
+  left: -9999px;
+  &:checked + span {
+    background-color: var(--brand-success);
+    border-color: var(--brand-success);
+    position: relative;
+
+    &:before {
+      content: "✔";
+      color: #fff;
+      position: absolute;
+      left: 0;
+      top: -8px;
+    }
+  }
+}
+
+.CheckboxIcon {
+  border-radius: 2px;
+  border: 1px solid #333;
+  display: inline-block;
+  margin-right: 10px;
+  height: 14px;
+  width: 14px;
+  vertical-align: middle;
+}
+
+.CheckboxLabel {
+  display: inline-block;
+  line-height: 30px;
+}
