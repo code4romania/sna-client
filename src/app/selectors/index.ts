@@ -1,4 +1,4 @@
-import {List, Map, Set} from "immutable";
+import {List, Map, OrderedSet} from "immutable";
 import {createSelector} from "reselect";
 import {isContentLoaded} from "../redux/application_state";
 import {Indicator} from "../models/indicator";
@@ -11,6 +11,7 @@ const mstatsRaw = (state) => List(state.reduxAsyncConnect.ministriesStats);
 
 const paramIndicatorId = (state) => parseIndicatorId(state.routing.locationBeforeTransitions.pathname);
 export const paramCategoryId = (state) => parseInt(state.routing.locationBeforeTransitions.query.category_id, 10) || 0;
+export const paramYear = (state) => parseInt(state.routing.locationBeforeTransitions.query.year, 10) || 0;
 
 export const indicators = createSelector(
   areIndicatorsLoaded, indicatorsState,
@@ -34,11 +35,29 @@ export const currentCategory = createSelector(
   ),
 );
 
-// TODO parse stats and get years
-export const years = () => Set([2012, 2013, 2014, 2015, 2016]);
+export const years = createSelector(
+  areMinistriesStatsLoaded, mstatsRaw,
+  (loaded, rows): OrderedSet<number> => {
+    if (loaded) {
+      return rows.flatMap(
+        (e) => Object.keys(e.v).map((y) => parseInt(y, 10)),
+      ).toOrderedSet() as OrderedSet<number>;
+    } else {
+      return OrderedSet([2016]);
+    }
+  },
+);
 
-// TODO get max year from stats
-export const currentYear = (state) => parseInt(state.routing.locationBeforeTransitions.query.year, 10) || 2016;
+export const currentYear = createSelector(
+  years, paramYear,
+  (items, y): number => {
+    if (items.has(y)) {
+      return y;
+    } else {
+      return items.last();
+    }
+  },
+);
 
 const ministries = Map([
   [1, "Ministerul Afacerilor Externe"],

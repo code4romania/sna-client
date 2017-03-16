@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Set} from "immutable";
+import {OrderedSet} from "immutable";
 import {Dispatch} from "react-redux";
 import {push} from "react-router-redux";
 import {DropdownButton} from "react-bootstrap";
@@ -38,7 +38,7 @@ interface Props {
   indicator?: Indicator;
   category?: Category;
   year?: number;
-  years?: Set<number>;
+  years?: OrderedSet<number>;
   params?: RouteParams;
   location?: any;
 }
@@ -57,7 +57,7 @@ interface DispatchProps {
     indicator: currentIndicator(state),
     category: currentCategory(state),
     year: currentYear(state),
-    years: years(),
+    years: years(state),
   }),
   (dispatch: Dispatch<ApplicationState>) => ({ onAction: dispatch }),
 )
