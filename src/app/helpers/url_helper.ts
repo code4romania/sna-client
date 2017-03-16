@@ -13,3 +13,13 @@ export function report_path(indicatorId: number, institutionId?: number, itemId?
 
   return result;
 }
+
+export function parseIndicatorId(path: string) {
+  const result = path.match(/\/report\/(\d+)/);
+
+  if (result) {
+    return parseInt(result[1], 10);
+  } else {
+    return 0;
+  }
+}

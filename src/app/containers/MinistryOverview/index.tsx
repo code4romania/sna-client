@@ -1,22 +1,23 @@
 import * as React from 'react';
+import {Dispatch} from "react-redux";
+import {push} from "react-router-redux";
 import {DropdownButton} from "react-bootstrap";
 import {MenuItem} from "react-bootstrap";
 import ReactBootstrapSlider from "react-bootstrap-slider";
 const { asyncConnect } = require('redux-connect');
 const { connect } = require('react-redux');
-
 import {ContentHeader} from '../../components/ContentHeader/index';
 import {loadIndicatorsConfig} from '../../redux/modules/indicator/index';
-import {ApplicationState, LoadEntryState, isContentLoaded} from '../../redux/application_state';
-import {Indicator} from '../../models/indicator';
-import {report_path} from "../../helpers/url_helper";
-import {ADMIN_TYPE_MINISTRIES} from "../../components/Sidebar/administration_sidebar";
+import {ApplicationState} from '../../redux/application_state';
+import {Indicator, Category} from '../../models/indicator';
 import {ChartIcon} from "../../components/ChartIcon/index";
 import {ScatterChartIcon} from "../../components/ScatterChartIcon/index";
-import {SimpleBarChart} from "../../components/BarChart/index";
 import {SimpleScatterChart} from "../../components/ScatterChart/index";
 import {loadMinistriesStatsConfig} from "../../redux/modules/stats/index";
-import {currentIndicatorTitle} from "../../selectors/index";
+import {
+  currentIndicatorTitle, areIndicatorsLoaded, currentIndicator, currentCategory, areMinistriesStatsLoaded, currentYear,
+} from "../../selectors/index";
+import {MinistryBarChart} from "../../components/BarChart/ministries_bar_chart";
 
 export const PASSIVE_COLOR = "#A5B3BB";
 
@@ -29,54 +30,61 @@ interface RouteParams {
 }
 
 interface Props {
+  areIndicatorsLoaded: boolean;
+  areMinistriesStatsLoaded: boolean;
   indicatorTitle?: string;
-  loader?: LoadEntryState;
-  statsLoader?: LoadEntryState;
-  indicators?: Indicator[];
+  indicator?: Indicator;
+  category?: Category;
+  year?: number;
   params?: RouteParams;
   location?: any;
 }
 
+interface DispatchProps {
+  onAction?: (action: Redux.Action) => void;
+}
 @asyncConnect([
   loadIndicatorsConfig(), loadMinistriesStatsConfig(),
 ])
 @connect(
   (state: ApplicationState): Props => ({
-    loader: state.reduxAsyncConnect.loadState.indicators,
+    areIndicatorsLoaded: areIndicatorsLoaded(state),
+    areMinistriesStatsLoaded: areMinistriesStatsLoaded(state),
     indicatorTitle: currentIndicatorTitle(state),
-    statsLoader: state.reduxAsyncConnect.loadState.ministriesStats,
-    indicators: state.reduxAsyncConnect.indicators,
+    indicator: currentIndicator(state),
+    category: currentCategory(state),
+    year: currentYear(state),
   }),
+  (dispatch: Dispatch<ApplicationState>) => ({ onAction: dispatch }),
 )
-export class MinistryOverview extends React.Component<Props, any> {
+export class MinistryOverview extends React.Component<Props & DispatchProps, any> {
   public static contextTypes = {
     router: React.PropTypes.object,
   };
 
   public render() {
-    const yearStr = this.props.location.query.year;
     let chart = this.props.location.query.chart;
 
     if (!chart) {
       chart = "bar";
     }
 
-    const year = yearStr ? parseInt(yearStr, 10) : 2016;
+    const { year } = this.props;
 
     return (
       <div className={style.MinistryOverview}>
-        <ContentHeader parentTitle="Prezentare generală ministere" title={this.title()}/>
+        <ContentHeader parentTitle="Prezentare generală ministere" title={this.props.indicatorTitle} />
 
         <div className={style.main}>
           <div className={style.category}>
             <div className={style.title}>Indicator vizualizat</div>
-            {this.renderIndicatorDropdown()}
+            {this.renderCategoryDropdown()}
           </div>
 
           <div className={style.params}>
             <div className={style.year_slider}>
               <div className={style.title}>Anul afișat</div>
-              <ReactBootstrapSlider min={2011} max={2016} handleChange={this.fireChangeYear.bind(this)} value={year} />
+              <ReactBootstrapSlider min={2012} max={2016} handleChange={this.fireChangeYear.bind(this)} value={year} />
               <div className="value">{year}</div>
             </div>
             <div className={style.chart_type}>
@@ -108,47 +116,26 @@ export class MinistryOverview extends React.Component<Props, any> {
   }
 
   private chartElement(chart: ChartType): JSX.Element {
+    if (!this.props.areMinistriesStatsLoaded) {
+      return <div>Loading</div>;
+    }
+
     if (chart === "bar") {
-      return <SimpleBarChart />;
+      return <MinistryBarChart />;
     } else {
       return <SimpleScatterChart />;
     }
   }
 
-  private title(): string {
-    const { loader, params } = this.props;
+  private renderCategoryDropdown(): JSX.Element | null {
+    const { areIndicatorsLoaded } = this.props;
 
-    let title = "Loading";
-
-    if (isContentLoaded(loader)) {
-      title = `${params.id}. ${this.activeIndicator().name}`;
-    }
-
-    return title;
-  }
-
-  private renderIndicatorDropdown(): JSX.Element | null {
-    const { loader, location } = this.props;
-
-    if (!isContentLoaded(loader)) {
+    if (!areIndicatorsLoaded) {
       return null;
     }
 
-    const activeCategory = parseInt(location.query.category_id || "0", 10);
-    const categories = this.activeIndicator().categories;
-    let category = null;
-
-    for (let i = 0; i < categories.length; i++) {
-      if (categories[i].id === activeCategory) {
-        category = categories[i];
-        break;
-      }
-    }
-
-    if (category === null) {
-      category = categories[0];
-    }
-
+    const categories = this.props.indicator.categories;
+    const category = this.props.category;
     const otherCategories = categories.filter((c) => c.id !== category.id);
 
     return <DropdownButton
@@ -157,11 +144,6 @@ export class MinistryOverview extends React.Component<Props, any> {
       onSelect={this.fireChangeCategory.bind(this)}>
       {otherCategories.map((c) => <MenuItem key={c.id.toString()} eventKey={c.id}>{c.name}</MenuItem>)}
     </DropdownButton>;
-  }
-
-  private activeIndicator(): Indicator {
-    const { params, indicators } = this.props;
-    return indicators[parseInt(params.id, 10) - 1];
   }
 
   private selectChartButton(chartType: ChartType, Icon: any, selectedType: ChartType) {
@@ -173,34 +155,22 @@ export class MinistryOverview extends React.Component<Props, any> {
 
   private fireChangeChart(event: any) {
     const {chart} = event.target.dataset;
-    const query = this.props.location.query;
+    const {query, pathname} = this.props.location;
 
     if (chart === query.chart) {
       return;
     }
 
-    this.context.router.push({
-      pathname: this.path(),
-      query: Object.assign({}, query, {chart}),
-    });
+    this.props.onAction(push({pathname, query: {...query, chart}}));
   }
 
   private fireChangeYear(event: any) {
-    this.context.router.push({
-      pathname: this.path(),
-      query: Object.assign({}, this.props.location.query, {year: event.target.value}),
-    });
+    const {query, pathname} = this.props.location;
+    this.props.onAction(push({pathname, query: {...query, year: event.target.value}}));
   }
 
   private fireChangeCategory(eventKey: number) {
-    this.context.router.push({
-      pathname: this.path(),
-      query: Object.assign({}, this.props.location.query, {category_id: eventKey}),
-    });
-  }
-
-  private path(): string {
-    const {id, mid} = this.props.params;
-    return report_path(parseInt(id, 10), ADMIN_TYPE_MINISTRIES, mid && parseInt(mid, 10));
+    const {query, pathname} = this.props.location;
+    this.props.onAction(push({pathname, query: {...query, category_id: eventKey}}));
   }
 }

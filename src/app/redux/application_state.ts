@@ -2,6 +2,8 @@ import {RouterState} from 'react-router-redux';
 import {Promise} from 'es6-promise';
 import {Indicator} from '../models/indicator';
 
+type RemoteContent = "indicators" | "ministriesStats";
+
 export interface LoadEntryState {
   error: any;
   loaded: boolean;
@@ -17,7 +19,7 @@ export interface LoadState {
 export interface AsyncConnectState {
   loadState: LoadState;
   indicators?: Indicator[];
-  ministriesStats?: any;
+  ministriesStats?: any[];
 }
 
 export interface ApplicationState {
@@ -28,8 +30,9 @@ export interface ApplicationState {
 export interface AsyncContext {
   store: Redux.Store<ApplicationState>;
 }
+
 export interface AsyncLoaderEntry {
-  key: string;
+  key: RemoteContent;
   promise: (context: AsyncContext) => Promise<any>;
 }
 
