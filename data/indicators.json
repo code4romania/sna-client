@@ -2,7 +2,7 @@
   "status": "ok",
   "data": [
     {
-      "id": "guid1",
+      "id": 1,
       "name": "Cod etic/deontologic/de conduită",
       "categories": [
         {
@@ -24,7 +24,7 @@
       ]
     },
     {
-      "id": "guid2",
+      "id": 2,
       "name": "Declararea averilor",
       "categories": [
         {
@@ -46,7 +46,7 @@
       ]
     },
     {
-      "id": "guid3",
+      "id": 3,
       "name": "Declararea cadourilor",
       "categories": [
         {
@@ -68,7 +68,7 @@
       ]
     },
     {
-      "id": "guid4",
+      "id": 4,
       "name": "Conflicte de interese",
       "categories": [
         {

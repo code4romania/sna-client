@@ -6,7 +6,7 @@ export interface Category {
 }
 
 export interface Indicator {
-  id: string;
+  id: number;
   name: string;
   categories: Category[];
 }
