@@ -11,11 +11,13 @@ export interface LoadEntryState {
 export interface LoadState {
   loaded: boolean;
   indicators?: LoadEntryState;
+  ministriesStats?: LoadEntryState;
 }
 
 export interface AsyncConnectState {
   loadState: LoadState;
   indicators?: Indicator[];
+  ministriesStats?: any;
 }
 
 export interface ApplicationState {

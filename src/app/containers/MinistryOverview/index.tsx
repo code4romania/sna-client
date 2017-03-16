@@ -15,6 +15,8 @@ import {ChartIcon} from "../../components/ChartIcon/index";
 import {ScatterChartIcon} from "../../components/ScatterChartIcon/index";
 import {SimpleBarChart} from "../../components/BarChart/index";
 import {SimpleScatterChart} from "../../components/ScatterChart/index";
+import {loadMinistriesStatsConfig} from "../../redux/modules/stats/index";
+import {currentIndicatorTitle} from "../../selectors/index";
 
 export const PASSIVE_COLOR = "#A5B3BB";
 
@@ -27,18 +29,22 @@ interface RouteParams {
 }
 
 interface Props {
+  indicatorTitle?: string;
   loader?: LoadEntryState;
+  statsLoader?: LoadEntryState;
   indicators?: Indicator[];
   params?: RouteParams;
   location?: any;
 }
 
 @asyncConnect([
-  loadIndicatorsConfig(),
+  loadIndicatorsConfig(), loadMinistriesStatsConfig(),
 ])
 @connect(
   (state: ApplicationState): Props => ({
     loader: state.reduxAsyncConnect.loadState.indicators,
+    indicatorTitle: currentIndicatorTitle(state),
+    statsLoader: state.reduxAsyncConnect.loadState.ministriesStats,
     indicators: state.reduxAsyncConnect.indicators,
   }),
 )
