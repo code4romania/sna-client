@@ -71,6 +71,7 @@ export class MinistryOverview extends React.Component<Props, any> {
             <div className={style.year_slider}>
               <div className={style.title}>Anul afișat</div>
               <ReactBootstrapSlider min={2011} max={2016} handleChange={this.fireChangeYear.bind(this)} value={year} />
+              <div className="value">{year}</div>
             </div>
             <div className={style.chart_type}>
               <div className={style.title}>Tip vizualizare</div>
