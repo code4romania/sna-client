@@ -7,12 +7,26 @@ interface CheckboxProps {
   name?: string;
   label: string;
   value: string;
+  onChange(option: any): void;
 }
 
-export const Checkbox = (props: CheckboxProps) => (
-  <label className={style.Checkbox}>
-    <input className={style.CheckboxInput} type="checkbox" name={props.name} value={props.value} />
-    <span className={style.CheckboxIcon} />
-    <span className={style.CheckboxLabel}>{props.label}</span>
-  </label>
-);
+export const Checkbox = (props: CheckboxProps) => {
+  const handleClick = () => {
+    const option = { ...props, checked: !props.checked };
+    console.log(option);
+    props.onChange(option);
+  };
+
+  return (
+    <label className={style.Checkbox} onClick={handleClick}>
+      <input
+        className={style.CheckboxInput}
+        type="checkbox"
+        name={props.name}
+        checked={props.checked}
+        value={props.value} />
+      <span className={style.CheckboxIcon} />
+      <span className={style.CheckboxLabel}>{props.label}</span>
+    </label>
+  );
+};
