@@ -1,42 +1,36 @@
 import * as React from 'react';
 import {Link} from 'react-router';
 import {BackLink} from '../BackLink/index';
-import {report_path} from '../../helpers/url_helper';
-import {ADMIN_TYPE_MINISTRIES} from './administration_sidebar';
+import {selAdminPath, MyLocation, RouterParams, mreportPath} from '../../helpers/url_helper';
 import {ChartIcon} from '../ChartIcon/index';
+import {Ministry} from "../../models/ministry";
+import {ministries} from "../../selectors/index";
 
 const style = require('./style.css');
 
-interface RouterParams {
-  id: string;
-}
-
 interface Props {
   params: RouterParams;
+  location?: MyLocation;
+  ministries?: Ministry[];
 }
 
 export class MinistriesSidebar extends React.Component<Props, {}> {
   public render() {
     const indId = parseInt(this.props.params.id, 10);
 
-    const items = [
-      { id: 1, name: "Ministerul Afacerilor Externe" },
-      { id: 2, name: "Ministerul Afacerilor Interne" },
-    ];
-
-    const menus = items.map((i) => <li key={`item-${i.id}`}>
-      <Link to={report_path(indId, ADMIN_TYPE_MINISTRIES, i.id)}>
+    const menus = ministries.toIndexedSeq().map((i) => <li key={`item-${i.id}`}>
+      <Link to={mreportPath(indId, i.id, this.props.location.query)}>
         {i.name}
       </Link>
     </li>);
 
     return (<div className={style.Sidebar}>
-      <BackLink link={`/selectAdministration/${indId}`} />
+      <BackLink link={selAdminPath(indId, this.props.location.query)} />
       <div className={style.title}>
         <div>Instituție</div>
         <div className={style.viewAll}>
           <ChartIcon />
-          <Link to={report_path(indId, ADMIN_TYPE_MINISTRIES)}>
+          <Link to={mreportPath(indId, null, this.props.location.query)}>
             Prezentare Generală
           </Link>
         </div>

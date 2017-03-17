@@ -4,6 +4,7 @@ import {Badge} from '../Badge/index';
 import {ApplicationState, LoadEntryState, isContentLoaded} from '../../redux/application_state';
 import {Link} from 'react-router';
 import {loadIndicatorsConfig} from '../../redux/modules/indicator/index';
+import {selAdminPath, MyLocation} from "../../helpers/url_helper";
 
 const { connect } = require('react-redux');
 const { asyncConnect } = require('redux-connect');
@@ -13,6 +14,7 @@ const style = require('./style.css');
 interface SidebarProps {
   loader?: LoadEntryState;
   indicators?: Indicator[];
+  location?: MyLocation;
 }
 
 interface SidebarDispatchProps {
@@ -38,7 +40,7 @@ export class Sidebar extends React.Component<SidebarProps & SidebarDispatchProps
     } else {
       content = this.props.indicators.map((indicator: Indicator, idx: number) => {
         return <li key={indicator.id}><Badge text={(idx + 1).toString()}/>
-          <Link to={`/selectAdministration/${idx + 1}`}>{indicator.name}</Link>
+          <Link to={selAdminPath(idx + 1, this.props.location.query)}>{indicator.name}</Link>
           </li>;
       });
     }

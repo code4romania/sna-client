@@ -3,6 +3,7 @@ import {createSelector} from "reselect";
 import {isContentLoaded} from "../redux/application_state";
 import {Indicator} from "../models/indicator";
 import {parseIndicatorId} from "../helpers/url_helper";
+import {Ministry} from "../models/ministry";
 
 export const areIndicatorsLoaded = (state) => isContentLoaded(state.reduxAsyncConnect.loadState.indicators);
 export const areMinistriesStatsLoaded = (state) => isContentLoaded(state.reduxAsyncConnect.loadState.ministriesStats);
@@ -59,9 +60,10 @@ export const currentYear = createSelector(
   },
 );
 
-const ministries = Map([
-  [1, "Ministerul Afacerilor Externe"],
-  [2, "Ministerul Afacerilor Interne"],
+// TODO load from API
+export const ministries = Map<number, Ministry>([
+  [1, {id: 1, name: "Ministerul Afacerilor Externe"}],
+  [2, {id: 2, name: "Ministerul Afacerilor Interne"}],
 ]);
 
 export const ministryBarChartData = createSelector(
@@ -73,6 +75,6 @@ export const ministryBarChartData = createSelector(
 
     const y = year.toString();
     const entries = rows.filter((item) => item.i_id === indId && item.c_id === category.id);
-    return entries.map((entry) => ({name: ministries.get(entry.m_id), value: entry.v[y]})).toArray();
+    return entries.map((entry) => ({name: ministries.get(entry.m_id).name, value: entry.v[y]})).toArray();
   },
 );
