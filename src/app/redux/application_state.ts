@@ -1,6 +1,7 @@
 import {RouterState} from 'react-router-redux';
 import {Promise} from 'es6-promise';
 import {Indicator} from '../models/indicator';
+import {Ministry} from "../models/ministry";
 
 type RemoteContent = "indicators" | "ministriesStats";
 
@@ -28,10 +29,21 @@ export interface MStatEntry {
   v: YearsStats;
 }
 
+export interface EmployeeStats {
+  m_id: number;
+  v: YearsStats;
+}
+
+export interface MStats {
+  ministries: Ministry[];
+  employees: EmployeeStats[];
+  stats: MStatEntry[];
+}
+
 export interface AsyncConnectState {
   loadState: LoadState;
   indicators?: Indicator[];
-  ministriesStats?: MStatEntry[];
+  ministriesStats?: MStats;
 }
 
 export interface ApplicationState {

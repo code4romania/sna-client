@@ -13,13 +13,13 @@ import {ApplicationState} from '../../redux/application_state';
 import {Indicator, Category} from '../../models/indicator';
 import {ChartIcon} from "../../components/ChartIcon/index";
 import {ScatterChartIcon} from "../../components/ScatterChartIcon/index";
-import {SimpleScatterChart} from "../../components/ScatterChart/index";
 import {loadMinistriesStatsConfig} from "../../redux/modules/stats/index";
 import {
   currentIndicatorTitle, areIndicatorsLoaded, currentIndicator, currentCategory, areMinistriesStatsLoaded, currentYear,
   years,
 } from "../../selectors/index";
 import {MinistryBarChart} from "../../components/BarChart/ministries_bar_chart";
+import {MinistriesScatterChart} from "../../components/ScatterChart/ministries_scatter_chart";
 
 export const PASSIVE_COLOR = "#A5B3BB";
 
@@ -129,7 +129,7 @@ export class MinistryOverview extends React.Component<Props & DispatchProps, any
     if (chart === "bar") {
       return <MinistryBarChart />;
     } else {
-      return <SimpleScatterChart />;
+      return <MinistriesScatterChart />;
     }
   }
 

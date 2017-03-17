@@ -4,21 +4,31 @@ import {BackLink} from '../BackLink/index';
 import {selAdminPath, MyLocation, RouterParams, mreportPath} from '../../helpers/url_helper';
 import {ChartIcon} from '../ChartIcon/index';
 import {Ministry} from "../../models/ministry";
-import {ministries} from "../../selectors/index";
+import {ApplicationState} from "../../redux/application_state";
+import {areMinistriesStatsLoaded, ministries} from "../../selectors/index";
+import {OrderedMap} from "immutable";
+const { connect } = require('react-redux');
 
 const style = require('./style.css');
 
 interface Props {
-  params: RouterParams;
+  params?: RouterParams;
   location?: MyLocation;
-  ministries?: Ministry[];
+  ministries?: OrderedMap<number, Ministry>;
+  areMinistriesStatsLoaded?: boolean;
 }
 
+@connect(
+  (state: ApplicationState): Props => ({
+    areMinistriesStatsLoaded: areMinistriesStatsLoaded(state),
+    ministries: ministries(state),
+  }),
+)
 export class MinistriesSidebar extends React.Component<Props, {}> {
   public render() {
     const indId = parseInt(this.props.params.id, 10);
 
-    const menus = ministries.toIndexedSeq().map((i) => <li key={`item-${i.id}`}>
+    const menus = this.props.ministries.toIndexedSeq().map((i) => <li key={`item-${i.id}`}>
       <Link to={mreportPath(indId, i.id, this.props.location.query)}>
         {i.name}
       </Link>

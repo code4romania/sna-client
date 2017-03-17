@@ -1,6 +1,6 @@
-import {List, Map, OrderedSet} from "immutable";
+import {List, Map, OrderedSet, OrderedMap} from "immutable";
 import {createSelector} from "reselect";
-import {isContentLoaded, MStatEntry} from "../redux/application_state";
+import {isContentLoaded, MStatEntry, MStats, ApplicationState} from "../redux/application_state";
 import {Indicator} from "../models/indicator";
 import {parseIndicatorId} from "../helpers/url_helper";
 import {Ministry} from "../models/ministry";
@@ -8,7 +8,7 @@ import {Ministry} from "../models/ministry";
 export const areIndicatorsLoaded = (state) => isContentLoaded(state.reduxAsyncConnect.loadState.indicators);
 export const areMinistriesStatsLoaded = (state) => isContentLoaded(state.reduxAsyncConnect.loadState.ministriesStats);
 const indicatorsState = (state) => List(state.reduxAsyncConnect.indicators);
-const mstatsRaw = (state) => List(state.reduxAsyncConnect.ministriesStats);
+const mstatsData = (state: ApplicationState): MStats => state.reduxAsyncConnect.ministriesStats;
 
 const paramIndicatorId = (state) => parseIndicatorId(state.routing.locationBeforeTransitions.pathname);
 export const paramCategoryId = (state) => parseInt(state.routing.locationBeforeTransitions.query.category_id, 10) || 0;
@@ -36,8 +36,13 @@ export const currentCategory = createSelector(
   ),
 );
 
+const mstats = createSelector(
+  areMinistriesStatsLoaded, mstatsData,
+  (loaded, data: MStats) => List(loaded ? data.stats : []),
+);
+
 export const years = createSelector(
-  areMinistriesStatsLoaded, mstatsRaw,
+  areMinistriesStatsLoaded, mstats,
   (loaded, rows: List<MStatEntry>): OrderedSet<number> => {
     if (loaded) {
       return rows.flatMap(
@@ -60,21 +65,58 @@ export const currentYear = createSelector(
   },
 );
 
-// TODO load from API
-export const ministries = Map<number, Ministry>([
-  [1, {id: 1, name: "Ministerul Afacerilor Externe"}],
-  [2, {id: 2, name: "Ministerul Afacerilor Interne"}],
-]);
+export const ministries = createSelector(
+  areMinistriesStatsLoaded, mstatsData,
+  (loaded, data): OrderedMap<number, Ministry> => {
+    if (loaded) {
+      return OrderedMap<number, Ministry>(data.ministries.map((m) => [m.id, m]));
+    } else {
+      return OrderedMap<number, Ministry>([]);
+    }
+  },
+);
+
+export const currentYearStr = createSelector(
+  currentYear,
+  (y) => y.toString(),
+);
 
 export const ministryBarChartData = createSelector(
-  areMinistriesStatsLoaded, paramIndicatorId, currentCategory, currentYear, mstatsRaw,
-  (loaded, indId, category, year, rows: List<MStatEntry>) => {
+  areMinistriesStatsLoaded, paramIndicatorId, currentCategory, currentYearStr, mstats, ministries,
+  (loaded, indId, category, year, rows: List<MStatEntry>, ministries: OrderedMap<number, Ministry>) => {
+    if (!loaded || !category) {
+      return [];
+    }
+
+    const entries = rows.filter((item) => item.i_id === indId && item.c_id === category.id);
+    return entries.map((entry) => ({name: ministries.get(entry.m_id).name, value: entry.v[year]})).toArray();
+  },
+);
+
+const employeeStats = createSelector(
+  areMinistriesStatsLoaded, mstatsData, currentYearStr,
+  (loaded, data, year) => {
+    if (!loaded) {
+      return Map();
+    }
+
+    return Map<number, number>(data.employees.map((e) => [e.m_id, e.v[year]]));
+  },
+);
+
+// data [{x:"employeeCount",y: 'statValue',z: "MinistryName"}]
+export const ministriesScatterChartData = createSelector(
+  areMinistriesStatsLoaded, paramIndicatorId, currentCategory, currentYear, mstats, ministries, employeeStats,
+  (loaded, indId, category, year, rows: List<MStatEntry>, ministries: OrderedMap<number, Ministry>,
+   estats: Map<number, number>) => {
     if (!loaded || !category) {
       return [];
     }
 
     const y = year.toString();
     const entries = rows.filter((item) => item.i_id === indId && item.c_id === category.id);
-    return entries.map((entry) => ({name: ministries.get(entry.m_id).name, value: entry.v[y]})).toArray();
+    return entries.map((entry) => (
+      {z: ministries.get(entry.m_id).name, x: estats.get(entry.m_id), y: entry.v[y]}
+    )).toArray();
   },
 );
