@@ -102,14 +102,14 @@ export class MinistryOverview extends React.Component<Props & DispatchProps, any
             </div>
           </div>
 
-          <div className={style.content}>
-            <div className={style.ministry_filter}>
+          <div className={"row " + style.content}>
+            <div className={"col-md-5 " + style.ministry_filter}>
               <div className={style.title}>Date afișate</div>
               <div>
                 Ministry selector
               </div>
             </div>
-            <div className={style.chart_display}>
+            <div className={"col-md-7 " + style.chart_display}>
               <div className={style.title}>Număr sesizări</div>
               <div>
                 {this.chartElement(chart)}
