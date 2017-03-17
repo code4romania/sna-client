@@ -144,19 +144,23 @@ export class MinistryOverview extends React.Component<Props & DispatchProps, any
     const category = this.props.category;
     const otherCategories = categories.filter((c) => c.id !== category.id);
 
-    return <DropdownButton
-      className={style.select_category}
-      id="ind_category" title={category.name}
-      onSelect={this.fireChangeCategory.bind(this)}>
-      {otherCategories.map((c) => <MenuItem key={c.id.toString()} eventKey={c.id}>{c.name}</MenuItem>)}
-    </DropdownButton>;
+    return (
+      <DropdownButton
+        className={style.select_category}
+        id="ind_category" title={category.name}
+        onSelect={this.fireChangeCategory.bind(this)}>
+        {otherCategories.map((c) => <MenuItem key={c.id.toString()} eventKey={c.id}>{c.name}</MenuItem>)}
+      </DropdownButton>
+    );
   }
 
   private selectChartButton(chartType: ChartType, Icon: any, selectedType: ChartType) {
-    return <button key={chartType} onClick={this.fireChangeChart.bind(this)} data-chart={chartType}
-      className={`${style.button} ${selectedType === chartType ? style.active : ""}`}>
-      <Icon color={selectedType !== chartType ? PASSIVE_COLOR : null} />
-    </button>;
+    return (
+      <button key={chartType} onClick={this.fireChangeChart.bind(this)} data-chart={chartType}
+        className={`${style.button} ${selectedType === chartType ? style.active : ""}`}>
+        <Icon color={selectedType !== chartType ? PASSIVE_COLOR : null} />
+      </button>
+    );
   }
 
   private fireChangeChart(event: any) {

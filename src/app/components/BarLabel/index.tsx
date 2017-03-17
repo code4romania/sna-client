@@ -14,9 +14,11 @@ interface Props {
 }
 
 export const BarLabel = (props: Props) => {
-  return <g>
-    <text className={style.BarLabel}
-          x={props.x - 30} y={props.y}>{props.value}</text>;
-    <text x={props.x} y={props.y}>{props.name}</text>;
-  </g>;
+  return (
+    <g>
+      <text className={style.BarLabel}
+            x={props.x - 30} y={props.y}>{props.value}</text>;
+      <text x={props.x} y={props.y}>{props.name}</text>;
+    </g>
+  );
 };

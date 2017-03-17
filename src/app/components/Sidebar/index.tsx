@@ -38,9 +38,11 @@ export class Sidebar extends React.Component<SidebarProps, {}> {
       content = <li key="0">Se încarcă</li>;
     } else {
       content = this.props.indicators.map((indicator: Indicator) => {
-        return <li key={indicator.id}><Badge text={indicator.id.toString()}/>
-          <Link to={selAdminPath(indicator.id, this.props.location.query)}>{indicator.name}</Link>
-          </li>;
+        return (
+          <li key={indicator.id}><Badge text={indicator.id.toString()}/>
+            <Link to={selAdminPath(indicator.id, this.props.location.query)}>{indicator.name}</Link>
+          </li>
+        );
       });
     }
 

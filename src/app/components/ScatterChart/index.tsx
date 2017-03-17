@@ -25,10 +25,12 @@ export const MyTooltip = (props: TooltipProps) => {
   }
 
   const payload = props.payload[0].payload;
-  return <div className={style.Tooltip}>
-    <div>{payload.z}</div>
-    <div>{payload.y} sesizări</div>
-  </div>;
+  return (
+    <div className={style.Tooltip}>
+      <div>{payload.z}</div>
+      <div>{payload.y} sesizări</div>
+    </div>
+  );
 };
 
 export class SimpleScatterChart extends React.Component<Props, {}> {
