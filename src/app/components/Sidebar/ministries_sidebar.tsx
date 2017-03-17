@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Link} from 'react-router';
 import {BackLink} from '../BackLink/index';
-import {selAdminPath, MyLocation, RouterParams, mreportPath} from '../../helpers/url_helper';
+import {selAdminPath, MyLocation, RouteParams, mreportPath} from '../../helpers/url_helper';
 import {ChartIcon} from '../ChartIcon/index';
 import {Ministry} from "../../models/ministry";
 import {ApplicationState} from "../../redux/application_state";
@@ -12,7 +12,7 @@ const { connect } = require('react-redux');
 const style = require('./style.css');
 
 interface Props {
-  params?: RouterParams;
+  params?: RouteParams;
   location?: MyLocation;
   ministries?: OrderedMap<number, Ministry>;
   areMinistriesStatsLoaded?: boolean;

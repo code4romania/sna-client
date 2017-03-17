@@ -17,6 +17,11 @@ interface RomaniaMapPropsDispatchProps {
 const DEFAULT_FILL_COLOR = 'white';
 const DEFAULT_BORDER_COLOR = '#7DB1FF';
 
+// Sample color map
+// const map: CountyColorMap = {
+//   arad: 'red', bihor: 'white', alba: '#cfe1f6',
+// };
+
 /* tslint:disable:max-line-length jsx-self-close */
 export class RomaniaMap extends React.Component<RomaniaMapProps & RomaniaMapPropsDispatchProps, {}> {
   public render(): JSX.Element {

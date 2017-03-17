@@ -5,6 +5,7 @@ import {selAdminPath, MyLocation, creportPath} from '../../helpers/url_helper';
 import {ChartIcon} from '../ChartIcon/index';
 
 const style = require('./style.css');
+const COUNTIES = require('./counties.json');
 
 interface RouterParams {
   id: string;
@@ -19,24 +20,15 @@ export class CountiesSidebar extends React.Component<Props, {}> {
   public render() {
     const indId = parseInt(this.props.params.id, 10);
 
-    const items = [
-      { id: 1, name: "Alba" },
-      { id: 2, name: "Arad" },
-      { id: 3, name: "Bihor" },
-      { id: 4, name: "Vaslui" },
-    ];
-
-    const menus = items.map((i) => (
-      <li key={`item-${i.id}`}>
-        <Link to={creportPath(indId, i.id, this.props.location.query)}>
-          {i.name}
-        </Link>
-      </li>
-    ));
+    const menus = COUNTIES.map((i, idx) => <li key={`item-${idx + 1}`}>
+      <Link to={creportPath(indId, idx + 1, this.props.location.query)}>
+        {i.name}
+      </Link>
+    </li>);
 
     return (
       <div className={style.Sidebar}>
-        <BackLink link={selAdminPath(indId, this.props.location.query)} />
+        <BackLink link={selAdminPath(indId, this.props.location.query)}/>
         <div className={style.title}>
           <div>Județul</div>
           <div className={style.viewAll}>
@@ -46,9 +38,10 @@ export class CountiesSidebar extends React.Component<Props, {}> {
             </Link>
           </div>
         </div>
-        <ul className={style.adminType}>
-          {menus}
-        </ul>
+
+          <ul className={style.adminType}>
+            {menus}
+          </ul>
       </div>
     );
   }

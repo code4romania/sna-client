@@ -7,7 +7,7 @@ export interface MyLocation {
   query?: any;
 }
 
-export interface RouterParams {
+export interface RouteParams {
   id: string; // indicator ID
   mid?: string; // admin type item id, ie ministry ID or county ID
 }

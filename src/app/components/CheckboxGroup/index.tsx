@@ -9,8 +9,8 @@ interface IProps {
   onChange(option: any): void;
 }
 
-const renderColumn = (column, props) => {
-  const itemsPerColumn = Math.ceil(props.props.options.length / props.columns);
+const renderColumn = (column: number, props: IProps) => {
+  const itemsPerColumn = Math.ceil(props.options.length / props.columns);
   const bootstrapClass = "col-md-".concat((12 / props.columns).toString());
   const htmlOptions = [];
   for (let i = (column - 1) * itemsPerColumn; i < column * itemsPerColumn; i++) {

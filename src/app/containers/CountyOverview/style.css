@@ -1,0 +1,5 @@
+.CountyOverview {
+  & .main {
+    padding: 40px 65px;
+  }
+}
