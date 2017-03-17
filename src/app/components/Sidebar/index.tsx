@@ -1,21 +1,21 @@
 import * as React from 'react';
 import {Indicator} from '../../models/indicator';
 import {Badge} from '../Badge/index';
-import {ApplicationState, LoadEntryState, isContentLoaded} from '../../redux/application_state';
+import {ApplicationState} from '../../redux/application_state';
 import {Link} from 'react-router';
 import {loadIndicatorsConfig} from '../../redux/modules/indicator/index';
-
+import {selAdminPath, MyLocation} from "../../helpers/url_helper";
+import {areIndicatorsLoaded, indicators} from "../../selectors/index";
+import {List} from "immutable";
 const { connect } = require('react-redux');
 const { asyncConnect } = require('redux-connect');
 
 const style = require('./style.css');
 
 interface SidebarProps {
-  loader?: LoadEntryState;
-  indicators?: Indicator[];
-}
-
-interface SidebarDispatchProps {
+  areIndicatorsLoaded?: boolean;
+  indicators?: List<Indicator>;
+  location?: MyLocation;
 }
 
 @asyncConnect([
@@ -23,26 +23,25 @@ interface SidebarDispatchProps {
 ])
 @connect(
   (state: ApplicationState): SidebarProps  => ({
-    loader: state.reduxAsyncConnect.loadState.indicators,
-    indicators: state.reduxAsyncConnect.indicators,
+    areIndicatorsLoaded: areIndicatorsLoaded(state),
+    indicators: indicators(state),
   }),
 )
-export class Sidebar extends React.Component<SidebarProps & SidebarDispatchProps, {}> {
+export class Sidebar extends React.Component<SidebarProps, {}> {
   public render() {
-    const { loader } = this.props;
+    const { areIndicatorsLoaded } = this.props;
 
     let content = null;
+    delete this.props.location.query.category_id;
 
-    if (!isContentLoaded(loader)) {
+    if (!areIndicatorsLoaded) {
       content = <li key="0">Se încarcă</li>;
     } else {
-      content = this.props.indicators.map((indicator: Indicator, idx: number) => {
-        return (
-          <li key={indicator.id}><Badge text={(idx + 1).toString()}/>
-            <Link to={`/selectAdministration/${idx + 1}`}>{indicator.name}</Link>
-            </li>
-          );
-        });
+      content = this.props.indicators.map((indicator: Indicator) => {
+        return <li key={indicator.id}><Badge text={indicator.id.toString()}/>
+          <Link to={selAdminPath(indicator.id, this.props.location.query)}>{indicator.name}</Link>
+          </li>;
+      });
     }
 
     return (

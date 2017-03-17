@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {Link} from 'react-router';
 import {BackLink} from '../BackLink/index';
-import {report_path} from '../../helpers/url_helper';
-import {ADMIN_TYPE_COUNTIES} from './administration_sidebar';
+import {selAdminPath, MyLocation, creportPath} from '../../helpers/url_helper';
 import {ChartIcon} from '../ChartIcon/index';
 
 const style = require('./style.css');
@@ -13,6 +12,7 @@ interface RouterParams {
 
 interface Props {
   params: RouterParams;
+  location?: MyLocation;
 }
 
 export class CountiesSidebar extends React.Component<Props, {}> {
@@ -26,25 +26,22 @@ export class CountiesSidebar extends React.Component<Props, {}> {
       { id: 4, name: "Vaslui" },
     ];
 
-    const menus = items.map((i) => (
-      <li key={`item-${i.id}`}>
-        <Link to={report_path(indId, ADMIN_TYPE_COUNTIES, i.id)}>
-          {i.name}
-        </Link>
-      </li>
-    ));
+    const menus = items.map((i) => <li key={`item-${i.id}`}>
+      <Link to={creportPath(indId, i.id, this.props.location.query)}>
+        {i.name}
+      </Link>
+    </li>);
 
-    return (
-      <div className={style.Sidebar}>
-        <BackLink link={`/selectAdministration/${indId}`} />
-        <div className={style.title}>
-          <div>Județul</div>
-          <div className={style.viewAll}>
-            <ChartIcon />
-            <Link to={report_path(indId, ADMIN_TYPE_COUNTIES)}>
-              Prezentare Generală
-            </Link>
-          </div>
+    return (<div className={style.Sidebar}>
+      <BackLink link={selAdminPath(indId, this.props.location.query)} />
+      <div className={style.title}>
+        <div>Județul</div>
+        <div className={style.viewAll}>
+          <ChartIcon />
+          <Link to={creportPath(indId, null, this.props.location.query)}>
+            Prezentare Generală
+          </Link>
+        </div>
         </div>
 
         <ul className={style.adminType}>

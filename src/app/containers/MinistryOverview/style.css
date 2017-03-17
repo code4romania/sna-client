@@ -1,0 +1,99 @@
+.MinistryOverview {
+  text-align: left;
+
+  & .main {
+    padding: 40px 65px;
+    font-family: Roboto;
+
+    & .title {
+      font-size: 15px;
+      color: #0D2B3E;
+    }
+
+    & .params {
+      margin: 45px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    & .year_slider, & .chart_type, & .ministry_filter, & .chart_display {
+      display: flex;
+      flex-direction: column;
+    }
+
+    & .year_slider {
+      width: 44%;
+
+      & :global(.slider.slider-horizontal) {
+        width: 100%;
+        margin-left: 15px;
+
+        & :global(.slider-selection) {
+          background-image: none;
+          box-shadow: none;
+        }
+      }
+
+      & :global(.slider-tick) {
+        cursor: pointer;
+      }
+
+      & :global(.slider-tick.in-selection) {
+        background-image: linear-gradient(to bottom, #f9f9f9 0, #f5f5f5 100%);
+      }
+    }
+
+    & .chart_type {
+      & .chart_options {
+        background: #EBF0F2;
+        border-radius: 3px;
+        padding: 5px;
+      }
+    }
+
+    & .content {
+      display: flex;
+      flex-direction: row;
+    }
+
+    & .category {
+      & :global(.dropdown) {
+        width: 100%;
+
+        & :global(.dropdown-toggle) {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        & .select_category {
+          font-size: 20px;
+          padding: 10px 10px 12px 16px;
+          width: 100%;
+          text-align: left;
+        }
+
+        & :global(.dropdown-menu) {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  & .button {
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    outline: none;
+    background-color: transparent;
+    padding: 5px 10px;
+
+    &.active {
+      background-color: #FFFFFF;
+    }
+
+    & svg {
+      pointer-events: none;
+    }
+  }
+}
