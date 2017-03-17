@@ -3,8 +3,7 @@ import {Checkbox} from '../Checkbox/index';
 
 const s = require('./style.css');
 
-interface CheckboxFilterProps {
-  selectAllLabel: string;
+interface IProps {
   options: Array<{ checked: boolean, label: string, value: any }>;
   columns: number;
   onChange(option: any): void;
@@ -36,11 +35,7 @@ const renderOption = (option, onChange) => {
   );
 };
 
-const handleToggleAll = () => {
-  console.log('toggle all');
-};
-
-export const CheckboxFilter = (props: CheckboxFilterProps) => {
+export const CheckboxGroup = (props: IProps) => {
 
   const htmlCols = [];
   for (let i = 1; i <= props.columns; i++) {
@@ -48,15 +43,8 @@ export const CheckboxFilter = (props: CheckboxFilterProps) => {
   }
 
   return (
-    <div className={s.CheckboxFilter}>
-      <div className={s.CheckboxFilter_header}>
-        <Checkbox
-          checked={false}
-          label={props.selectAllLabel}
-          value="selectAll"
-          onChange={handleToggleAll} />
-      </div>
-      <div className={s.CheckboxFilter_content}>
+    <div className={s.CheckboxGroup}>
+      <div className={s.CheckboxGroup_content}>
         <div className="row">{htmlCols}</div>
       </div>
     </div>

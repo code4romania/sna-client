@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ContentHeader} from '../../components/ContentHeader/index';
-import {CheckboxFilter} from '../../components/CheckboxFilter/index';
+import {CheckboxGroup} from '../../components/CheckboxGroup/index';
 import {loadIndicatorsConfig} from '../../redux/modules/indicator/index';
 import {ApplicationState, LoadEntryState, isContentLoaded} from '../../redux/application_state';
 import {Indicator} from '../../models/indicator';
@@ -55,8 +55,7 @@ export class SelectIntitution extends React.Component<SelectIntitutionProps, any
         <ContentHeader parentTitle ="Prezentare indicatori SNA" title={title}/>
         <div className="row">
            <div className="col-md-4">
-              <CheckboxFilter
-                selectAllLabel="Afiseaza toate judetele"
+              <CheckboxGroup
                 options={countyFilter}
                 columns={2}
                 onChange={handleToogleCounty} />

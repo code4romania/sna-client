@@ -2,7 +2,7 @@ import * as React from 'react';
 
 const style = require('./style.css');
 
-interface CheckboxProps {
+interface IProps {
   checked: boolean;
   name?: string;
   label: string;
@@ -10,7 +10,7 @@ interface CheckboxProps {
   onChange(option: any): void;
 }
 
-export const Checkbox = (props: CheckboxProps) => {
+export const Checkbox = (props: IProps) => {
   const handleClick = () => {
     const option = { ...props, checked: !props.checked };
     console.log(option);
