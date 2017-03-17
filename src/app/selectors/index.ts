@@ -1,6 +1,6 @@
 import {List, Map, OrderedSet} from "immutable";
 import {createSelector} from "reselect";
-import {isContentLoaded} from "../redux/application_state";
+import {isContentLoaded, MStatEntry} from "../redux/application_state";
 import {Indicator} from "../models/indicator";
 import {parseIndicatorId} from "../helpers/url_helper";
 import {Ministry} from "../models/ministry";
@@ -38,7 +38,7 @@ export const currentCategory = createSelector(
 
 export const years = createSelector(
   areMinistriesStatsLoaded, mstatsRaw,
-  (loaded, rows): OrderedSet<number> => {
+  (loaded, rows: List<MStatEntry>): OrderedSet<number> => {
     if (loaded) {
       return rows.flatMap(
         (e) => Object.keys(e.v).map((y) => parseInt(y, 10)),
@@ -68,7 +68,7 @@ export const ministries = Map<number, Ministry>([
 
 export const ministryBarChartData = createSelector(
   areMinistriesStatsLoaded, paramIndicatorId, currentCategory, currentYear, mstatsRaw,
-  (loaded, indId, category, year, rows) => {
+  (loaded, indId, category, year, rows: List<MStatEntry>) => {
     if (!loaded || !category) {
       return [];
     }

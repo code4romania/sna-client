@@ -16,10 +16,22 @@ export interface LoadState {
   ministriesStats?: LoadEntryState;
 }
 
+// key year
+interface YearsStats {
+  [key: string]: number;
+}
+
+export interface MStatEntry {
+  i_id: number;
+  c_id: number;
+  m_id: number;
+  v: YearsStats;
+}
+
 export interface AsyncConnectState {
   loadState: LoadState;
   indicators?: Indicator[];
-  ministriesStats?: any[];
+  ministriesStats?: MStatEntry[];
 }
 
 export interface ApplicationState {
