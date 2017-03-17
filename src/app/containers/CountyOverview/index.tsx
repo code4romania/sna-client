@@ -4,30 +4,39 @@ import {CommonFilters} from "../../components/Section/filters";
 import {MyLocation, RouteParams} from "../../helpers/url_helper";
 import {loadIndicatorsConfig} from "../../redux/modules/indicator/index";
 import {ApplicationState} from "../../redux/application_state";
-import {areIndicatorsLoaded, currentIndicatorTitle} from "../../selectors/index";
+import {currentIndicatorTitle, areCountiesStatsLoaded, countiesFilterData} from "../../selectors/index";
+import {loadCountiesStatsConfig} from "../../redux/modules/stats/index";
+import {CheckboxGroup, CheckBoxOptions} from "../../components/CheckboxGroup/index";
+import {MapChart} from "../../components/MapChart/index";
 const { asyncConnect } = require('redux-connect');
 const { connect } = require('react-redux');
 
 const style = require('./style.css');
 
 interface Props {
-  areIndicatorsLoaded: boolean;
+  areStatsLoaded?: boolean;
   indicatorTitle?: string;
   params?: RouteParams;
   location?: MyLocation;
+  countiesFilterData?: CheckBoxOptions[];
 }
 
 @asyncConnect([
-  loadIndicatorsConfig(),
+  loadIndicatorsConfig(), loadCountiesStatsConfig(),
 ])
 @connect(
   (state: ApplicationState): Props => ({
-    areIndicatorsLoaded: areIndicatorsLoaded(state),
+    areStatsLoaded: areCountiesStatsLoaded(state),
     indicatorTitle: currentIndicatorTitle(state),
+    countiesFilterData: countiesFilterData(state),
   }),
 )
 export class CountyOverview extends React.Component<Props, any> {
   public render(): JSX.Element {
+    const handleToogleCounty = (option) => {
+      console.log(option);
+    };
+
     return (
       <div className={style.CountyOverview}>
         <ContentHeader parentTitle="Prezentare generală administrații locale" title={this.props.indicatorTitle} />
@@ -39,7 +48,10 @@ export class CountyOverview extends React.Component<Props, any> {
             <div className={"col-md-5 " + style.ministry_filter}>
               <div className={style.title}>Date afișate</div>
               <div>
-                County selector
+                <CheckboxGroup
+                  options={this.props.countiesFilterData}
+                  columns={2}
+                  onChange={handleToogleCounty} />
               </div>
             </div>
             <div className={"col-md-7 " + style.chart_display}>
@@ -55,23 +67,24 @@ export class CountyOverview extends React.Component<Props, any> {
   }
 
   private chartElement(): JSX.Element {
-    return <div>TODO</div>;
+    if (!this.props.areStatsLoaded) {
+      return <div>Loading</div>;
+    }
 
-    // if (!this.props.areStatsLoaded) {
-    // }
-    //
-    // let chart = this.props.location.query.chart;
-    //
-    // if (!chart) {
-    //   chart = "map";
-    // }
+    let chart = this.props.location.query.chart;
 
-    // if (chart === "map") {
-    //   <RomaniaMap width={500} colorMap={map} />
-    // } else if (chart === "bar") {
-    //   return <CountiesBarChart />;
-    // } else {
-    //   return <CountiesScatterChart />;
-    // }
+    if (!chart) {
+      chart = "map";
+    }
+
+    if (chart === "map") {
+      return <MapChart />;
+    } else if (chart === "bar") {
+      return <div>TODO</div>;
+      // return <CountiesBarChart />;
+    } else {
+      return <div>TODO</div>;
+      {/*return <CountiesScatterChart />;*/}
+    }
   }
 }

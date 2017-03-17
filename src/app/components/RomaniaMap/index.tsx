@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+// key: nameId, value: color
 export interface CountyColorMap {
   [key: string]: string;
 }

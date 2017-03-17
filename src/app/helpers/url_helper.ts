@@ -1,6 +1,6 @@
-const ADMIN_TYPE_MINISTRIES = 1;
-const ADMIN_TYPE_OTHER = 2;
-const ADMIN_TYPE_COUNTIES = 3;
+export const ADMIN_TYPE_MINISTRIES = 1;
+export const ADMIN_TYPE_OTHER = 2;
+export const ADMIN_TYPE_COUNTIES = 3;
 
 export interface MyLocation {
   pathname: string;
@@ -10,21 +10,6 @@ export interface MyLocation {
 export interface RouteParams {
   id: string; // indicator ID
   mid?: string; // admin type item id, ie ministry ID or county ID
-}
-
-// itemId: county_id or ministry_id
-export function reportPath(indicatorId: number, institutionId?: number, itemId?: number): string {
-  let result = `/report/${indicatorId}`;
-
-  if (institutionId) {
-    result += `/${institutionId}`;
-  }
-
-  if (itemId) {
-    result += `/${itemId}`;
-  }
-
-  return result;
 }
 
 // path for ministry, prefix m
@@ -68,11 +53,21 @@ export function routePath(pathname, query?): MyLocation {
   return {pathname, query};
 }
 
-export function parseIndicatorId(path: string) {
+export function parseIndicatorId(path: string): number {
   const result = path.match(/\/report\/(\d+)/);
 
   if (result) {
     return parseInt(result[1], 10);
+  } else {
+    return 0;
+  }
+}
+
+export function parseAdminTypeId(path: string) {
+  const result = path.match(/\/report\/(\d+)\/(\d+)/);
+
+  if (result) {
+    return parseInt(result[2], 10);
   } else {
     return 0;
   }

@@ -1,9 +1,17 @@
+import {Set} from "immutable";
 import {RouterState} from 'react-router-redux';
 import {Promise} from 'es6-promise';
 import {Indicator} from '../models/indicator';
 import {Ministry} from "../models/ministry";
 
-type RemoteContent = "indicators" | "ministriesStats";
+export interface ApplicationState {
+  routing: RouterState;
+  reduxAsyncConnect: AsyncConnectState;
+  selectedCounties: Set<number>;
+  selectedMinistries: Set<number>;
+}
+
+type RemoteContent = "indicators" | "ministriesStats" | "countiesStats";
 
 export interface LoadEntryState {
   error: any;
@@ -15,6 +23,7 @@ export interface LoadState {
   loaded: boolean;
   indicators?: LoadEntryState;
   ministriesStats?: LoadEntryState;
+  countiesStats?: LoadEntryState;
 }
 
 // key year
@@ -34,6 +43,16 @@ export interface EmployeeStats {
   v: YearsStats;
 }
 
+interface PopulationEntry {
+  m_id: number;
+  v: YearsStats;
+}
+
+export interface CStats {
+  stats: MStatEntry[];
+  population: PopulationEntry[];
+}
+
 export interface MStats {
   ministries: Ministry[];
   employees: EmployeeStats[];
@@ -44,11 +63,7 @@ export interface AsyncConnectState {
   loadState: LoadState;
   indicators?: Indicator[];
   ministriesStats?: MStats;
-}
-
-export interface ApplicationState {
-  routing: RouterState;
-  reduxAsyncConnect: AsyncConnectState;
+  countiesStats?: CStats;
 }
 
 export interface AsyncContext {

@@ -3,8 +3,14 @@ import {Checkbox} from '../Checkbox/index';
 
 const s = require('./style.css');
 
+export interface CheckBoxOptions {
+  checked: boolean;
+  label: string;
+  value: any;
+}
+
 interface IProps {
-  options: Array<{ checked: boolean, label: string, value: any }>;
+  options: CheckBoxOptions[];
   columns: number;
   onChange(option: any): void;
 }
