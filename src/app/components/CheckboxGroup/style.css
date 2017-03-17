@@ -1,0 +1,10 @@
+@import "../../style/variables.css";
+
+.CheckboxGroup {
+	background-color: var(--grey-light);
+	padding: var(--default-padding);
+}
+
+.CheckboxGroup_content {
+	text-align: left;
+}

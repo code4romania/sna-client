@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {ContentHeader} from '../../components/ContentHeader/index';
+import {CheckboxGroup} from '../../components/CheckboxGroup/index';
 import {loadIndicatorsConfig} from '../../redux/modules/indicator/index';
 import {ApplicationState, LoadEntryState, isContentLoaded} from '../../redux/application_state';
 import {Indicator} from '../../models/indicator';
@@ -35,10 +36,34 @@ export class SelectIntitution extends React.Component<SelectIntitutionProps, any
       title = `${params.id}. ${indicators[parseInt(params.id, 10) - 1].name}`;
     }
 
+    const countyFilter = [
+      { value: 1, label: "Iasi", checked: false },
+      { value: 2, label: "Suceava", checked: true },
+      { value: 3, label: "Constanta", checked: false },
+      { value: 4, label: "Bacau", checked: true },
+      { value: 5, label: "Valcea", checked: true },
+      { value: 6, label: "Brasov", checked: true },
+      { value: 6, label: "Timisoara", checked: true },
+    ];
+
+    const handleToogleCounty = (option) => {
+      console.log(option);
+    };
+
     return (
       <div className="select-todo">
         <ContentHeader parentTitle ="Prezentare indicatori SNA" title={title}/>
-        <div>TODO screen shot</div>
+        <div className="row">
+           <div className="col-md-4">
+              <CheckboxGroup
+                options={countyFilter}
+                columns={2}
+                onChange={handleToogleCounty} />
+           </div>
+           <div className="col-md-8">
+             Chart
+           </div>
+        </div>
       </div>
     );
   }

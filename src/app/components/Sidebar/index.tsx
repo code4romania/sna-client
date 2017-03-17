@@ -44,14 +44,16 @@ export class Sidebar extends React.Component<SidebarProps, {}> {
       });
     }
 
-    return (<div className={style.Sidebar}>
-      <div className={style.spacer} />
-      <div className={style.title}>
-        Indicatori SNA
+    return (
+      <div className={style.Sidebar}>
+        <div className={style.spacer} />
+        <div className={style.title}>
+          Indicatori SNA
+        </div>
+        <ul>
+          {content}
+        </ul>
       </div>
-      <ul>
-        {content}
-      </ul>
-    </div>);
+    );
   }
 }

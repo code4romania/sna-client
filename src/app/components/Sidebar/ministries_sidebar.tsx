@@ -44,11 +44,12 @@ export class MinistriesSidebar extends React.Component<Props, {}> {
             Prezentare Generală
           </Link>
         </div>
-      </div>
+        </div>
 
-      <ul className={style.adminType}>
-        {menus}
-      </ul>
-    </div>);
+        <ul className={style.adminType}>
+          {menus}
+        </ul>
+      </div>
+    );
   }
 }
