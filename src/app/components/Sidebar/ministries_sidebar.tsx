@@ -48,11 +48,6 @@ export class MinistriesSidebar extends React.Component<Props, {}> {
             </Link>
           </div>
         </div>
-<<<<<<< 3dc1eb7ba1fd20bf4bc997f90ee6fc20037deea9
-        </div>
-=======
->>>>>>> 764261665bc98203544f3eee574222a0b3953b64
-
         <ul className={style.adminType}>
           {menus}
         </ul>
