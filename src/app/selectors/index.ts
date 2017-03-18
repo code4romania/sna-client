@@ -12,7 +12,7 @@ export const areCountiesStatsLoaded = (state) => isContentLoaded(state.reduxAsyn
 const indicatorsState = (state) => List(state.reduxAsyncConnect.indicators);
 
 const mstatsData = (state: ApplicationState): MStats => state.reduxAsyncConnect.ministriesStats;
-const cstatsData = (state: ApplicationState): CStats => state.reduxAsyncConnect.countiesStats;
+export const cstatsData = (state: ApplicationState): CStats => state.reduxAsyncConnect.countiesStats;
 
 export const paramIndicatorId = (state) => parseIndicatorId(state.routing.locationBeforeTransitions.pathname);
 const paramAdminTypeId = (state) => parseAdminTypeId(state.routing.locationBeforeTransitions.pathname);

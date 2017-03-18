@@ -16,6 +16,7 @@ import {CountyColorMap} from "../../components/RomaniaMap/index";
 import {Checkbox} from "../../components/Checkbox/index";
 import {reset, selectCounty, deselectCounty} from "../../redux/modules/filters/selected_counties";
 import {CountyBarChart} from "../../components/BarChart/counties_bar_chart";
+import {CountiesScatterChart} from "../../components/ScatterChart/counties_scatter_chart";
 const { asyncConnect } = require('redux-connect');
 const { connect } = require('react-redux');
 
@@ -150,8 +151,7 @@ export class CountyOverview extends React.Component<Props & DispatchProps, any> 
     if (this.props.chartType === "bar") {
       return <CountyBarChart />;
     } else {
-      return <div>TODO</div>;
-      {/*return <CountiesScatterChart />;*/}
+      return <CountiesScatterChart />;
     }
   }
 }
