@@ -1,5 +1,20 @@
 .CountyOverview {
   & .main {
     padding: 40px 65px;
+
+    & .legendBox {
+      width: 24px;
+      height: 24px;
+    }
+
+    & .legendLabel {
+      font-size: 14px;
+      color: #516178;
+    }
+
+    &. valueType {
+      font-size: 14px;
+      color: #0D2B3E;
+    }
   }
 }

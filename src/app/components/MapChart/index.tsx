@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {ApplicationState} from "../../redux/application_state";
-import {areCountiesStatsLoaded, countyMapChartData} from "../../selectors/index";
+import {areCountiesStatsLoaded} from "../../selectors/index";
+import {countyMapChartData} from "../../selectors/counties";
 import {CountyColorMap, RomaniaMap} from "../RomaniaMap/index";
 const { connect } = require('react-redux');
 
@@ -23,10 +24,8 @@ export class MapChart extends React.Component<Props, any> {
       return <noscript/>;
     }
 
-    console.log('map data', data);
-
     return (
-      <RomaniaMap width={500} colorMap={data.colorMap} />
+      <RomaniaMap width={700} colorMap={data.colorMap} />
     );
   }
 }

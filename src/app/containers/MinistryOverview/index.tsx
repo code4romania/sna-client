@@ -15,7 +15,7 @@ import {MyLocation, RouteParams} from "../../helpers/url_helper";
 
 const style = require('./style.css');
 
-export type ChartType = "bar" | "scatter";
+export type ChartType = "bar" | "scatter" | "map";
 
 interface Props {
   areIndicatorsLoaded: boolean;
