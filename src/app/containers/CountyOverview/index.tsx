@@ -62,12 +62,12 @@ export class CountyOverview extends React.Component<Props, any> {
 
     return (
       <div className="row">
-        <div className="cold-md-10">
-          <MapChart />;
+        <div className="col-md-10">
+          <MapChart />
         </div>
-        <div className="cold-md-2">
+        <div className="col-md-2">
           {this.renderLegend()}
-          <div className={style.valueType}>Număr</div>
+          <div className={style.valueType}>Număr sesizări</div>
         </div>
       </div>
     );
@@ -78,15 +78,15 @@ export class CountyOverview extends React.Component<Props, any> {
     return legend.map((elem) => {
       const color = elem[0];
       const range  = elem[1];
-      return (<div>
-        <span className={style.legendBox} style={{backgrounColor: color}} />
+      return (<div className={style.legendRow}>
+        <span className={style.legendBox} style={{backgroundColor: color}} />
         <span className={style.legendLabel}>{range}</span>
       </div>);
     });
   }
 
   private renderContent(): JSX.Element | null {
-    if (this.chartType() !== "map") {
+    if (this.chartType() === "map") {
       return null;
     }
 

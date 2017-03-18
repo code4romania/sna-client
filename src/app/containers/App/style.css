@@ -1,7 +1,6 @@
 .AppContainer {
   padding: 0;
   margin: 0;
-  text-align: center;
   display: flex;
   flex: 1;
   flex-direction: column;

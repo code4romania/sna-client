@@ -2,9 +2,17 @@
   & .main {
     padding: 40px 65px;
 
+    & .legendRow {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2px;
+    }
+
     & .legendBox {
       width: 24px;
       height: 24px;
+      display: inline-block;
+      margin-right: 5px;
     }
 
     & .legendLabel {
@@ -12,8 +20,10 @@
       color: #516178;
     }
 
-    &. valueType {
+    & .valueType {
+      margin-top: 20px;
       font-size: 14px;
+      font-weight: bold;
       color: #0D2B3E;
     }
   }
