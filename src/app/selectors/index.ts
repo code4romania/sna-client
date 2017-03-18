@@ -113,7 +113,8 @@ export const ministryBarChartData = createSelector(
     }
 
     const entries = rows.filter((item) => item.i_id === indId && item.c_id === category.id);
-    return entries.map((entry) => ({name: ministries.get(entry.m_id).name, value: entry.v[year]})).toArray();
+    return entries.map((entry) => ({name: ministries.get(entry.m_id).name, value: entry.v[year]})).toArray()
+      .sort((a, b) => -1 * (a.value - b.value));
   },
 );
 

@@ -39,3 +39,22 @@ export const countyMapChartData = createSelector(
     };
   },
 );
+
+// [{name:string,value:number}]
+export const countyBarChartData = createSelector(
+  areCountiesStatsLoaded, paramIndicatorId, currentCategory, currentYearStr, cstats, selectedCounties,
+  (loaded, indId, category, year, rows, selectedIds) => {
+
+    if (!loaded || !category) {
+      return [];
+    }
+
+    const all = selectedIds.size === 0;
+    const counties = Map(COUNTIES.map((c) => [c.id, c.name]));
+    const entries = rows.filter((item) => (
+      item.i_id === indId && item.c_id === category.id && (all || selectedIds.has(item.m_id))
+    ));
+    return entries.map((entry) => ({name: counties.get(entry.m_id), value: entry.v[year]})).toArray()
+      .sort((a, b) => -1 * (a.value - b.value));
+  },
+);
