@@ -149,19 +149,19 @@ export const countyMapChartData = createSelector(
   areCountiesStatsLoaded, paramIndicatorId, currentCategory, currentYearStr, cstats,
   (loaded, indId, category, year, rows) => {
     if (!loaded || !category) {
-      return {colorMap: {zz: "#ccc"}, legend: {"#CFE1F6": "0-0"}};
+      return {colorMap: {zz: "#ccc"}, legend: [["#CFE1F6", "0-0"]]};
     }
 
     const entries = rows.filter((item) => item.i_id === indId && item.c_id === category.id);
     const valueMap = Map<number, number>(entries.map((entry) => [entry.m_id, entry.v[year]]));
     const maxValue = valueMap.max() + 1;
     const countyMap = Map<number, string>(COUNTIES.map((c) => [c.id, c.nameId]));
-    const legendMap = Map<string, string>(COLORS.map(
-      (v, i) => [v, `${maxValue / 100 * (i * 20)}-${maxValue / 100 * ((i + 1) * 20)}`],
-    )).toJS();
+    const legendMap = COLORS.map(
+      (v, i) => [v, `${Math.round(maxValue / 100 * (i * 20))}-${Math.round(maxValue / 100 * ((i + 1) * 20)) - 1}`],
+    );
 
     return {
-      colorMap: Map<string, string>(valueMap.toIndexedSeq().map((k) => {
+      colorMap: Map<string, string>(valueMap.keySeq().map((k) => {
         const value = valueMap.get(k);
         const idx = Math.floor(value * 100 / maxValue / 20);
         return [countyMap.get(k), COLORS[idx]];

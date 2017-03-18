@@ -4,13 +4,9 @@ import {areCountiesStatsLoaded, countyMapChartData} from "../../selectors/index"
 import {CountyColorMap, RomaniaMap} from "../RomaniaMap/index";
 const { connect } = require('react-redux');
 
-interface ColorRange {
-  [key: string]: string;
-}
-
 interface Props {
   areStatsLoaded?: boolean;
-  data?: {colorMap: CountyColorMap, legend: ColorRange};
+  data?: {colorMap: CountyColorMap, legend: string[][]};
 }
 
 @connect(
