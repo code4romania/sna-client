@@ -4,7 +4,7 @@ import {CommonFilters} from "../../components/Section/filters";
 import {MyLocation, RouteParams} from "../../helpers/url_helper";
 import {loadIndicatorsConfig} from "../../redux/modules/indicator/index";
 import {ApplicationState} from "../../redux/application_state";
-import {currentIndicatorTitle, areCountiesStatsLoaded} from "../../selectors/index";
+import {currentIndicatorTitle, areCountiesStatsLoaded, paramChart} from "../../selectors/index";
 import {loadCountiesStatsConfig} from "../../redux/modules/stats/index";
 import {CheckboxGroup, CheckBoxOptions} from "../../components/CheckboxGroup/index";
 import {MapChart} from "../../components/MapChart/index";
@@ -23,6 +23,7 @@ interface Props {
   location?: MyLocation;
   countiesFilterData?: CheckBoxOptions[];
   mapData?: {colorMap: CountyColorMap, legend: string[][]};
+  chartType?: ChartType;
 }
 
 @asyncConnect([
@@ -34,6 +35,7 @@ interface Props {
     indicatorTitle: currentIndicatorTitle(state),
     countiesFilterData: countiesFilterData(state),
     mapData: countyMapChartData(state),
+    chartType: paramChart(state),
   }),
 )
 export class CountyOverview extends React.Component<Props, any> {
@@ -43,7 +45,7 @@ export class CountyOverview extends React.Component<Props, any> {
         <ContentHeader parentTitle="Prezentare generală administrații locale" title={this.props.indicatorTitle} />
 
         <div className={style.main}>
-          <CommonFilters location={this.props.location}/>
+          <CommonFilters location={this.props.location} showMapIcon={true} />
           {this.renderMap()}
           {this.renderContent()}
         </div>
@@ -52,7 +54,7 @@ export class CountyOverview extends React.Component<Props, any> {
   }
 
   private renderMap(): JSX.Element | null {
-    if (this.chartType() !== "map") {
+    if (this.props.chartType !== "map") {
       return null;
     }
 
@@ -86,7 +88,7 @@ export class CountyOverview extends React.Component<Props, any> {
   }
 
   private renderContent(): JSX.Element | null {
-    if (this.chartType() === "map") {
+    if (this.props.chartType === "map") {
       return null;
     }
 
@@ -115,28 +117,12 @@ export class CountyOverview extends React.Component<Props, any> {
     );
   }
 
-  private chartType(): ChartType {
-    let chart = this.props.location.query.chart;
-
-    if (!chart) {
-      chart = "map";
-    }
-
-    return chart;
-  }
-
   private chartElement(): JSX.Element {
     if (!this.props.areStatsLoaded) {
       return <div>Loading</div>;
     }
 
-    const chartType = this.chartType();
-
-    if (chartType === "map") {
-      return null;
-    }
-
-    if (chartType === "bar") {
+    if (this.props.chartType === "bar") {
       return <div>TODO</div>;
       // return <CountiesBarChart />;
     } else {

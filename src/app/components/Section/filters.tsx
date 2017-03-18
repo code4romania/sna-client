@@ -6,15 +6,14 @@ import {Dispatch} from "react-redux";
 import {push} from "react-router-redux";
 import {DropdownButton} from "react-bootstrap";
 import {MenuItem} from "react-bootstrap";
-import {ScatterChartIcon} from "../ScatterChartIcon/index";
-import {ChartIcon} from "../ChartIcon/index";
+import {ChartIcon, MapIcon, ScatterChartIcon} from "../ChartIcon/index";
 import ReactBootstrapSlider from "react-bootstrap-slider";
 import {MyLocation} from "../../helpers/url_helper";
 import {loadIndicatorsConfig} from "../../redux/modules/indicator/index";
 import {ApplicationState} from "../../redux/application_state";
 import {
   areIndicatorsLoaded, currentIndicatorTitle, currentIndicator, currentCategory,
-  currentYear, years,
+  currentYear, years, paramChart,
 } from "../../selectors/index";
 import {Indicator, Category} from "../../models/indicator";
 import {ChartType} from "../../containers/MinistryOverview/index";
@@ -31,6 +30,8 @@ interface FiltersProps {
   year?: number;
   indicatorTitle?: string;
   years?: OrderedSet<number>;
+  showMapIcon?: boolean;
+  chartType?: ChartType;
 }
 
 interface DispatchProps {
@@ -47,17 +48,13 @@ interface DispatchProps {
     category: currentCategory(state),
     year: currentYear(state),
     years: years(state),
+    chartType: paramChart(state),
   }),
   (dispatch: Dispatch<ApplicationState>) => ({ onAction: dispatch }),
 )
 export class CommonFilters extends React.Component<FiltersProps & DispatchProps, any> {
   public render() {
-    const { year, years } = this.props;
-    let chart = this.props.location.query.chart;
-
-    if (!chart) {
-      chart = "bar";
-    }
+    const { year, years, chartType } = this.props;
 
     return (
       <div className={style.Filters}>
@@ -77,13 +74,22 @@ export class CommonFilters extends React.Component<FiltersProps & DispatchProps,
           <div className={style.chart_type}>
             <div className={style.title}>Tip vizualizare</div>
             <div className={style.chart_options}>
-              {this.selectChartButton("bar", ChartIcon, chart)}
-              {this.selectChartButton("scatter", ScatterChartIcon, chart)}
+              {this.chartButton()}
+              {this.selectChartButton("bar", ChartIcon, chartType)}
+              {this.selectChartButton("scatter", ScatterChartIcon, chartType)}
             </div>
           </div>
         </div>
       </div>
     );
+  }
+
+  private chartButton() {
+    if (!this.props.showMapIcon) {
+      return null;
+    }
+
+    return this.selectChartButton("map", MapIcon, this.props.chartType);
   }
 
   private renderCategoryDropdown(): JSX.Element | null {

@@ -18,6 +18,17 @@ export const paramIndicatorId = (state) => parseIndicatorId(state.routing.locati
 const paramAdminTypeId = (state) => parseAdminTypeId(state.routing.locationBeforeTransitions.pathname);
 export const paramCategoryId = (state) => parseInt(state.routing.locationBeforeTransitions.query.category_id, 10) || 0;
 export const paramYear = (state) => parseInt(state.routing.locationBeforeTransitions.query.year, 10) || 0;
+export const chart = (state) => state.routing.locationBeforeTransitions.query.chart;
+
+export const paramChart = createSelector(
+  paramAdminTypeId, chart,
+  (adminTypeId, chart) => {
+    if (!chart) {
+      return adminTypeId === ADMIN_TYPE_COUNTIES ? "map" : "bar";
+    } else {
+      return chart;
+    }
+});
 
 export const indicators = createSelector(
   areIndicatorsLoaded, indicatorsState,
