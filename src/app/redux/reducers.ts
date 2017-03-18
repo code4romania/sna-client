@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { ApplicationState } from './application_state';
 import Action = Redux.Action;
+import {selectedCountiesReducer} from "./modules/filters/selected_counties";
 
 const { reducer } = require('redux-connect');
 
@@ -22,7 +23,7 @@ export function checkboxGroupReducer(state: Set<number>, action: Action): Set<nu
 const rootReducer: Redux.Reducer<ApplicationState> = combineReducers<ApplicationState>({
   routing: routerReducer,
   reduxAsyncConnect: reducer,
-  selectedCounties: checkboxGroupReducer,
+  selectedCounties: selectedCountiesReducer,
   selectedMinistries: checkboxGroupReducer,
 });
 

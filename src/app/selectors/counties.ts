@@ -4,7 +4,7 @@ import {createSelector} from "reselect";
 import {areCountiesStatsLoaded, currentCategory, currentYearStr, cstats, paramIndicatorId} from "./index";
 import {Map} from "immutable";
 
-const selectedCounties = (state: ApplicationState) => state.selectedCounties;
+export const selectedCounties = (state: ApplicationState) => state.selectedCounties;
 export const countiesFilterData = createSelector(
   selectedCounties,
   (selected) => COUNTIES.map((c) => ({checked: selected.has(c.id), label: c.name, value: c.id})),

@@ -2,6 +2,11 @@
   & .main {
     padding: 40px 65px;
 
+    & .selectAll {
+      font-weight: bold;
+    }
+
+    /* Map content */
     & .legendRow {
       display: flex;
       align-items: center;

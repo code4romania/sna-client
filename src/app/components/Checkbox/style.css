@@ -4,6 +4,8 @@
   cursor: pointer;
   display: block;
   line-height: 30px;
+  font-weight: normal;
+  color: #0D2B3E;
   margin: 0 var(--default-margin);
 }
 

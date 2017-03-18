@@ -13,7 +13,6 @@ interface IProps {
 export const Checkbox = (props: IProps) => {
   const handleClick = () => {
     const option = { ...props, checked: !props.checked };
-    console.log(option);
     props.onChange(option);
   };
 
@@ -24,6 +23,7 @@ export const Checkbox = (props: IProps) => {
         type="checkbox"
         name={props.name}
         checked={props.checked}
+        onChange={handleClick}
         value={props.value} />
       <span className={style.CheckboxIcon} />
       <span className={style.CheckboxLabel}>{props.label}</span>
