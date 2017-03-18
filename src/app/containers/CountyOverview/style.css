@@ -1,9 +1,35 @@
+@import "../../style/variables.css";
+
 .CountyOverview {
   & .main {
     padding: 40px 65px;
 
+    & .countyFilter {
+      background-color: var(--grey-light);
+      padding-left: 31px;
+      padding-top: 20px;
+    }
+
     & .selectAll {
-      font-weight: bold;
+      & :global(.checkbox_label) {
+        font-weight: bold;
+      }
+
+      padding-bottom: 15px;
+      border-bottom: 1px solid #EBF0F2;
+      margin-right: 15px;
+    }
+
+    & .select_one_txt {
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-family: Roboto-Slab;
+      font-size: 16px;
+      color: #93A6B1;
+    }
+
+    & .chart {
+      margin-left: -20px;
     }
 
     /* Map content */

@@ -113,7 +113,7 @@ export class CountyOverview extends React.Component<Props & DispatchProps, any> 
               <Checkbox value="0" label="Afișează toate județele" checked={this.props.selectedCounties.size === 0}
                         onChange={this.onSelectAll.bind(this)} />
             </div>
-            <div>Sau afișează doar județele...</div>
+            <div className={style.select_one_txt}>Sau afișează doar județele...</div>
             <CheckboxGroup
               options={this.props.countiesFilterData}
               columns={2}
@@ -122,7 +122,7 @@ export class CountyOverview extends React.Component<Props & DispatchProps, any> 
         </div>
         <div className="col-md-7">
           <div className={style.title}>Număr sesizări</div>
-          <div>
+          <div className={style.chart}>
             {this.chartElement()}
           </div>
         </div>

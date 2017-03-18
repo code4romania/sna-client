@@ -4,6 +4,10 @@ body, html, main {
   height: 100vh;
 }
 
+label {
+  margin: 0;
+}
+
 a:hover {
   text-decoration: none;
 }

@@ -3,10 +3,9 @@
 .Checkbox {
   cursor: pointer;
   display: block;
-  line-height: 30px;
+  line-height: 25px;
   font-weight: normal;
   color: #0D2B3E;
-  margin: 0 var(--default-margin);
 }
 
 .CheckboxInput {
@@ -39,5 +38,5 @@
 
 .CheckboxLabel {
   display: inline-block;
-  line-height: 30px;
+  /*line-height: 30px;*/
 }
