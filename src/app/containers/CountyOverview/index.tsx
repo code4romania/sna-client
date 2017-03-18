@@ -80,7 +80,7 @@ export class CountyOverview extends React.Component<Props, any> {
     return legend.map((elem) => {
       const color = elem[0];
       const range  = elem[1];
-      return (<div className={style.legendRow}>
+      return (<div key={range} className={style.legendRow}>
         <span className={style.legendBox} style={{backgroundColor: color}} />
         <span className={style.legendLabel}>{range}</span>
       </div>);
