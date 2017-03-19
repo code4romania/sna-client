@@ -7,18 +7,18 @@ import {push} from "react-router-redux";
 import {DropdownButton} from "react-bootstrap";
 import {MenuItem} from "react-bootstrap";
 import {ChartIcon, MapIcon, ScatterChartIcon} from "../ChartIcon/index";
-import ReactBootstrapSlider from "react-bootstrap-slider";
 import {MyLocation} from "../../helpers/url_helper";
 import {loadIndicatorsConfig} from "../../redux/modules/indicator/index";
 import {ApplicationState} from "../../redux/application_state";
 import {
-  areIndicatorsLoaded, currentIndicatorTitle, currentIndicator, currentCategory,
-  currentYear, years, paramChart,
+  areIndicatorsLoaded, currentIndicatorTitle, currentIndicator, currentCategory, paramChart,
 } from "../../selectors/index";
 import {Indicator, Category} from "../../models/indicator";
 import {ChartType} from "../../containers/MinistryOverview/index";
+import {YearFilters} from "./year_filter";
+import {commonStyle} from "../../containers/Html/index";
 
-const style = require('./style.css');
+export const filterStyle = require('./style.css');
 
 export const PASSIVE_COLOR = "#A5B3BB";
 
@@ -34,7 +34,7 @@ interface FiltersProps {
   chartType?: ChartType;
 }
 
-interface DispatchProps {
+export interface DispatchProps {
   onAction?: (action: Redux.Action) => void;
 }
 @asyncConnect([
@@ -46,34 +46,26 @@ interface DispatchProps {
     indicatorTitle: currentIndicatorTitle(state),
     indicator: currentIndicator(state),
     category: currentCategory(state),
-    year: currentYear(state),
-    years: years(state),
     chartType: paramChart(state),
   }),
   (dispatch: Dispatch<ApplicationState>) => ({ onAction: dispatch }),
 )
 export class CommonFilters extends React.Component<FiltersProps & DispatchProps, any> {
   public render() {
-    const { year, years, chartType } = this.props;
+    const { chartType } = this.props;
 
     return (
-      <div className={style.Filters}>
-        <div className={style.category}>
-          <div className={style.title}>Indicator vizualizat</div>
+      <div className={filterStyle.Filters}>
+        <div className={filterStyle.category}>
+          <div className={commonStyle.title}>Indicator vizualizat</div>
           {this.renderCategoryDropdown()}
         </div>
 
-        <div className={style.params}>
-          <div className={style.year_slider}>
-            <div className={style.title}>Anul afișat</div>
-            <ReactBootstrapSlider min={years.first()} max={years.last()} tooltip="hide"
-                                  ticks={years.toArray()}
-                                  ticks_labels={years.toArray()}
-                                  handleChange={this.fireChangeYear.bind(this)} value={year} />
-          </div>
-          <div className={style.chart_type}>
-            <div className={style.title}>Tip vizualizare</div>
-            <div className={style.chart_options}>
+        <div className={filterStyle.params}>
+          <YearFilters location={this.props.location} />
+          <div className={filterStyle.chart_type}>
+            <div className={commonStyle.title}>Tip vizualizare</div>
+            <div className={filterStyle.chart_options}>
               {this.chartButton()}
               {this.selectChartButton("bar", ChartIcon, chartType)}
               {this.selectChartButton("scatter", ScatterChartIcon, chartType)}
@@ -105,7 +97,7 @@ export class CommonFilters extends React.Component<FiltersProps & DispatchProps,
 
     return (
       <DropdownButton
-        className={style.select_category}
+        className={filterStyle.select_category}
         id="ind_category" title={category.name}
         onSelect={this.fireChangeCategory.bind(this)}>
         {otherCategories.map((c) => <MenuItem key={c.id.toString()} eventKey={c.id}>{c.name}</MenuItem>)}
@@ -116,7 +108,7 @@ export class CommonFilters extends React.Component<FiltersProps & DispatchProps,
   private selectChartButton(chartType: ChartType, Icon: any, selectedType: ChartType) {
     return (
       <button key={chartType} onClick={this.fireChangeChart.bind(this)} data-chart={chartType}
-              className={`${style.button} ${selectedType === chartType ? style.active : ""}`}>
+              className={`${filterStyle.button} ${selectedType === chartType ? filterStyle.active : ""}`}>
         <Icon color={selectedType !== chartType ? PASSIVE_COLOR : null} />
       </button>
     );
@@ -131,11 +123,6 @@ export class CommonFilters extends React.Component<FiltersProps & DispatchProps,
     }
 
     this.props.onAction(push({pathname, query: {...query, chart}}));
-  }
-
-  private fireChangeYear(event: any) {
-    const {query, pathname} = this.props.location;
-    this.props.onAction(push({pathname, query: {...query, year: event.target.value}}));
   }
 
   private fireChangeCategory(eventKey: number) {
