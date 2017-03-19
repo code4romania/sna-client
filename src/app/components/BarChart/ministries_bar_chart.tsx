@@ -28,7 +28,7 @@ export class MinistryBarChart extends React.Component<Props, any> {
       <BarChart width={700} height={data.length * 45} data={data}
                 layout="vertical"
                 maxBarSize={250}
-                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                margin={{top: 5, right: 0, left: 0, bottom: 5}}>
         <XAxis type="number" hide={true}/>
         <YAxis type="category" dataKey="name" hide={true} />
         {/*<CartesianGrid strokeDasharray="3 3"/>*/}
