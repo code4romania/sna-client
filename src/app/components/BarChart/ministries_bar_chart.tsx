@@ -6,21 +6,21 @@ import {areMinistriesStatsLoaded, ministryBarChartData} from "../../selectors/in
 const { connect } = require('react-redux');
 
 interface Props {
-  areMinistriesStatsLoaded?: boolean;
+  areStatsLoaded?: boolean;
   data?: any;
 }
 
 @connect(
   (state: ApplicationState): Props => ({
-    areMinistriesStatsLoaded: areMinistriesStatsLoaded(state),
+    areStatsLoaded: areMinistriesStatsLoaded(state),
     data: ministryBarChartData(state),
   }),
 )
 export class MinistryBarChart extends React.Component<Props, any> {
   public render(): JSX.Element {
-    const {data, areMinistriesStatsLoaded} = this.props;
+    const {data, areStatsLoaded} = this.props;
 
-    if (!areMinistriesStatsLoaded) {
+    if (!areStatsLoaded) {
       return <noscript/>;
     }
 

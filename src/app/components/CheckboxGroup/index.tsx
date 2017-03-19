@@ -3,14 +3,20 @@ import {Checkbox} from '../Checkbox/index';
 
 const s = require('./style.css');
 
+export interface CheckBoxOptions {
+  checked: boolean;
+  label: string;
+  value: any;
+}
+
 interface IProps {
-  options: Array<{ checked: boolean, label: string, value: any }>;
+  options: CheckBoxOptions[];
   columns: number;
   onChange(option: any): void;
 }
 
-const renderColumn = (column, props) => {
-  const itemsPerColumn = Math.ceil(props.props.options.length / props.columns);
+const renderColumn = (column: number, props: IProps) => {
+  const itemsPerColumn = Math.ceil(props.options.length / props.columns);
   const bootstrapClass = "col-md-".concat((12 / props.columns).toString());
   const htmlOptions = [];
   for (let i = (column - 1) * itemsPerColumn; i < column * itemsPerColumn; i++) {

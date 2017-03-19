@@ -20,3 +20,4 @@ createIfDoesntExist('./build/public/data');
 copySync('./src/favicon.ico', './build/public/favicon.ico', true);
 copySync('./data/indicators.json', './build/public/data/indicators.json', true);
 copySync('./data/ministries_stats.json', './build/public/data/ministries_stats.json', true);
+copySync('./data/counties_stats.json', './build/public/data/counties_stats.json', true);

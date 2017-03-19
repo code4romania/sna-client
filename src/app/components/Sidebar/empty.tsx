@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {Link} from 'react-router';
 import {BackLink} from '../BackLink/index';
-import {MyLocation, selAdminPath, RouterParams, ireportPath} from '../../helpers/url_helper';
+import {MyLocation, selAdminPath, RouteParams, ireportPath} from '../../helpers/url_helper';
 import {ChartIcon} from '../ChartIcon/index';
 
 const style = require('./style.css');
 
 interface Props {
-  params: RouterParams;
+  params: RouteParams;
   location?: MyLocation;
 }
 

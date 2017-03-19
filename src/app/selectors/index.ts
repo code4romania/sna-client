@@ -1,18 +1,34 @@
 import {List, Map, OrderedSet, OrderedMap} from "immutable";
 import {createSelector} from "reselect";
-import {isContentLoaded, MStatEntry, MStats, ApplicationState} from "../redux/application_state";
+import {isContentLoaded, MStatEntry, MStats, ApplicationState, CStats} from "../redux/application_state";
 import {Indicator} from "../models/indicator";
-import {parseIndicatorId} from "../helpers/url_helper";
+import {parseIndicatorId, parseAdminTypeId, ADMIN_TYPE_COUNTIES} from "../helpers/url_helper";
 import {Ministry} from "../models/ministry";
 
 export const areIndicatorsLoaded = (state) => isContentLoaded(state.reduxAsyncConnect.loadState.indicators);
 export const areMinistriesStatsLoaded = (state) => isContentLoaded(state.reduxAsyncConnect.loadState.ministriesStats);
-const indicatorsState = (state) => List(state.reduxAsyncConnect.indicators);
-const mstatsData = (state: ApplicationState): MStats => state.reduxAsyncConnect.ministriesStats;
+export const areCountiesStatsLoaded = (state) => isContentLoaded(state.reduxAsyncConnect.loadState.countiesStats);
 
-const paramIndicatorId = (state) => parseIndicatorId(state.routing.locationBeforeTransitions.pathname);
+const indicatorsState = (state) => List(state.reduxAsyncConnect.indicators);
+
+const mstatsData = (state: ApplicationState): MStats => state.reduxAsyncConnect.ministriesStats;
+const cstatsData = (state: ApplicationState): CStats => state.reduxAsyncConnect.countiesStats;
+
+export const paramIndicatorId = (state) => parseIndicatorId(state.routing.locationBeforeTransitions.pathname);
+const paramAdminTypeId = (state) => parseAdminTypeId(state.routing.locationBeforeTransitions.pathname);
 export const paramCategoryId = (state) => parseInt(state.routing.locationBeforeTransitions.query.category_id, 10) || 0;
 export const paramYear = (state) => parseInt(state.routing.locationBeforeTransitions.query.year, 10) || 0;
+export const chart = (state) => state.routing.locationBeforeTransitions.query.chart;
+
+export const paramChart = createSelector(
+  paramAdminTypeId, chart,
+  (adminTypeId, chart) => {
+    if (!chart) {
+      return adminTypeId === ADMIN_TYPE_COUNTIES ? "map" : "bar";
+    } else {
+      return chart;
+    }
+});
 
 export const indicators = createSelector(
   areIndicatorsLoaded, indicatorsState,
@@ -41,10 +57,18 @@ const mstats = createSelector(
   (loaded, data: MStats) => List(loaded ? data.stats : []),
 );
 
+export const cstats = createSelector(
+  areCountiesStatsLoaded, cstatsData,
+  (loaded, data: CStats) => List(loaded ? data.stats : []),
+);
+
 export const years = createSelector(
-  areMinistriesStatsLoaded, mstats,
-  (loaded, rows: List<MStatEntry>): OrderedSet<number> => {
+  paramAdminTypeId, areMinistriesStatsLoaded, areCountiesStatsLoaded, mstats, cstats,
+  (adminTypeId, mLoaded, cLoaded, mRows: List<MStatEntry>, cRows): OrderedSet<number> => {
+    const loaded = adminTypeId === ADMIN_TYPE_COUNTIES ? cLoaded : mLoaded;
+
     if (loaded) {
+      const rows = adminTypeId === ADMIN_TYPE_COUNTIES ? cRows : mRows;
       return rows.flatMap(
         (e) => Object.keys(e.v).map((y) => parseInt(y, 10)),
       ).toOrderedSet() as OrderedSet<number>;
@@ -65,6 +89,11 @@ export const currentYear = createSelector(
   },
 );
 
+export const currentYearStr = createSelector(
+  currentYear,
+  (y) => y.toString(),
+);
+
 export const ministries = createSelector(
   areMinistriesStatsLoaded, mstatsData,
   (loaded, data): OrderedMap<number, Ministry> => {
@@ -74,11 +103,6 @@ export const ministries = createSelector(
       return OrderedMap<number, Ministry>([]);
     }
   },
-);
-
-export const currentYearStr = createSelector(
-  currentYear,
-  (y) => y.toString(),
 );
 
 export const ministryBarChartData = createSelector(

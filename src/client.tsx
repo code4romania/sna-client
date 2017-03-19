@@ -1,3 +1,4 @@
+import {Set} from "immutable";
 import * as e6p from 'es6-promise';
 (e6p as any).polyfill();
 import 'isomorphic-fetch';
@@ -14,7 +15,10 @@ import routes from './app/routes';
 
 const store = configureStore(
   browserHistory,
-  window.__INITIAL_STATE__,
+  {...window.__INITIAL_STATE__,
+    selectedCounties: Set<number>(),
+    selectedMinistries: Set<number>(),
+  },
 );
 const history = syncHistoryWithStore(browserHistory, store);
 const connectedCmp = (props) => <ReduxAsyncConnect {...props} />;
