@@ -2,21 +2,21 @@ import * as React from 'react';
 import {Set} from "immutable";
 import {Dispatch} from "react-redux";
 import {ContentHeader} from '../../components/ContentHeader/index';
-import {CommonFilters} from "../../components/Section/filters";
+import {CommonFilters, DispatchProps} from "../../components/Section/filters";
 import {MyLocation, RouteParams} from "../../helpers/url_helper";
 import {loadIndicatorsConfig} from "../../redux/modules/indicator/index";
 import {ApplicationState} from "../../redux/application_state";
 import {currentIndicatorTitle, areCountiesStatsLoaded, paramChart} from "../../selectors/index";
 import {loadCountiesStatsConfig} from "../../redux/modules/stats/index";
-import {CheckboxGroup, CheckBoxOptions} from "../../components/CheckboxGroup/index";
+import {CheckBoxOptions} from "../../components/CheckboxGroup/index";
 import {MapChart} from "../../components/MapChart/index";
 import {ChartType} from "../MinistryOverview/index";
 import {countyMapChartData, countiesFilterData, selectedCounties} from "../../selectors/counties";
 import {CountyColorMap} from "../../components/RomaniaMap/index";
-import {Checkbox} from "../../components/Checkbox/index";
 import {reset, selectCounty, deselectCounty} from "../../redux/modules/filters/selected_counties";
 import {CountyBarChart} from "../../components/BarChart/counties_bar_chart";
 import {CountiesScatterChart} from "../../components/ScatterChart/counties_scatter_chart";
+import {AdminFilter} from "./admin_filter";
 const { asyncConnect } = require('redux-connect');
 const { connect } = require('react-redux');
 
@@ -31,10 +31,6 @@ interface Props {
   countiesFilterData?: CheckBoxOptions[];
   mapData?: {colorMap: CountyColorMap, legend: string[][]};
   chartType?: ChartType;
-}
-
-interface DispatchProps {
-  onAction?: (action: Redux.Action) => void;
 }
 
 @asyncConnect([
@@ -109,17 +105,10 @@ export class CountyOverview extends React.Component<Props & DispatchProps, any> 
       <div className="row">
         <div className="col-md-5">
           <div className={style.title}>Date afișate</div>
-          <div className={style.countyFilter}>
-            <div className={style.selectAll}>
-              <Checkbox value="0" label="Afișează toate județele" checked={this.props.selectedCounties.size === 0}
-                        onChange={this.onSelectAll.bind(this)} />
-            </div>
-            <div className={style.select_one_txt}>Sau afișează doar județele...</div>
-            <CheckboxGroup
-              options={this.props.countiesFilterData}
-              columns={2}
-              onChange={this.onSelectCounty.bind(this)} />
-          </div>
+          <AdminFilter type="județele" areAllChecked={this.props.selectedCounties.size === 0} columns={2}
+                       data={this.props.countiesFilterData}
+                       onSelectOne={this.onSelectCounty.bind(this)}
+                       onSelectAll={this.onSelectAll.bind(this)} />
         </div>
         <div className="col-md-7">
           <div className={style.title}>Număr sesizări</div>

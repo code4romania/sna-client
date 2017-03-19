@@ -94,6 +94,8 @@ export const currentYearStr = createSelector(
   (y) => y.toString(),
 );
 
+export const selectedMinistries = (state: ApplicationState) => state.selectedMinistries;
+
 export const ministries = createSelector(
   areMinistriesStatsLoaded, mstatsData,
   (loaded, data): OrderedMap<number, Ministry> => {
@@ -105,14 +107,24 @@ export const ministries = createSelector(
   },
 );
 
+export const ministriesFilterData = createSelector(
+  areMinistriesStatsLoaded, mstatsData, selectedMinistries,
+  (loaded, data, selected) => (
+    loaded ? data.ministries.map((m) => ({checked: selected.has(m.id), label: m.name, value: m.id})) : []
+  ),
+);
+
 export const ministryBarChartData = createSelector(
-  areMinistriesStatsLoaded, paramIndicatorId, currentCategory, currentYearStr, mstats, ministries,
-  (loaded, indId, category, year, rows: List<MStatEntry>, ministries: OrderedMap<number, Ministry>) => {
+  areMinistriesStatsLoaded, paramIndicatorId, currentCategory, currentYearStr, mstats, ministries, selectedMinistries,
+  (loaded, indId, category, year, rows: List<MStatEntry>, ministries: OrderedMap<number, Ministry>, selectedIds) => {
     if (!loaded || !category) {
       return [];
     }
 
-    const entries = rows.filter((item) => item.i_id === indId && item.c_id === category.id);
+    const all = selectedIds.size === 0;
+
+    const entries = rows.filter((item) => item.i_id === indId &&
+      item.c_id === category.id && (all || selectedIds.has(item.m_id)));
     return entries.map((entry) => ({name: ministries.get(entry.m_id).name, value: entry.v[year]})).toArray()
       .sort((a, b) => -1 * (a.value - b.value));
   },
@@ -132,14 +144,17 @@ const employeeStats = createSelector(
 // data [{x:"employeeCount",y: 'statValue',z: "MinistryName"}]
 export const ministriesScatterChartData = createSelector(
   areMinistriesStatsLoaded, paramIndicatorId, currentCategory, currentYear, mstats, ministries, employeeStats,
+  selectedMinistries,
   (loaded, indId, category, year, rows: List<MStatEntry>, ministries: OrderedMap<number, Ministry>,
-   estats: Map<number, number>) => {
+   estats: Map<number, number>, selectedIds) => {
     if (!loaded || !category) {
       return [];
     }
+    const all = selectedIds.size === 0;
 
     const y = year.toString();
-    const entries = rows.filter((item) => item.i_id === indId && item.c_id === category.id);
+    const entries = rows.filter((item) => item.i_id === indId && item.c_id === category.id &&
+      (all || selectedIds.has(item.m_id)));
     return entries.map((entry) => (
       {z: ministries.get(entry.m_id).name, x: estats.get(entry.m_id), y: entry.v[y]}
     )).toArray();
