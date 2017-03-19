@@ -1,16 +1,22 @@
 import * as React from 'react';
+import {Set} from "immutable";
+import {Dispatch} from "react-redux";
 import {ContentHeader} from '../../components/ContentHeader/index';
-import {CommonFilters} from "../../components/Section/filters";
+import {CommonFilters, DispatchProps} from "../../components/Section/filters";
 import {MyLocation, RouteParams} from "../../helpers/url_helper";
 import {loadIndicatorsConfig} from "../../redux/modules/indicator/index";
 import {ApplicationState} from "../../redux/application_state";
 import {currentIndicatorTitle, areCountiesStatsLoaded, paramChart} from "../../selectors/index";
 import {loadCountiesStatsConfig} from "../../redux/modules/stats/index";
-import {CheckboxGroup, CheckBoxOptions} from "../../components/CheckboxGroup/index";
+import {CheckBoxOptions} from "../../components/CheckboxGroup/index";
 import {MapChart} from "../../components/MapChart/index";
 import {ChartType} from "../MinistryOverview/index";
-import {countyMapChartData, countiesFilterData} from "../../selectors/counties";
+import {countyMapChartData, countiesFilterData, selectedCounties} from "../../selectors/counties";
 import {CountyColorMap} from "../../components/RomaniaMap/index";
+import {reset, selectCounty, deselectCounty} from "../../redux/modules/filters/selected_counties";
+import {CountyBarChart} from "../../components/BarChart/counties_bar_chart";
+import {CountiesScatterChart} from "../../components/ScatterChart/counties_scatter_chart";
+import {AdminFilter} from "./admin_filter";
 const { asyncConnect } = require('redux-connect');
 const { connect } = require('react-redux');
 
@@ -21,6 +27,7 @@ interface Props {
   indicatorTitle?: string;
   params?: RouteParams;
   location?: MyLocation;
+  selectedCounties: Set<number>;
   countiesFilterData?: CheckBoxOptions[];
   mapData?: {colorMap: CountyColorMap, legend: string[][]};
   chartType?: ChartType;
@@ -34,11 +41,13 @@ interface Props {
     areStatsLoaded: areCountiesStatsLoaded(state),
     indicatorTitle: currentIndicatorTitle(state),
     countiesFilterData: countiesFilterData(state),
+    selectedCounties: selectedCounties(state),
     mapData: countyMapChartData(state),
     chartType: paramChart(state),
   }),
+  (dispatch: Dispatch<ApplicationState>) => ({ onAction: dispatch }),
 )
-export class CountyOverview extends React.Component<Props, any> {
+export class CountyOverview extends React.Component<Props & DispatchProps, any> {
   public render(): JSX.Element {
     return (
       <div className={style.CountyOverview}>
@@ -92,29 +101,35 @@ export class CountyOverview extends React.Component<Props, any> {
       return null;
     }
 
-    const handleToogleCounty = (option) => {
-      console.log(option);
-    };
-
     return (
       <div className="row">
         <div className="col-md-5">
           <div className={style.title}>Date afișate</div>
-          <div>
-            <CheckboxGroup
-              options={this.props.countiesFilterData}
-              columns={2}
-              onChange={handleToogleCounty} />
-          </div>
+          <AdminFilter type="județele" areAllChecked={this.props.selectedCounties.size === 0} columns={2}
+                       data={this.props.countiesFilterData}
+                       onSelectOne={this.onSelectCounty.bind(this)}
+                       onSelectAll={this.onSelectAll.bind(this)} />
         </div>
         <div className="col-md-7">
           <div className={style.title}>Număr sesizări</div>
-          <div>
+          <div className={style.chart}>
             {this.chartElement()}
           </div>
         </div>
       </div>
     );
+  }
+
+  private onSelectAll() {
+    this.props.onAction(reset());
+  }
+
+  private onSelectCounty(option: CheckBoxOptions) {
+    if (option.checked) {
+      this.props.onAction(selectCounty(option.value));
+    } else {
+      this.props.onAction(deselectCounty(option.value));
+    }
   }
 
   private chartElement(): JSX.Element {
@@ -123,11 +138,9 @@ export class CountyOverview extends React.Component<Props, any> {
     }
 
     if (this.props.chartType === "bar") {
-      return <div>TODO</div>;
-      // return <CountiesBarChart />;
+      return <CountyBarChart />;
     } else {
-      return <div>TODO</div>;
-      {/*return <CountiesScatterChart />;*/}
+      return <CountiesScatterChart />;
     }
   }
 }

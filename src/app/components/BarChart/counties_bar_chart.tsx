@@ -2,7 +2,8 @@ import * as React from 'react';
 import {Bar, Tooltip, YAxis, XAxis, BarChart} from "recharts";
 import {BarLabel} from "../BarLabel/index";
 import {ApplicationState} from "../../redux/application_state";
-import {areMinistriesStatsLoaded, ministryBarChartData} from "../../selectors/index";
+import {countyBarChartData} from "../../selectors/counties";
+import {areCountiesStatsLoaded} from "../../selectors/index";
 const { connect } = require('react-redux');
 
 interface Props {
@@ -12,11 +13,11 @@ interface Props {
 
 @connect(
   (state: ApplicationState): Props => ({
-    areStatsLoaded: areMinistriesStatsLoaded(state),
-    data: ministryBarChartData(state),
+    areStatsLoaded: areCountiesStatsLoaded(state),
+    data: countyBarChartData(state),
   }),
 )
-export class MinistryBarChart extends React.Component<Props, any> {
+export class CountyBarChart extends React.Component<Props, any> {
   public render(): JSX.Element {
     const {data, areStatsLoaded} = this.props;
 
@@ -25,16 +26,16 @@ export class MinistryBarChart extends React.Component<Props, any> {
     }
 
     return (
-      <BarChart width={700} height={data.length * 45} data={data}
+      <BarChart width={500} height={data.length * 25} data={data}
                 layout="vertical"
                 maxBarSize={250}
-                margin={{top: 5, right: 100, left: 0, bottom: 5}}>
+                margin={{top: 5, right: 0, left: 0, bottom: 5}}>
         <XAxis type="number" hide={true}/>
         <YAxis type="category" dataKey="name" hide={true} />
         {/*<CartesianGrid strokeDasharray="3 3"/>*/}
         <Tooltip/>
         {/*<Legend />*/}
-        <Bar dataKey="value" fill="#4990E2" label={<BarLabel />} name="numar de sesizări"/>
+        <Bar dataKey="value" fill="#4990E2" label={<BarLabel />} name="număr de sesizări"/>
       </BarChart>
     );
   }

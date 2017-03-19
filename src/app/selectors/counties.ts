@@ -1,10 +1,13 @@
 import {COUNTIES} from "../components/Sidebar/counties_sidebar";
-import {ApplicationState} from "../redux/application_state";
+import {ApplicationState, MStatEntry} from "../redux/application_state";
 import {createSelector} from "reselect";
-import {areCountiesStatsLoaded, currentCategory, currentYearStr, cstats, paramIndicatorId} from "./index";
-import {Map} from "immutable";
+import {
+  areCountiesStatsLoaded, currentCategory, currentYearStr, cstats, paramIndicatorId, currentYear,
+  cstatsData,
+} from "./index";
+import {Map, List} from "immutable";
 
-const selectedCounties = (state: ApplicationState) => state.selectedCounties;
+export const selectedCounties = (state: ApplicationState) => state.selectedCounties;
 export const countiesFilterData = createSelector(
   selectedCounties,
   (selected) => COUNTIES.map((c) => ({checked: selected.has(c.id), label: c.name, value: c.id})),
@@ -37,5 +40,55 @@ export const countyMapChartData = createSelector(
       })).toJS(),
       legend: legendMap,
     };
+  },
+);
+
+const countiesMap = Map<number, string>(COUNTIES.map((c) => [c.id, c.name]));
+
+// [{name:string,value:number}]
+export const countyBarChartData = createSelector(
+  areCountiesStatsLoaded, paramIndicatorId, currentCategory, currentYearStr, cstats, selectedCounties,
+  (loaded, indId, category, year, rows, selectedIds) => {
+
+    if (!loaded || !category) {
+      return [];
+    }
+
+    const all = selectedIds.size === 0;
+    const entries = rows.filter((item) => (
+      item.i_id === indId && item.c_id === category.id && (all || selectedIds.has(item.m_id))
+    ));
+    return entries.map((entry) => ({name: countiesMap.get(entry.m_id), value: entry.v[year]})).toArray()
+      .sort((a, b) => -1 * (a.value - b.value));
+  },
+);
+
+const populationStats = createSelector(
+  areCountiesStatsLoaded, cstatsData, currentYearStr,
+  (loaded, data, year) => {
+    if (!loaded) {
+      return Map();
+    }
+
+    return Map<number, number>(data.population.map((e) => [e.m_id, e.v[year]]));
+  },
+);
+
+// data [{x:"populationCount", y: 'statValue', z: "CountyName"}]
+export const countiesScatterChartData = createSelector(
+  areCountiesStatsLoaded, paramIndicatorId, currentCategory, currentYear, cstats, populationStats, selectedCounties,
+  (loaded, indId, category, year, rows: List<MStatEntry>, population: Map<number, number>, selectedIds) => {
+    if (!loaded || !category) {
+      return [];
+    }
+
+    const all = selectedIds.size === 0;
+    const y = year.toString();
+    const entries = rows.filter((item) => (
+      item.i_id === indId && item.c_id === category.id && (all || selectedIds.has(item.m_id))
+    ));
+    return entries.map((entry) => (
+      {z: countiesMap.get(entry.m_id), x: population.get(entry.m_id), y: entry.v[y]}
+    )).toArray();
   },
 );

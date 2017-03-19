@@ -1,11 +1,6 @@
 .Filters {
   text-align: left;
 
-  & .title {
-    font-size: 15px;
-    color: #0D2B3E;
-  }
-
   & .category {
     & :global(.dropdown) {
       width: 100%;
