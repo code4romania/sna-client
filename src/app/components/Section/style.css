@@ -1,3 +1,33 @@
+.box {
+  background: #FFFFFF;
+  border: 1px solid #EBF0F2;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.04);
+}
+
+.year_slider {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+
+  & :global(.slider.slider-horizontal) {
+    width: 100%;
+    margin-left: 15px;
+
+    & :global(.slider-selection) {
+      background-image: none;
+      box-shadow: none;
+    }
+  }
+
+  & :global(.slider-tick) {
+    cursor: pointer;
+  }
+
+  & :global(.slider-tick.in-selection) {
+    background-image: linear-gradient(to bottom, #f9f9f9 0, #f5f5f5 100%);
+  }
+}
+
 .Filters {
   text-align: left;
 
@@ -28,33 +58,15 @@
     margin: 45px 0;
     display: flex;
     justify-content: space-between;
+
+    & .year_slider {
+      width: 44%;
+    }
   }
 
   & .year_slider, & .chart_type, & .chart_display {
     display: flex;
     flex-direction: column;
-  }
-
-  & .year_slider {
-    width: 44%;
-
-    & :global(.slider.slider-horizontal) {
-      width: 100%;
-      margin-left: 15px;
-
-      & :global(.slider-selection) {
-        background-image: none;
-        box-shadow: none;
-      }
-    }
-
-    & :global(.slider-tick) {
-      cursor: pointer;
-    }
-
-    & :global(.slider-tick.in-selection) {
-      background-image: linear-gradient(to bottom, #f9f9f9 0, #f5f5f5 100%);
-    }
   }
 
   & .chart_type {

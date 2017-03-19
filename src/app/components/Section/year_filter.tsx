@@ -7,13 +7,14 @@ import {DispatchProps, filterStyle} from "./filters";
 import {ApplicationState} from "../../redux/application_state";
 import {currentYear, years} from "../../selectors/index";
 import {OrderedSet} from "immutable";
-import {commonStyle} from "../../containers/Html/index";
 import {MyLocation} from "../../helpers/url_helper";
+import {commonStyle} from "../../containers/App/index";
 
 interface YearFiltersProps {
   location: MyLocation;
   year?: number;
   years?: OrderedSet<number>;
+  disabled?: boolean;
 }
 
 @connect(
@@ -30,9 +31,10 @@ export class YearFilters extends React.Component<YearFiltersProps & DispatchProp
 
     return (
       <div className={filterStyle.year_slider}>
-        <div className={commonStyle.title}>Anul afișat</div>
+        <div className={`slider-title ${commonStyle.title}`}>Anul afișat</div>
         <ReactBootstrapSlider min={years.first()} max={years.last()} tooltip="hide"
                               ticks={years.toArray()}
+                              disabled={this.props.disabled ? "disabled" : ""}
                               ticks_labels={years.toArray()}
                               handleChange={this.fireChangeYear.bind(this)} value={year} />
       </div>

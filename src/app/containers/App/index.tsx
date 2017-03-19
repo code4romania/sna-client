@@ -7,7 +7,7 @@ import {ApplicationState} from '../../redux/application_state';
 const { connect } = require('react-redux');
 
 const appConfig = require('../../../../config/main');
-const style = require('./style.css');
+export const commonStyle = require('./style.css');
 
 interface AppProps {
   location: Location;
@@ -28,10 +28,10 @@ class App extends React.Component<AppProps, any> {
     }
 
     return (
-      <section className={style.AppContainer}>
+      <section className={commonStyle.AppContainer}>
         <Helmet {...appConfig.app} {...appConfig.app.head}/>
         <Header />
-        <div className={style.body}>
+        <div className={commonStyle.body}>
           {sidebar}
           <Content>
             {main || this.props.children}

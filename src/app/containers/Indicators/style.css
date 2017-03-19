@@ -1,0 +1,10 @@
+.Indicators {
+  & :global(.slider-title) {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  & :global(.filters) {
+    margin-bottom: 30px;
+  }
+}
