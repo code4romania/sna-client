@@ -9,13 +9,15 @@ import {CountiesSidebar} from '../components/Sidebar/counties_sidebar';
 import {EmptySidebar} from '../components/Sidebar/empty';
 import {MinistryOverview} from '../containers/MinistryOverview/index';
 import {CountyOverview} from "../containers/CountyOverview/index";
+import {IndicatorsMain} from "../containers/Indicators/indicators_main";
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute components={{main: Home, sidebar: Sidebar}} />
     <Route path="about" component={About} />
     <Route path="help" component={Help} />
-    <Route path="report/:id/1(/:mid)" components={{main: MinistryOverview, sidebar: MinistriesSidebar}} />
+    <Route path="report/:id/1" components={{main: MinistryOverview, sidebar: MinistriesSidebar}} />
+    <Route path="report/:id/1/:mid" components={{main: IndicatorsMain, sidebar: MinistriesSidebar}} />
     <Route path="report/:id/2(/:mid)" components={{main: Report, sidebar: EmptySidebar}} />
     <Route path="report/:id/3(/:mid)" components={{main: CountyOverview, sidebar: CountiesSidebar}} />
     <Route path="selectAdministration/:id" components={{main: Home, sidebar: AdministationSidebar}} />
