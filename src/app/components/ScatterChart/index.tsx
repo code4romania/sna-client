@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Tooltip, YAxis, ZAxis, XAxis, ScatterChart, Scatter} from "recharts";
 
-const style = require('./style.css');
+export const chartStyle = require('./style.css');
 
 interface Props {
 }
@@ -26,7 +26,7 @@ export const MyTooltip = (props: TooltipProps) => {
 
   const payload = props.payload[0].payload;
   return (
-    <div className={style.Tooltip}>
+    <div className={chartStyle.Tooltip}>
       <div>{payload.z}</div>
       <div>{payload.y} sesizări</div>
     </div>
