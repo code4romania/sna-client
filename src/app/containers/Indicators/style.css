@@ -1,20 +1,86 @@
 .Indicators {
+  & :global(.filters) {
+    margin-bottom: 30px;
+  }
+
   & :global(.slider-title) {
     display: inline-block;
     white-space: nowrap;
   }
 
+  & :global(.top_align) {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  & :global(.big_box), & :global(.small_box) {
+    margin-bottom: 30px;
+
+    & :global(.title) {
+      text-align: center;
+      font-size: 20px;
+      color: #516178;
+      font-family: Roboto Slab;
+      margin-bottom: 10px;
+    }
+
+    & :global(.note) {
+      font-family: Roboto Slab;
+      text-align: center;
+      font-size: 16px;
+      color: #93A6B1;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+  }
+
+  & :global(.big_box):not(:first-child), & :global(.small_box):not(:first-child) {
+    margin-left: 30px;
+  }
+
   & :global(.big_box) {
     width: 576px;
-    margin-right: 30px;
+
+    & :global(.title) {
+      padding: 0 20px;
+    }
   }
 
   & :global(.small_box) {
     width: 274px;
-    margin-right: 30px;
   }
 
-  & :global(.filters) {
-    margin-bottom: 30px;
+  & :global(.two_cols) {
+    display: flex;
+    flex-direction: row;
+
+    & :global(.legend) {
+      font-family: Roboto;
+      font-size: 15px;
+      color: #0D2B3E;
+      letter-spacing: 0;
+      line-height: 16px;
+
+      & :global(.legend_row) {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  & :global(.circle1), & :global(.circle2) {
+    width: 14px;
+    height: 14px;
+    border-radius: 100px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+
+  & :global(.circle1) {
+    background-color: #CFE1F6;
+  }
+
+  & :global(.circle2) {
+    background-color: #A2D7D3;
   }
 }
