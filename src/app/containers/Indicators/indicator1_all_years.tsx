@@ -18,7 +18,7 @@ export class Indicator1AllYears extends React.Component<Props, any> {
               <div className="legend_row"><span className="circle2"/> sesizări în curs de soluționare</div>
             </div>
             <div>
-              <SimpleAreaChart width={297} height={148} />
+              <SimpleAreaChart width={297} height={148} showTwoAreas={true} />
             </div>
           </div>
         </Box>
@@ -51,7 +51,7 @@ export class Indicator1AllYears extends React.Component<Props, any> {
               </div>
             </div>
             <div>
-              <SimpleAreaChart width={297} height={148} />
+              <SimpleAreaChart width={297} height={148} showTwoAreas={true} />
             </div>
           </div>
         </Box>
@@ -109,7 +109,7 @@ export class Indicator1AllYears extends React.Component<Props, any> {
               </div>
             </div>
             <div>
-              <SimpleAreaChart width={297} height={148} />
+              <SimpleAreaChart width={297} height={148} showTwoAreas={true} />
             </div>
           </div>
         </Box>

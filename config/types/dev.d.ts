@@ -43,4 +43,5 @@ declare module "recharts" {
   export const ResponsiveContainer: any;
   export const ScatterChart: any;
   export const Scatter: any;
+  export const ComposedChart: any;
 }
