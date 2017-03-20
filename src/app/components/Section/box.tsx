@@ -3,7 +3,7 @@ import {filterStyle} from "./filters";
 
 interface Props {
   children?: any;
-  className: string;
+  className?: string;
 }
 
 export function Box(props: Props) {
