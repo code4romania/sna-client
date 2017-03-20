@@ -21,11 +21,14 @@ export class CountiesSidebar extends React.Component<Props, {}> {
   public render() {
     const indId = parseInt(this.props.params.id, 10);
 
-    const menus = COUNTIES.map((c) => <li key={`item-${c.id}`}>
-      <Link to={creportPath(indId, c.id, this.props.location.query)}>
-        {c.name}
-      </Link>
-    </li>);
+    const menus = COUNTIES.map((c) => (
+      <li key={`item-${c.id}`}>
+        <Link to={creportPath(indId, c.id, this.props.location.query)}>
+          {c.name}
+        </Link>
+      </li>
+      ),
+    );
 
     return (
       <div className={style.Sidebar}>
