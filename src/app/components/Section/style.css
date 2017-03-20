@@ -2,6 +2,8 @@
   background: #FFFFFF;
   border: 1px solid #EBF0F2;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.04);
+  display: inline-block;
+  padding: 20px;
 }
 
 .year_slider {

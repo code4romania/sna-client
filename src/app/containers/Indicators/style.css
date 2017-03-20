@@ -4,6 +4,16 @@
     white-space: nowrap;
   }
 
+  & :global(.big_box) {
+    width: 576px;
+    margin-right: 30px;
+  }
+
+  & :global(.small_box) {
+    width: 274px;
+    margin-right: 30px;
+  }
+
   & :global(.filters) {
     margin-bottom: 30px;
   }
