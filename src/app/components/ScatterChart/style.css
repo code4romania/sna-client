@@ -4,3 +4,11 @@
   color: white;
   padding: 5px;
 }
+
+.xtitle {
+  font-family: Roboto;
+  font-size: 15px;
+  color: #0D2B3E;
+  letter-spacing: 0;
+  line-height: 6px;
+}
