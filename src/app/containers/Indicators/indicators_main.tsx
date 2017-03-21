@@ -17,6 +17,7 @@ import {DispatchProps} from "../../components/Section/filters";
 import {Indicator1AllYears} from "./indicator1_all_years";
 import {loadMinistriesStatsConfig} from "../../redux/modules/stats/index";
 import {loadIndicatorsConfig} from "../../redux/modules/indicator/index";
+import {Indicator1OneYear} from "./indicator1_one_year";
 const { connect } = require('react-redux');
 const { asyncConnect } = require('redux-connect');
 
@@ -88,7 +89,7 @@ export class IndicatorsMain extends React.Component<Props & DispatchProps, any> 
       );
     } else {
       return (
-        <Box>TODO selected year</Box>
+        <Indicator1OneYear />
       );
     }
   }

@@ -44,4 +44,7 @@ declare module "recharts" {
   export const ScatterChart: any;
   export const Scatter: any;
   export const ComposedChart: any;
+  export const PieChart: any;
+  export const Pie: any;
+  export const Cell: any;
 }
