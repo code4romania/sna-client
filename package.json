@@ -1,6 +1,6 @@
 {
-  "name": "vortigern",
-  "version": "0.1.2",
+  "name": "sna-client",
+  "version": "0.0.1",
   "description": "A universal boilerplate for building web applications w/ TypeScript, React, Redux and more.",
   "main": "build/server.js",
   "scripts": {
@@ -9,9 +9,9 @@
     "build:prod": "cross-env NODE_ENV=production npm run clean && npm run build",
     "build:server": "webpack --config config/webpack/server.js",
     "build:server:w": "npm run build:server -- --watch",
-    "postbuild": "npm run build:server",
-    "prestart": "npm run build",
-    "start": "nodemon -V -w build/server.js build/server.js",
+    "xpostbuild": "npm run build:server",
+    "prestart": "npm run build && npm run build:server",
+    "start": "node build/server.js",
     "start:prod": "cross-env NODE_ENV=production npm start",
     "test": "karma start config/test/karma.conf.js",
     "lint": "tslint \"src/**/**.ts*\""
