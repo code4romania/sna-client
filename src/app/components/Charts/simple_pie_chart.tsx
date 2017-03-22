@@ -1,27 +1,16 @@
 import * as React from 'react';
 import {PieChart, Pie, Cell} from "recharts";
-import {ApplicationState} from "../../redux/application_state";
-import {areMinistriesStatsLoaded} from "../../selectors/index";
-const { connect } = require('react-redux');
 
 const data = [{ name: 'Group A', value: 75 }, { name: 'Group B', value: 25 }];
 const COLORS = ['#4990E2', '#4DD6D0'];
 
 interface Props {
-  areStatsLoaded?: boolean;
   data?: any;
   width: number;
   height: number;
   valueTitle: string;
 }
 
-@connect(
-  (state: ApplicationState, ownProps: Props): Props => ({
-    ...ownProps,
-    areStatsLoaded: areMinistriesStatsLoaded(state),
-    data: null,
-  }),
-)
 export class SimplePieChart extends React.Component<Props, any> {
   public render(): JSX.Element {
     const {width, height, valueTitle} = this.props;

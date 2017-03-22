@@ -19,7 +19,7 @@ export const cstatsData = (state: ApplicationState): CStats => state.reduxAsyncC
 
 export const paramIndicatorId = (state) => parseIndicatorId(state.routing.locationBeforeTransitions.pathname);
 const paramAdminTypeId = (state) => parseAdminTypeId(state.routing.locationBeforeTransitions.pathname);
-const paramMinistryId = (state) => parseMinistryId(state.routing.locationBeforeTransitions.pathname);
+export const paramMinistryId = (state) => parseMinistryId(state.routing.locationBeforeTransitions.pathname);
 export const paramCategoryId = (state) => parseInt(state.routing.locationBeforeTransitions.query.category_id, 10) || 0;
 export const paramYear = (state) => parseInt(state.routing.locationBeforeTransitions.query.year, 10) || 0;
 export const chart = (state) => state.routing.locationBeforeTransitions.query.chart;
@@ -56,7 +56,7 @@ export const currentCategory = createSelector(
   ),
 );
 
-const mstats = createSelector(
+export const mstats = createSelector(
   areMinistriesStatsLoaded, mstatsData,
   (loaded, data: MStats) => List(loaded ? data.stats : []),
 );
