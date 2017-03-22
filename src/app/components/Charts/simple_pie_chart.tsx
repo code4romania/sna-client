@@ -36,9 +36,9 @@ export class SimplePieChart extends React.Component<Props, any> {
              paddingAngle={2}>
           {data.map((_, index) => <Cell fill={COLORS[index % COLORS.length]}/>)}
         </Pie>
-        <text x={width / 2} y={height / 2 + 20} textAnchor="middle"
+        <text x={width / 2} y={height / 2 + 15} textAnchor="middle"
               fill="#0D2B3E" fontSize={62} fontFamily="Roboto Slab" fontWeight={300}>56</text>
-        <text x={width / 2} y={height / 2 + 40} textAnchor="middle"
+        <text x={width / 2} y={height / 2 + 35} textAnchor="middle"
               fill="#516178" fontSize={15} fontFamily="Roboto">{valueTitle}</text>
       </PieChart>
     );

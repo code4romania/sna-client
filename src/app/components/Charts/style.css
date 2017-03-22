@@ -2,10 +2,14 @@
 
   & .line {
     width: 100%;
-    height: 6px;
+    height: 5px;
     opacity: 0.6;
     background: #EBF0F2;
-    border-radius: 100px;
+    border-radius: 10px;
+  }
+
+  & .circle, & .avg_tick, & .avg_title {
+    position: relative;
   }
 
   & .circle {
@@ -13,13 +17,16 @@
     width: 6px;
     height: 6px;
     background: #4990E2;
+    border-radius: 10px;
+    top: -14px;
   }
 
   & .avg_tick {
-    border: 2px solid #516178;
+    border: 1px solid #516178;
     height: 12px;
     width: 1px;
     display: inline-block;
+    top: -11px;
   }
 
   & .avg_title {
@@ -27,5 +34,12 @@
     font-size: 11px;
     color: #93A6B1;
     line-height: 12px;
+    top: -11px;
+
+    & .avg_text {
+      text-align: center;
+      display: inline-block;
+      margin-left: -15px;
+    }
   }
 }
