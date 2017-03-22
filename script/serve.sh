@@ -7,14 +7,14 @@ nc -z 127.0.0.1 $PORT
 
 if [ "$?" -ne 0 ]; then
   npm run build
-  npm run build:server:w &
-  JOBS=$(jobs -p | tr '\n' ' ')
-  trap "kill -9 $JOBS" SIGHUP SIGINT SIGTERM
+  npm run build:server
+  #JOBS=$(jobs -p | tr '\n' ' ')
+  #trap "kill -9 $JOBS" SIGHUP SIGINT SIGTERM
 
-  while [ ! -e build/server.js ]; do
-    echo -n .
-    sleep 0.3
-  done
+#  while [ ! -e build/server.js ]; do
+#    echo -n .
+#    sleep 0.3
+#  done
 
   node build/server.js
 else

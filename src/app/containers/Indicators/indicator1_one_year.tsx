@@ -1,13 +1,29 @@
 import * as React from "react";
+import {connect} from "react-redux";
+import {Map} from "immutable";
 import {Box} from "../../components/Section/box";
 import {SimplePieChart} from "../../components/Charts/simple_pie_chart";
 import {LineChart} from "../../components/Charts/line_chart";
+import {ApplicationState} from "../../redux/application_state";
+import {categoryStatsForYear} from "../../selectors/indicators";
 
 interface Props {
+  categoryStats?: Map<number, number>;
 }
 
+@connect(
+  (state: ApplicationState): Props => ({
+    categoryStats: categoryStatsForYear(state),
+  }),
+)
 export class Indicator1OneYear extends React.Component<Props, any> {
   public render(): JSX.Element {
+    const {categoryStats} = this.props;
+    const cat1 = categoryStats.get(1);
+    const cat2 = categoryStats.get(2);
+    const cat3 = categoryStats.get(3);
+    const cat4 = categoryStats.get(4);
+
     return (
       <div>
         <div className="top_align">
@@ -15,12 +31,15 @@ export class Indicator1OneYear extends React.Component<Props, any> {
             <div className="title">Număr de sesizări privind încălcări ale normelor</div>
             <div className="pie_row">
               <div className="pie_desc blue">
-                <div className="number">52</div>
+                <div className="number">{cat3}</div>
                 <div className="desc">sesizări soluționate</div>
               </div>
-              <SimplePieChart width={150} height={150} valueTitle="decizii"/>
+              <SimplePieChart width={150} height={150} valueTitle="decizii"
+                              data={[{name: "A", value: cat3}, {name: "B", value: cat2}]}
+                              total={cat1}
+              />
               <div className="pie_desc green">
-                <div className="number">4</div>
+                <div className="number">{cat2}</div>
                 <div className="desc">sesizări soluționate</div>
               </div>
             </div>
@@ -35,7 +54,7 @@ export class Indicator1OneYear extends React.Component<Props, any> {
             <div>
               <div className="big_value">22</div>
               <div className="big_value_desc">măsuri</div>
-              <LineChart width={230} height={46} value={80} avg={20} />
+              <LineChart width={230} height={46} value={80} avg={20}/>
             </div>
           </Box>
         </div>
@@ -49,7 +68,9 @@ export class Indicator1OneYear extends React.Component<Props, any> {
                 <div className="number">6</div>
                 <div className="desc">decizii ale comisiei anulate sau modificate în instanță</div>
               </div>
-              <SimplePieChart width={150} height={150} valueTitle="decizii"/>
+              <SimplePieChart width={150} height={150} valueTitle="decizii"
+                              data={[{name: "A", value: cat3}, {name: "B", value: cat2}]}
+                              total={8}/>
               <div className="pie_desc green">
                 <div className="number">2</div>
                 <div className="desc">decizii neanulate sau modificate în instanță</div>
@@ -70,7 +91,7 @@ export class Indicator1OneYear extends React.Component<Props, any> {
                 <span className="value">25</span>
                 <span className="percent">%</span>
               </div>
-              <LineChart width={230} height={46} value={80} avg={20} />
+              <LineChart width={230} height={46} value={80} avg={20}/>
             </div>
           </Box>
         </div>
@@ -84,7 +105,7 @@ export class Indicator1OneYear extends React.Component<Props, any> {
             <div>
               <div className="big_value">14</div>
               <div className="big_value_desc">activități</div>
-              <LineChart width={230} height={46} value={80} avg={20} />
+              <LineChart width={230} height={46} value={80} avg={20}/>
             </div>
           </Box>
           <Box className="small_box">
@@ -94,7 +115,7 @@ export class Indicator1OneYear extends React.Component<Props, any> {
             <div>
               <div className="big_value">34</div>
               <div className="big_value_desc">persoane</div>
-              <LineChart width={230} height={46} value={80} avg={20} />
+              <LineChart width={230} height={46} value={80} avg={20}/>
             </div>
           </Box>
           <Box className="small_box">
@@ -104,7 +125,7 @@ export class Indicator1OneYear extends React.Component<Props, any> {
             <div>
               <div className="big_value">22</div>
               <div className="big_value_desc">măsuri</div>
-              <LineChart width={230} height={46} value={80} avg={20} />
+              <LineChart width={230} height={46} value={80} avg={20}/>
             </div>
           </Box>
         </div>
@@ -118,7 +139,9 @@ export class Indicator1OneYear extends React.Component<Props, any> {
                 <div className="number">14</div>
                 <div className="desc">persoane care au săvârșit repetate abateri</div>
               </div>
-              <SimplePieChart width={150} height={150} valueTitle="persoane"/>
+              <SimplePieChart width={150} height={150} valueTitle="persoane"
+                              data={[{name: "A", value: cat3}, {name: "B", value: cat2}]}
+                              total={18}/>
               <div className="pie_desc green">
                 <div className="number">4</div>
                 <div className="desc">persoane care au săvârșit nerepetate abateri</div>
@@ -130,9 +153,9 @@ export class Indicator1OneYear extends React.Component<Props, any> {
               Durata medie a procedurilor
             </div>
             <div>
-              <div className="big_value">30</div>
+              <div className="big_value">{cat4}</div>
               <div className="big_value_desc">zile</div>
-              <LineChart width={230} height={46} value={80} avg={20} />
+              <LineChart width={230} height={46} value={80} avg={20}/>
             </div>
           </Box>
         </div>

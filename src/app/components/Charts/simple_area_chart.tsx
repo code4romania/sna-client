@@ -43,7 +43,7 @@ export class SimpleAreaChart extends React.Component<Props, any> {
         <Tooltip/>
 
         <Bar dataKey='value' barSize={1} fill='#4990E2'/>
-        <Area type='liniar' dot={{ stroke: '#4990E2', strokeWidth: 2, r: 3, fill: "#fff", fillOpacity: 1 }}
+        <Area type='linear' dot={{ stroke: '#4990E2', strokeWidth: 2, r: 3, fill: "#fff", fillOpacity: 1 }}
               dataKey='value' stroke='#4990E2' fill='#CFE1F6' fillOpacity={0.43}/>
         {this.props.showTwoAreas && <Area dataKey="v2" fill="#24B47E" stroke='none' fillOpacity={0.3}/>}
       </ComposedChart>
