@@ -4,12 +4,17 @@ import {PieChart, Pie, Cell} from "recharts";
 const mockData = [{ name: 'Group A', value: 75 }, { name: 'Group B', value: 25 }];
 const COLORS = ['#4990E2', '#4DD6D0'];
 
+export interface PieValue {
+  name: string;
+  value: number;
+}
+
 interface Props {
   width: number;
   height: number;
   valueTitle: string;
   total: number;
-  data?: Array<{name: string; value: number}>;
+  data?: PieValue[];
 }
 
 export function SimplePieChart(props: Props): JSX.Element {

@@ -2,27 +2,32 @@ import * as React from "react";
 import {connect} from "react-redux";
 import {Map} from "immutable";
 import {Box} from "../../components/Section/box";
-import {SimplePieChart} from "../../components/Charts/simple_pie_chart";
+import {SimplePieChart, PieValue} from "../../components/Charts/simple_pie_chart";
 import {LineChart} from "../../components/Charts/line_chart";
 import {ApplicationState} from "../../redux/application_state";
-import {categoryStatsForYear} from "../../selectors/indicators";
+import {categoryStatsForYear, categoryMaxAvgStatsForYear, CategoryId, MaxAvg} from "../../selectors/indicators";
 
 interface Props {
-  categoryStats?: Map<number, number>;
+  categoryStats?: Map<CategoryId, number>;
+  categoryMaxAvgStats?: Map<CategoryId, MaxAvg>;
 }
 
 @connect(
   (state: ApplicationState): Props => ({
     categoryStats: categoryStatsForYear(state),
+    categoryMaxAvgStats: categoryMaxAvgStatsForYear(state),
   }),
 )
 export class Indicator1OneYear extends React.Component<Props, any> {
   public render(): JSX.Element {
-    const {categoryStats} = this.props;
+    const {categoryStats, categoryMaxAvgStats} = this.props;
     const cat1 = categoryStats.get(1);
     const cat2 = categoryStats.get(2);
     const cat3 = categoryStats.get(3);
     const cat4 = categoryStats.get(4);
+    const cat4MaxAvg = categoryMaxAvgStats.get(4);
+    const cat4AvgPerc = cat4MaxAvg.avg * 100 / cat4MaxAvg.max;
+    const cat4Perc = cat4 * 100 / cat4MaxAvg.max;
 
     return (
       <div>
@@ -35,7 +40,7 @@ export class Indicator1OneYear extends React.Component<Props, any> {
                 <div className="desc">sesizări soluționate</div>
               </div>
               <SimplePieChart width={150} height={150} valueTitle="decizii"
-                              data={[{name: "A", value: cat3}, {name: "B", value: cat2}]}
+                              data={pieData(cat3, cat2)}
                               total={cat1}
               />
               <div className="pie_desc green">
@@ -69,7 +74,7 @@ export class Indicator1OneYear extends React.Component<Props, any> {
                 <div className="desc">decizii ale comisiei anulate sau modificate în instanță</div>
               </div>
               <SimplePieChart width={150} height={150} valueTitle="decizii"
-                              data={[{name: "A", value: cat3}, {name: "B", value: cat2}]}
+                              data={pieData(6, 2)}
                               total={8}/>
               <div className="pie_desc green">
                 <div className="number">2</div>
@@ -140,7 +145,7 @@ export class Indicator1OneYear extends React.Component<Props, any> {
                 <div className="desc">persoane care au săvârșit repetate abateri</div>
               </div>
               <SimplePieChart width={150} height={150} valueTitle="persoane"
-                              data={[{name: "A", value: cat3}, {name: "B", value: cat2}]}
+                              data={pieData(14, 4)}
                               total={18}/>
               <div className="pie_desc green">
                 <div className="number">4</div>
@@ -155,11 +160,15 @@ export class Indicator1OneYear extends React.Component<Props, any> {
             <div>
               <div className="big_value">{cat4}</div>
               <div className="big_value_desc">zile</div>
-              <LineChart width={230} height={46} value={80} avg={20}/>
+              <LineChart width={230} height={46} value={cat4Perc} avg={cat4AvgPerc}/>
             </div>
           </Box>
         </div>
       </div>
     );
   }
+}
+
+function pieData(max: number, min: number): PieValue[] {
+  return [{name: "A", value: max}, {name: "B", value: min}];
 }
