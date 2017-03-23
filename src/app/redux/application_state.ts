@@ -28,7 +28,7 @@ export interface LoadState {
 }
 
 // key year
-interface YearsStats {
+export interface YearsStats {
   [key: string]: number;
 }
 

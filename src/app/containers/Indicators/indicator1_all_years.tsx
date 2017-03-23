@@ -1,12 +1,28 @@
 import * as React from "react";
+import * as _ from "lodash";
+import {connect} from "react-redux";
 import {Box} from "../../components/Section/box";
-import {SimpleAreaChart} from "../../components/Charts/simple_area_chart";
+import {SimpleAreaChart, AreaChartValue} from "../../components/Charts/simple_area_chart";
+import {ApplicationState} from "../../redux/application_state";
+import {categoryStatsForAllYears} from "../../selectors/indicators";
 
 interface Props {
+  categoryStats?: any;
 }
 
+@connect(
+  (state: ApplicationState): Props => ({
+    categoryStats: categoryStatsForAllYears(state),
+  }),
+)
 export class Indicator1AllYears extends React.Component<Props, any> {
   public render(): JSX.Element {
+    const {categoryStats} = this.props;
+    // const cat1 = categoryStats.get(1);
+    const cat2 = categoryStats.get(2);
+    const cat3 = categoryStats.get(3);
+    const cat4 = categoryStats.get(4);
+
     return (
       <div>
         <div className="top_align">
@@ -18,7 +34,7 @@ export class Indicator1AllYears extends React.Component<Props, any> {
               <div className="legend_row"><span className="circle2"/> sesizări în curs de soluționare</div>
             </div>
             <div>
-              <SimpleAreaChart width={297} height={148} showTwoAreas={true} />
+              <SimpleAreaChart width={297} height={148} showTwoAreas={true} data={combineData(cat3, cat2)}/>
             </div>
           </div>
         </Box>
@@ -118,11 +134,17 @@ export class Indicator1AllYears extends React.Component<Props, any> {
             Durata medie a procedurilor
           </div>
           <div>
-            <SimpleAreaChart width={230} height={131} />
+            <SimpleAreaChart width={230} height={131} data={cat4} />
           </div>
         </Box>
         </div>
       </div>
     );
   }
+}
+
+// v2 smaller chart values, green
+function combineData(v1: AreaChartValue[], v2: AreaChartValue[]): AreaChartValue[] {
+  const v2map = _.groupBy(v2, "year");
+  return v1.map((elem) => ({...elem, v2: v2map[elem.year][0].value}));
 }

@@ -2,6 +2,8 @@ import * as Reselect from "reselect";
 import {Map} from "immutable";
 import * as _ from "lodash";
 import {paramIndicatorId, mstats, paramMinistryId, currentYearStr} from "./index";
+import {YearsStats} from "../redux/application_state";
+import {AreaChartValue} from "../components/Charts/simple_area_chart";
 
 export type CategoryId = number;
 export type MaxAvg = { max: number; avg: number };
@@ -38,3 +40,15 @@ export const categoryMaxAvgStatsForYear = Reselect.createSelector(
     }));
   },
 );
+
+export const categoryStatsForAllYears = Reselect.createSelector(
+  paramMinistryId, paramIndicatorId, mstats,
+  (mId, indId, rows) => {
+    const entries = rows.filter((item) => item.i_id === indId && item.m_id === mId);
+    return Map<CategoryId, AreaChartValue[]>(entries.map((entry) => [entry.c_id, convertYearStats(entry.v)]));
+  },
+);
+
+function convertYearStats(values: YearsStats): AreaChartValue[] {
+  return Object.keys(values).map((yearStr) => ({year: parseInt(yearStr, 10), value: values[yearStr]}));
+}
