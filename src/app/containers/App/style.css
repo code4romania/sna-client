@@ -12,4 +12,13 @@
     flex-direction: row;
     height: 100%;
   }
+
+  & .title {
+    font-size: 15px;
+    color: #0D2B3E;
+  }
+
+  & :global(.main_content) {
+    padding: 40px 65px;
+  }
 }

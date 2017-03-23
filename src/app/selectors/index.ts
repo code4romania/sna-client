@@ -2,12 +2,15 @@ import {List, Map, OrderedSet, OrderedMap} from "immutable";
 import {createSelector} from "reselect";
 import {isContentLoaded, MStatEntry, MStats, ApplicationState, CStats} from "../redux/application_state";
 import {Indicator} from "../models/indicator";
-import {parseIndicatorId, parseAdminTypeId, ADMIN_TYPE_COUNTIES} from "../helpers/url_helper";
+import {parseIndicatorId, parseAdminTypeId, ADMIN_TYPE_COUNTIES, parseMinistryId} from "../helpers/url_helper";
 import {Ministry} from "../models/ministry";
 
-export const areIndicatorsLoaded = (state) => isContentLoaded(state.reduxAsyncConnect.loadState.indicators);
-export const areMinistriesStatsLoaded = (state) => isContentLoaded(state.reduxAsyncConnect.loadState.ministriesStats);
-export const areCountiesStatsLoaded = (state) => isContentLoaded(state.reduxAsyncConnect.loadState.countiesStats);
+export const areIndicatorsLoaded = (state) => (state.reduxAsyncConnect.indicators ||
+  isContentLoaded(state.reduxAsyncConnect.loadState.indicators));
+export const areMinistriesStatsLoaded = (state) => state.reduxAsyncConnect.ministriesStats ||
+  isContentLoaded(state.reduxAsyncConnect.loadState.ministriesStats);
+export const areCountiesStatsLoaded = (state) => state.reduxAsyncConnect.countiesStats ||
+  isContentLoaded(state.reduxAsyncConnect.loadState.countiesStats);
 
 const indicatorsState = (state) => List(state.reduxAsyncConnect.indicators);
 
@@ -16,6 +19,7 @@ export const cstatsData = (state: ApplicationState): CStats => state.reduxAsyncC
 
 export const paramIndicatorId = (state) => parseIndicatorId(state.routing.locationBeforeTransitions.pathname);
 const paramAdminTypeId = (state) => parseAdminTypeId(state.routing.locationBeforeTransitions.pathname);
+export const paramMinistryId = (state) => parseMinistryId(state.routing.locationBeforeTransitions.pathname);
 export const paramCategoryId = (state) => parseInt(state.routing.locationBeforeTransitions.query.category_id, 10) || 0;
 export const paramYear = (state) => parseInt(state.routing.locationBeforeTransitions.query.year, 10) || 0;
 export const chart = (state) => state.routing.locationBeforeTransitions.query.chart;
@@ -52,7 +56,7 @@ export const currentCategory = createSelector(
   ),
 );
 
-const mstats = createSelector(
+export const mstats = createSelector(
   areMinistriesStatsLoaded, mstatsData,
   (loaded, data: MStats) => List(loaded ? data.stats : []),
 );
@@ -105,6 +109,11 @@ export const ministries = createSelector(
       return OrderedMap<number, Ministry>([]);
     }
   },
+);
+
+export const currentMinistry = createSelector(
+  paramMinistryId, ministries,
+  (id, map) => map.get(id),
 );
 
 export const ministriesFilterData = createSelector(

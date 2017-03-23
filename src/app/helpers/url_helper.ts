@@ -63,11 +63,21 @@ export function parseIndicatorId(path: string): number {
   }
 }
 
-export function parseAdminTypeId(path: string) {
+export function parseAdminTypeId(path: string): number {
   const result = path.match(/\/report\/(\d+)\/(\d+)/);
 
   if (result) {
     return parseInt(result[2], 10);
+  } else {
+    return 0;
+  }
+}
+
+export function parseMinistryId(path: string): number {
+  const result = path.match(/\/report\/(\d+)\/(\d+)\/(\d+)/);
+
+  if (result) {
+    return parseInt(result[3], 10);
   } else {
     return 0;
   }

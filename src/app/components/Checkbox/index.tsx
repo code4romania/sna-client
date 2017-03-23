@@ -17,7 +17,7 @@ export const Checkbox = (props: IProps) => {
   };
 
   return (
-    <label className={`${style.Checkbox} checkbox_label`} onClick={handleClick}>
+    <label className={`${style.Checkbox} checkbox_label`}>
       <input
         className={style.CheckboxInput}
         type="checkbox"
