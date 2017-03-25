@@ -15,9 +15,4 @@ a:hover {
 .App {
   max-width: 1280px;
   font-family: Roboto;
-
-  & .title {
-    font-size: 15px;
-    color: #0D2B3E;
-  }
 }

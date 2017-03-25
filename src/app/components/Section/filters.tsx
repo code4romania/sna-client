@@ -16,7 +16,7 @@ import {
 import {Indicator, Category} from "../../models/indicator";
 import {ChartType} from "../../containers/MinistryOverview/index";
 import {YearFilters} from "./year_filter";
-import {commonStyle} from "../../containers/Html/index";
+import {commonStyle} from "../../containers/App/index";
 
 export const filterStyle = require('./style.css');
 

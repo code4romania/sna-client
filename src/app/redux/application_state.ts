@@ -9,6 +9,7 @@ export interface ApplicationState {
   reduxAsyncConnect: AsyncConnectState;
   selectedCounties: Set<number>;
   selectedMinistries: Set<number>;
+  areAllYearsSelected: boolean;
 }
 
 type RemoteContent = "indicators" | "ministriesStats" | "countiesStats";
@@ -27,7 +28,7 @@ export interface LoadState {
 }
 
 // key year
-interface YearsStats {
+export interface YearsStats {
   [key: string]: number;
 }
 

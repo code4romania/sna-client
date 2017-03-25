@@ -1,0 +1,194 @@
+.Indicators {
+  & :global(.filters) {
+    margin-bottom: 30px;
+  }
+
+  & :global(.slider-title) {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  & :global(.top_align) {
+    display: flex;
+    align-items: stretch;
+  }
+
+  & :global(.big_box), & :global(.small_box) {
+    margin-bottom: 30px;
+
+    & :global(.title) {
+      text-align: center;
+      font-size: 20px;
+      color: #516178;
+      font-family: Roboto Slab;
+      margin-bottom: 10px;
+    }
+
+    & :global(.note) {
+      font-family: Roboto Slab;
+      text-align: center;
+      font-size: 16px;
+      color: #93A6B1;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+  }
+
+  & :global(.big_box):not(:first-child), & :global(.small_box):not(:first-child) {
+    margin-left: 30px;
+  }
+
+  & :global(.big_box) {
+    width: 576px;
+
+    & :global(.title) {
+      padding: 0 20px;
+    }
+  }
+
+  & :global(.small_box) {
+    width: 274px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  & :global(.two_cols) {
+    display: flex;
+    flex-direction: row;
+
+    & :global(.legend) {
+      font-family: Roboto;
+      font-size: 15px;
+      color: #0D2B3E;
+      letter-spacing: 0;
+      line-height: 16px;
+      padding-top: 50px;
+
+      & :global(.legend_row) {
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+      }
+    }
+  }
+
+  & :global(.circle1), & :global(.circle2) {
+    width: 14px;
+    height: 14px;
+    border-radius: 100px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  & :global(.circle1) {
+    background-color: #CFE1F6;
+  }
+
+  & :global(.circle2) {
+    background-color: #A2D7D3;
+  }
+
+  & :global(.big_value) {
+    font-family: Roboto Slab;
+    font-weight: 300;
+    font-size: 62px;
+    line-height: 62px;
+    color: #4990E2;
+    text-align: center;
+  }
+
+  & :global(.big_value_desc) {
+    font-family: Roboto-Regular;
+    font-size: 15px;
+    color: #516178;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  & :global(.stacked_bar) {
+    display: inline-block;
+    width: 22px;
+    height: 50px;
+    background: #EBF0F2;
+
+    & :global(.bar) {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      height: 50px;
+
+      & :global(.value) {
+        width: 22px;
+        background: #24B47E;
+        margin-left: 0;
+      }
+    }
+  }
+
+  & :global(.box_bar) {
+    text-align: center;
+    margin-bottom: 16px;
+
+    & :global(.value) {
+      font-family: Roboto Slab;
+      font-weight: 300;
+      font-size: 62px;
+      color: #0D2B3E;
+      letter-spacing: 0;
+      line-height: 62px;
+      margin-left: 15px;
+    }
+
+    & :global(.percent) {
+      font-family: Roboto Slab;
+      font-size: 26px;
+      color: #0D2B3E;
+    }
+  }
+
+  & :global(.pie_row) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    & :global(.pie_desc) {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+
+      & :global(.number) {
+        font-family: Roboto-Bold;
+        font-size: 40px;
+      }
+
+      & :global(.desc) {
+        font-family: Roboto-Regular;
+        font-size: 15px;
+        color: #0D2B3E;
+        line-height: 16px;
+      }
+    }
+
+    & :global(.pie_desc):global(.blue) {
+      margin-right: 10px;
+      text-align: right;
+
+      & :global(.number) {
+        color: #4990E2;
+      }
+    }
+
+    & :global(.pie_desc):global(.green) {
+      margin-left: 10px;
+
+      & :global(.number) {
+        color: #4DD6D0;
+      }
+    }
+  }
+}
