@@ -1,8 +1,9 @@
-import {Set} from "immutable";
+import {Set} from 'immutable';
 import {RouterState} from 'react-router-redux';
 import {Promise} from 'es6-promise';
+
 import {Indicator} from '../models/indicator';
-import {Ministry} from "../models/ministry";
+import {Ministry} from '../models/ministry';
 
 export interface ApplicationState {
   routing: RouterState;
@@ -10,9 +11,10 @@ export interface ApplicationState {
   selectedCounties: Set<number>;
   selectedMinistries: Set<number>;
   areAllYearsSelected: boolean;
+  isSidebarOpen: boolean;
 }
 
-type RemoteContent = "indicators" | "ministriesStats" | "countiesStats";
+type RemoteContent = 'indicators' | 'ministriesStats' | 'countiesStats';
 
 export interface LoadEntryState {
   error: any;

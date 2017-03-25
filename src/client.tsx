@@ -2,12 +2,11 @@ import {Set} from "immutable";
 import * as e6p from 'es6-promise';
 (e6p as any).polyfill();
 import 'isomorphic-fetch';
-
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-const { Router, browserHistory } = require('react-router');
 import { syncHistoryWithStore } from 'react-router-redux';
+const { Router, browserHistory } = require('react-router');
 const { ReduxAsyncConnect } = require('redux-connect');
 
 import { configureStore } from './app/redux/store';

@@ -1,9 +1,10 @@
 .Nav {
   color: white;
   background-color: #272A7E;
-  min-height: 80px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0 20px;
 
   & .Logo {
@@ -28,16 +29,16 @@
     padding: 0;
     display: flex;
     align-items: center;
+    margin: 0;
 
     & li {
       display: inline;
       padding: 5px;
-      margin: 0 10px;
 
       & a {
         text-decoration: none;
         color: white;
-        font-family: Roboto Slab;
+        font-family: Roboto Slab, sans-serif;
         font-size: 15px;
       }
     }

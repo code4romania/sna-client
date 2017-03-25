@@ -1,9 +1,10 @@
-import * as Reselect from "reselect";
-import {Map} from "immutable";
-import * as _ from "lodash";
-import {paramIndicatorId, mstats, paramMinistryId, currentYearStr} from "./index";
-import {YearsStats} from "../redux/application_state";
-import {AreaChartValue} from "../components/Charts/simple_area_chart";
+import * as Reselect from 'reselect';
+import {Map} from 'immutable';
+import * as _ from 'lodash';
+
+import {paramIndicatorId, mstats, paramMinistryId, currentYearStr} from './index';
+import {YearsStats} from '../redux/application_state';
+import {AreaChartValue} from '../components/Charts/simple_area_chart';
 
 export type CategoryId = number;
 export type MaxAvg = { max: number; avg: number };

@@ -1,7 +1,9 @@
-import {AsyncLoaderEntry, AsyncContext} from '../../application_state';
 import {Promise} from 'es6-promise';
-import {areMinistriesStatsLoaded, areCountiesStatsLoaded} from "../../../selectors/index";
 
+import {AsyncLoaderEntry, AsyncContext} from '../../application_state';
+import {areMinistriesStatsLoaded, areCountiesStatsLoaded} from '../../../selectors/index';
+
+/** Async Action Creator */
 export function loadMinistriesStatsConfig(): AsyncLoaderEntry {
   return {
     key: 'ministriesStats',
@@ -11,6 +13,7 @@ export function loadMinistriesStatsConfig(): AsyncLoaderEntry {
   };
 }
 
+/** Async Action Creator */
 export function loadCountiesStatsConfig(): AsyncLoaderEntry {
   return {
     key: 'countiesStats',

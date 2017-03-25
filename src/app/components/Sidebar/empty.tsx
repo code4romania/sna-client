@@ -14,11 +14,8 @@ interface Props {
 // for "Independende și Anticorupție"
 export class EmptySidebar extends React.Component<Props, {}> {
   public render() {
+    const items = [];
     const indId = parseInt(this.props.params.id, 10);
-
-    const items = [
-    ];
-
     const menus = items.map((i) => (
       <li key={`item-${i.id}`}>
         <Link to={ireportPath(indId, i.id, this.props.location.query)}>

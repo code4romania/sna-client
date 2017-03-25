@@ -1,9 +1,10 @@
-import {List, Map, OrderedSet, OrderedMap} from "immutable";
-import {createSelector} from "reselect";
-import {isContentLoaded, MStatEntry, MStats, ApplicationState, CStats} from "../redux/application_state";
-import {Indicator} from "../models/indicator";
-import {parseIndicatorId, parseAdminTypeId, ADMIN_TYPE_COUNTIES, parseMinistryId} from "../helpers/url_helper";
-import {Ministry} from "../models/ministry";
+import {List, Map, OrderedSet, OrderedMap} from 'immutable';
+import {createSelector} from 'reselect';
+
+import {isContentLoaded, MStatEntry, MStats, ApplicationState, CStats} from '../redux/application_state';
+import {parseIndicatorId, parseAdminTypeId, ADMIN_TYPE_COUNTIES, parseMinistryId} from '../helpers/url_helper';
+import {Indicator} from '../models/indicator';
+import {Ministry} from '../models/ministry';
 
 export const areIndicatorsLoaded = (state) => (state.reduxAsyncConnect.indicators ||
   isContentLoaded(state.reduxAsyncConnect.loadState.indicators));
@@ -28,7 +29,7 @@ export const paramChart = createSelector(
   paramAdminTypeId, chart,
   (adminTypeId, chart) => {
     if (!chart) {
-      return adminTypeId === ADMIN_TYPE_COUNTIES ? "map" : "bar";
+      return adminTypeId === ADMIN_TYPE_COUNTIES ? 'map' : 'bar';
     } else {
       return chart;
     }
@@ -46,7 +47,7 @@ export const currentIndicator = createSelector(
 
 export const currentIndicatorTitle = createSelector(
   areIndicatorsLoaded, currentIndicator,
-  (loaded, indicator) => ( loaded ?  `${indicator.id}. ${indicator.name}` : "Loading"),
+  (loaded, indicator) => ( loaded ?  `${indicator.id}. ${indicator.name}` : 'Loading'),
 );
 
 export const currentCategory = createSelector(
@@ -150,7 +151,7 @@ const employeeStats = createSelector(
   },
 );
 
-// data [{x:"employeeCount",y: 'statValue',z: "MinistryName"}]
+// data [{x:'employeeCount',y: 'statValue',z: 'MinistryName'}]
 export const ministriesScatterChartData = createSelector(
   areMinistriesStatsLoaded, paramIndicatorId, currentCategory, currentYear, mstats, ministries, employeeStats,
   selectedMinistries,

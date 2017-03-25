@@ -1,8 +1,12 @@
+import {Promise} from 'es6-promise';
+
 import {
-  IndicatorAction, IndicatorState, Indicator, IndicatorErrorAction,
+  IndicatorAction,
+  IndicatorState,
+  Indicator,
+  IndicatorErrorAction,
   IndicatorSuccessAction,
 } from '../../../models/indicator';
-import {Promise} from 'es6-promise';
 import {AsyncLoaderEntry, AsyncContext, isContentLoaded} from '../../application_state';
 
 /** Action Types */

@@ -1,0 +1,29 @@
+.collapseExpandContainer {
+  text-transform: uppercase;
+  color: #516178;
+  text-align: right;
+  border-top: 1px solid #eef2f4;
+  padding: 10px 13px 10px 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  user-select: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  & .collapseExpandContainerLabel {
+      font-family: Roboto-Bold, sans-serif;
+      font-size: 13px;
+      color: #516178;
+      letter-spacing: 1px;
+      line-height: 8px;
+      vertical-align: middle;
+      padding-right: 8px;
+  }
+
+  & .collapseExpandContainerIcon {
+      vertical-align: middle;
+  }
+}

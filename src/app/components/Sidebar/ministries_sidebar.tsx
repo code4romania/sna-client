@@ -1,13 +1,14 @@
 import * as React from 'react';
 import {Link} from 'react-router';
+import {OrderedMap} from 'immutable';
+const {connect} = require('react-redux');
+
 import {BackLink} from '../BackLink/index';
 import {selAdminPath, MyLocation, RouteParams, mreportPath} from '../../helpers/url_helper';
 import {ChartIcon} from '../ChartIcon/index';
-import {Ministry} from "../../models/ministry";
-import {ApplicationState} from "../../redux/application_state";
-import {areMinistriesStatsLoaded, ministries} from "../../selectors/index";
-import {OrderedMap} from "immutable";
-const { connect } = require('react-redux');
+import {Ministry} from '../../models/ministry';
+import {ApplicationState} from '../../redux/application_state';
+import {areMinistriesStatsLoaded, ministries} from '../../selectors/index';
 
 const style = require('./style.css');
 
