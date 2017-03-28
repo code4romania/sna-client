@@ -1,26 +1,31 @@
 import * as React from 'react';
 const { asyncConnect } = require('redux-connect');
 const { connect } = require('react-redux');
+import {Set} from 'immutable';
+import {Dispatch} from 'react-redux';
+
 import {ContentHeader} from '../../components/ContentHeader/index';
 import {loadIndicatorsConfig} from '../../redux/modules/indicator/index';
 import {ApplicationState} from '../../redux/application_state';
-import {loadMinistriesStatsConfig} from "../../redux/modules/stats/index";
+import {loadMinistriesStatsConfig} from '../../redux/modules/stats/index';
 import {
-  currentIndicatorTitle, areIndicatorsLoaded, areMinistriesStatsLoaded, selectedMinistries, ministriesFilterData,
-} from "../../selectors/index";
-import {MinistryBarChart} from "../../components/BarChart/ministries_bar_chart";
-import {MinistriesScatterChart} from "../../components/ScatterChart/ministries_scatter_chart";
-import {CommonFilters, DispatchProps} from "../../components/Section/filters";
-import {MyLocation, RouteParams} from "../../helpers/url_helper";
-import {CheckBoxOptions} from "../../components/CheckboxGroup/index";
-import {Set} from "immutable";
-import {AdminFilter} from "../CountyOverview/admin_filter";
-import {reset, selectMinistry, deselectMinistry} from "../../redux/modules/filters/selected_ministries";
-import {Dispatch} from "react-redux";
+  currentIndicatorTitle,
+  areIndicatorsLoaded,
+  areMinistriesStatsLoaded,
+  selectedMinistries,
+  ministriesFilterData,
+} from '../../selectors/index';
+import {MinistryBarChart} from '../../components/BarChart/ministries_bar_chart';
+import {MinistriesScatterChart} from '../../components/ScatterChart/ministries_scatter_chart';
+import {CommonFilters, DispatchProps} from '../../components/Section/filters';
+import {MyLocation, RouteParams} from '../../helpers/url_helper';
+import {CheckBoxOptions} from '../../components/CheckboxGroup/index';
+import {AdminFilter} from '../CountyOverview/admin_filter';
+import {reset, selectMinistry, deselectMinistry} from '../../redux/modules/filters/selected_ministries';
 
 const style = require('./style.css');
 
-export type ChartType = "bar" | "scatter" | "map";
+export type ChartType = 'bar' | 'scatter' | 'map';
 
 interface Props {
   areIndicatorsLoaded: boolean;

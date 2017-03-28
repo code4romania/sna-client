@@ -14,7 +14,7 @@
   }
 
   & a {
-    font-family: Roboto-Bold;
+    font-family: Roboto-Bold, sans-serif;
     font-size: 13px;
     color: #516178;
     letter-spacing: 0.87px;

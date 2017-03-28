@@ -1,3 +1,6 @@
 .Content {
-  width: 78%;
+  width: 100%;
+  max-width: calc(100vw - 40px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }

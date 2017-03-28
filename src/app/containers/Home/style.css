@@ -3,7 +3,9 @@
 
   & .main {
     padding: 40px 65px;
-    display: flex;
-    align-items: flex-start;
+
+    & img {
+        max-width: 100%;
+    }
   }
 }

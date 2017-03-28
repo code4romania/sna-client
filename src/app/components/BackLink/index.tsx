@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Link} from 'react-router';
-import {MyLocation} from "../../helpers/url_helper";
+
+import {MyLocation} from '../../helpers/url_helper';
 
 const style = require('./style.css');
 

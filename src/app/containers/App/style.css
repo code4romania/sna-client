@@ -4,13 +4,36 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  height: 100vh;
 
   & .body {
     display: flex;
     flex-direction: row;
-    height: 100%;
+    flex-grow: 1;
+    height: calc(100vh - 80px);
+
+    & .collapsibleSidebar {
+      transition: margin-left 0.3s ease-in-out;
+      width: 270px;
+      position: relative;
+      background-color: #f7f9fa;
+
+      &.open {
+         margin-left: 0;
+      }
+
+      &.closed {
+         margin-left: -230px;
+      }
+    }
+
+    & .collapseSidebarBtn {
+        bottom: 5px;
+        left: 5px;
+        position: fixed;
+        border: 1px solid gray;
+        background-color: lightgray;
+    }
   }
 
   & .title {

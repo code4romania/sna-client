@@ -1,14 +1,15 @@
 import * as React from 'react';
+import {Link} from 'react-router';
+import {List} from 'immutable';
+const {connect} = require('react-redux');
+const {asyncConnect} = require('redux-connect');
+
 import {Indicator} from '../../models/indicator';
 import {Badge} from '../Badge/index';
 import {ApplicationState} from '../../redux/application_state';
-import {Link} from 'react-router';
 import {loadIndicatorsConfig} from '../../redux/modules/indicator/index';
-import {selAdminPath, MyLocation} from "../../helpers/url_helper";
-import {areIndicatorsLoaded, indicators} from "../../selectors/index";
-import {List} from "immutable";
-const { connect } = require('react-redux');
-const { asyncConnect } = require('redux-connect');
+import {selAdminPath, MyLocation} from '../../helpers/url_helper';
+import {areIndicatorsLoaded, indicators} from '../../selectors/index';
 
 const style = require('./style.css');
 
@@ -35,7 +36,7 @@ export class Sidebar extends React.Component<SidebarProps, {}> {
     delete this.props.location.query.category_id;
 
     if (!areIndicatorsLoaded) {
-      content = <li key="0">Se încarcă</li>;
+      content = <li key='0'>Se încarcă</li>;
     } else {
       content = this.props.indicators.map((indicator: Indicator) => {
         return (
