@@ -50,3 +50,9 @@ typings
 
 # Dependency directories
 jspm_packages
+
+# Vagrant dir
+.vagrant
+
+# Config file for pm2
+ecosystem.json

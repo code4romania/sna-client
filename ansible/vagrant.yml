@@ -1,0 +1,10 @@
+- hosts: development
+
+- hosts: development
+  gather_facts: yes
+  remote_user: vagrant
+  environment:
+    PATH: "{{ node_bin_path }}:{{ ansible_env.PATH }}"
+  roles:
+    - ansible-node
+    - sna

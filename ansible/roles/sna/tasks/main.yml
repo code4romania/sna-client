@@ -1,0 +1,37 @@
+---
+- name: install yarn
+  npm:
+    name: yarn
+    executable: "{{ node_bin_path }}/npm"
+    global: yes
+
+- name: install packages
+  command: yarn
+  args:
+    chdir: "{{ site_deployment_path }}"
+
+- name: build the project
+  command: npm run build:prod
+  args:
+    chdir: "{{ site_deployment_path }}"
+
+- name: build the server
+  command: npm run build:server
+  args:
+    chdir: "{{ site_deployment_path }}"
+
+- name: install pm2
+  npm:
+    name: pm2
+    executable: "{{ node_bin_path }}/npm"
+    global: yes
+
+- name: install ecosystem file
+  copy:
+    src: ecosystem.json
+    dest: "{{ site_deployment_path }}/ecosystem.json"
+  notify:
+    - restart app
+
+- name: save app for restarts
+  command: pm2 save
