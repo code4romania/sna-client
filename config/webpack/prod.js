@@ -37,14 +37,15 @@ let config = {
   },
 
   module: {
-    rules: [{
+    rules: [
+      {
         enforce: 'pre',
         test: /\.tsx?$/,
         loader: 'tslint-loader'
       },
       {
         test: /\.tsx?$/,
-        loader: 'react-hot-loader!awesome-typescript-loader'
+        loader: 'awesome-typescript-loader'
       },
       {
         test: /\.jsx$/,

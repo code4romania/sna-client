@@ -122,23 +122,42 @@ You can clone from this repository or [install the latest version](https://githu
 
 All commands defaults to development environment. You can set `NODE_ENV` to `production` or use the shortcuts below.
 
-    # Running
+    # STARTING
     
-    $ npm start # This starts the app in development mode
+    # This starts the app in development mode
+    $ npm start
+    
     
     # Starting it with the production build
-    $ NODE_ENV=production npm start # or
+    $ NODE_ENV=production npm start 
+    # or
     $ npm run start:prod
     
-    # Building 
     
-    $ npm build # This builds the app in development mode
+    # BUILDING
     
-    # Commands below builds the production build
-    $ NODE_ENV=production npm build # or
+    # This builds the app in development mode(client)
+    $ npm build
+    
+    # Commands below builds the production build(client)
+    $ NODE_ENV=production npm build 
+    # or
     $ npm run build:prod
     
-    # Testing
+    # Server build
+    $ npm run build:server
+    
+    # Commands below builds the production build(client & server)
+    $ NODE_ENV=production npm build && npm run build:server
+    # or
+    $ npm run build:prodserver
+    
+    
+    # LINTING
+    $ npm run lint
+    
+    
+    # TESTING
     $ npm test
 
 For Windows users, we recommend using the shortcuts instead of setting environment variables because they work a little different on Windows.
