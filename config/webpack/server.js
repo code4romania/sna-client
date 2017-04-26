@@ -79,6 +79,11 @@ let config = {
           }
         }
       })
+      // new webpack.DefinePlugin({
+      //   'process.env': {
+      //     API_URL: JSON.stringify(process.env.API_URL || 'http://' + appConfig.host + ':' + appConfig.port)
+      //   }
+      // })
   ],
 
   node: {

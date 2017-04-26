@@ -6,6 +6,7 @@ let postcssNext = require('postcss-cssnext');
 let stylelint = require('stylelint');
 let ManifestPlugin = require('webpack-manifest-plugin');
 let CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
+let appConfig = require('../main');
 
 let config = {
   // Enable sourcemaps for debugging webpack's output.
@@ -123,7 +124,8 @@ let config = {
     new webpack.DefinePlugin({
       'process.env': {
         BROWSER: JSON.stringify(true),
-        NODE_ENV: JSON.stringify('development')
+        NODE_ENV: JSON.stringify('development'),
+        API_URL: JSON.stringify('http://' + appConfig.host + ':' + appConfig.port)
       }
     }),
     new webpack.HotModuleReplacementPlugin(),

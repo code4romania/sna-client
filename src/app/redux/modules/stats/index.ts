@@ -32,7 +32,7 @@ export function loadMinistriesStats(context: AsyncContext) {
     return Promise.resolve(state.reduxAsyncConnect.ministriesStats);
   }
 
-  return fetch('http://localhost:8889/public/data/ministries_stats.json')
+  return fetch((process.env.API_URL || 'http://localhost:8889') + '/public/data/ministries_stats.json')
     .then((res) => {
       if (res.ok) {
         return res.json()
@@ -60,7 +60,7 @@ export function loadCountiesStats(context: AsyncContext) {
     return Promise.resolve(state.reduxAsyncConnect.countiesStats);
   }
 
-  return fetch('http://localhost:8889/public/data/counties_stats.json')
+  return fetch((process.env.API_URL || 'http://localhost:8889') + '/public/data/counties_stats.json')
     .then((res) => {
       if (res.ok) {
         return res.json()

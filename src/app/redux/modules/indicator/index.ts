@@ -68,7 +68,7 @@ export function loadIndicators(context: AsyncContext) {
     return Promise.resolve(store.getState().reduxAsyncConnect.indicators);
   }
 
-  return fetch('http://localhost:8889/public/data/indicators.json')
+  return fetch((process.env.API_URL || 'http://localhost:8889') + '/public/data/indicators.json')
     .then((res) => {
       if (res.ok) {
         return res.json()

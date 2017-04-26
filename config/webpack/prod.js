@@ -5,6 +5,7 @@ let postcssNext = require('postcss-cssnext');
 let stylelint = require('stylelint');
 let ManifestPlugin = require('webpack-manifest-plugin');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let appConfig = require('../main');
 
 let config = {
   bail: true,
@@ -137,7 +138,8 @@ let config = {
     new webpack.DefinePlugin({
       'process.env': {
         BROWSER: JSON.stringify(true),
-        NODE_ENV: JSON.stringify('production')
+        NODE_ENV: JSON.stringify('production'),
+        API_URL: JSON.stringify(process.env.API_URL || 'http://' + appConfig.host + ':' + appConfig.port)
       }
     })
   ]
