@@ -37,6 +37,7 @@
       font-size: 2rem;
       box-sizing: content-box;
       transform: translateY(-50%);
+      user-select: none;
 
       &:before {
          content: ' ';
