@@ -1,0 +1,51 @@
+.SidebarWrapper {
+  &.collapsibleSidebar {
+    transition: margin-left 0.3s ease-in-out;
+    width: 270px;
+    position: relative;
+    background-color: #f7f9fa;
+
+    &.open {
+      margin-left: 0;
+    }
+
+    &.closed {
+      margin-left: -230px;
+    }
+  }
+
+  & .collapseSidebarBtn {
+    bottom: 5px;
+    left: 5px;
+    position: fixed;
+    border: 1px solid gray;
+    background-color: lightgray;
+  }
+
+  & .tooltip {
+      background-color: #4a90e2;
+      color: white;
+      position: absolute;
+      border-radius: 0.4rem;
+      padding: 2rem 1.5rem;
+      left: 105%;
+      max-width: 230px;
+      width: 200%;
+      top: 50%;
+      z-index: 5;
+      font-family: Roboto-Regular, sans-serif;
+      font-size: 2rem;
+      box-sizing: content-box;
+      transform: translateY(-50%);
+
+      &:before {
+         content: ' ';
+         position: absolute;
+         top: 50%;
+         left: -2rem;
+         transform: translateY(-50%);
+         border: 1rem solid transparent;
+         border-right-color: #4a90e2;
+       }
+  }
+}

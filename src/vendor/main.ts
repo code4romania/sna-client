@@ -13,3 +13,5 @@ require('bootstrap-slider/dist/css/bootstrap-slider.min.css');
 
 require('./roboto.css');
 require('./roboto-slab.css');
+
+require('core-js/client/shim.min.js');

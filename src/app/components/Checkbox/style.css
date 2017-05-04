@@ -12,8 +12,8 @@
   position: absolute;
   left: -9999px;
   &:checked + span {
-    background-color: var(--brand-success);
-    border-color: var(--brand-success);
+    background-color: #24B47E; /*var(--brand-success);*/
+    border-color: #24B47E; /*var(--brand-success);*/
     position: relative;
 
     &:before {

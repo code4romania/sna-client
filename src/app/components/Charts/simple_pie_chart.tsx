@@ -29,7 +29,7 @@ export function SimplePieChart(props: Props): JSX.Element {
            startAngle={90}
            endAngle={360 + 90}
            paddingAngle={2}>
-        {data.map((_, index) => <Cell fill={COLORS[index % COLORS.length]}/>)}
+        {data.map((_, index) => <Cell fill={COLORS[index % COLORS.length]} key={index}/>)}
       </Pie>
       <text key="value" x={width / 2} y={height / 2 + 15} textAnchor="middle"
             fill="#0D2B3E" fontSize={62} fontFamily="Roboto Slab" fontWeight={300}>

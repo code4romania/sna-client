@@ -26,6 +26,11 @@ export class Indicator1OneYear extends React.Component<Props, any> {
     const cat3 = categoryStats.get(3);
     const cat4 = categoryStats.get(4);
     const cat4MaxAvg = categoryMaxAvgStats.get(4);
+
+    if (!cat4MaxAvg) {
+      return null;
+    }
+
     const cat4AvgPerc = cat4MaxAvg.avg * 100 / cat4MaxAvg.max;
     const cat4Perc = cat4 * 100 / cat4MaxAvg.max;
 

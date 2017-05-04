@@ -1,7 +1,9 @@
 import * as React from 'react';
 import {Link} from 'react-router';
+
 import {BackLink} from '../BackLink/index';
 import {RouteParams, mreportPath, ireportPath, creportPath} from '../../helpers/url_helper';
+import SidebarWrapper from '../sidebarWrapper/index';
 
 const style = require('./style.css');
 
@@ -10,7 +12,7 @@ interface Props {
   location?: any;
 }
 
-export class AdministationSidebar extends React.Component<Props, {}> {
+class AdministrationSidebar extends React.Component<Props, {}> {
   public render() {
     const indId = parseInt(this.props.params.id, 10);
 
@@ -41,3 +43,5 @@ export class AdministationSidebar extends React.Component<Props, {}> {
     );
   }
 }
+
+export default SidebarWrapper(AdministrationSidebar);

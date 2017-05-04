@@ -1,4 +1,6 @@
+/* tslint:disable:no-unused-expression */
 import { expect } from 'chai';
+
 import { renderComponent } from 'helpers/TestHelper';
 import { About } from './index';
 

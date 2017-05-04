@@ -5,6 +5,7 @@ const { reducer } = require('redux-connect');
 import { ApplicationState } from './application_state';
 import {selectedCountiesReducer} from './modules/filters/selected_counties';
 import {selectedMinistriesReducer} from './modules/filters/selected_ministries';
+import {localStorageReducer} from './modules/localStorage/index';
 
 interface ChangeAllYearsStateAction {
   type: 'change-all-years';
@@ -57,6 +58,7 @@ const rootReducer: Redux.Reducer<ApplicationState> = combineReducers<Application
   selectedMinistries: selectedMinistriesReducer,
   areAllYearsSelected: allYearsReducer,
   isSidebarOpen: isSidebarOpenReducer,
+  localStorage: localStorageReducer,
 });
 
 export default rootReducer;

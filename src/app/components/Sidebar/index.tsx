@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Link} from 'react-router';
 import {List} from 'immutable';
+import {Dispatch} from 'react-redux';
 const {connect} = require('react-redux');
 const {asyncConnect} = require('redux-connect');
 
@@ -9,7 +10,9 @@ import {Badge} from '../Badge/index';
 import {ApplicationState} from '../../redux/application_state';
 import {loadIndicatorsConfig} from '../../redux/modules/indicator/index';
 import {selAdminPath, MyLocation} from '../../helpers/url_helper';
-import {areIndicatorsLoaded, indicators} from '../../selectors/index';
+import {areIndicatorsLoaded, indicators /* location */} from '../../selectors/index';
+import {DispatchProps} from '../Section/filters';
+import SidebarWrapper from '../sidebarWrapper/index';
 
 const style = require('./style.css');
 
@@ -27,13 +30,22 @@ interface SidebarProps {
     areIndicatorsLoaded: areIndicatorsLoaded(state),
     indicators: indicators(state),
   }),
+  (dispatch: Dispatch<ApplicationState>) => ({ onAction: dispatch }),
 )
-export class Sidebar extends React.Component<SidebarProps, {}> {
+export class HomeSidebar extends React.Component<SidebarProps & DispatchProps, {}> {
+  constructor(props) {
+    super(props);
+  }
+
   public render() {
     const { areIndicatorsLoaded } = this.props;
 
     let content = null;
-    delete this.props.location.query.category_id;
+    /* tslint:disable:no-unused-expression */
+    this.props.location && this.props.location.query && delete this.props.location.query.category_id; // TODO ~
+    /* tslint:enable:no-unused-expression */
+
+    const link = (indicator) => selAdminPath(indicator.id, this.props.location && this.props.location.query); // TODO ~
 
     if (!areIndicatorsLoaded) {
       content = <li key='0'>Se încarcă</li>;
@@ -41,7 +53,7 @@ export class Sidebar extends React.Component<SidebarProps, {}> {
       content = this.props.indicators.map((indicator: Indicator) => {
         return (
           <li key={indicator.id}><Badge text={indicator.id.toString()}/>
-            <Link to={selAdminPath(indicator.id, this.props.location.query)}>{indicator.name}</Link>
+            <Link to={link(indicator)}>{indicator.name}</Link>
           </li>
         );
       });
@@ -60,3 +72,5 @@ export class Sidebar extends React.Component<SidebarProps, {}> {
     );
   }
 }
+
+export default SidebarWrapper(HomeSidebar);

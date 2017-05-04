@@ -56,7 +56,7 @@ export class IndicatorsMain extends React.Component<Props & DispatchProps, any> 
 
     return (
       <div className={s.Indicators}>
-        <CustomContentHeader parentTitle={this.props.selectedMinistry.name}>
+        <CustomContentHeader parentTitle={this.props.selectedMinistry && this.props.selectedMinistry.name}>
           {this.props.indicatorTitle}
         </CustomContentHeader>
 

@@ -24,6 +24,7 @@ export const paramMinistryId = (state) => parseMinistryId(state.routing.location
 export const paramCategoryId = (state) => parseInt(state.routing.locationBeforeTransitions.query.category_id, 10) || 0;
 export const paramYear = (state) => parseInt(state.routing.locationBeforeTransitions.query.year, 10) || 0;
 export const chart = (state) => state.routing.locationBeforeTransitions.query.chart;
+export const location = (state) => state.routing.locationBeforeTransitions;
 
 export const paramChart = createSelector(
   paramAdminTypeId, chart,

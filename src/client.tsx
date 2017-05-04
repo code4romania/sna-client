@@ -9,15 +9,18 @@ import { syncHistoryWithStore } from 'react-router-redux';
 const { Router, browserHistory } = require('react-router');
 const { ReduxAsyncConnect } = require('redux-connect');
 
-import { configureStore } from './app/redux/store';
 import routes from './app/routes';
+import { configureStore } from './app/redux/store';
+import { ApplicationState } from './app/redux/application_state';
+import { loadFromLocalStorage } from './app/redux/modules/localStorage/localStorageHelpers';
 
 const store = configureStore(
   browserHistory,
-  {...window.__INITIAL_STATE__,
+  ({...window.__INITIAL_STATE__,
     selectedCounties: Set<number>(),
     selectedMinistries: Set<number>(),
-  },
+    localStorage: loadFromLocalStorage(),
+  } as ApplicationState),
 );
 const history = syncHistoryWithStore(browserHistory, store);
 const connectedCmp = (props) => <ReduxAsyncConnect {...props} />;

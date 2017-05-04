@@ -4,6 +4,7 @@ import {Promise} from 'es6-promise';
 
 import {Indicator} from '../models/indicator';
 import {Ministry} from '../models/ministry';
+import {ILocalStorage} from '../models/localStorage';
 
 export interface ApplicationState {
   routing: RouterState;
@@ -12,6 +13,7 @@ export interface ApplicationState {
   selectedMinistries: Set<number>;
   areAllYearsSelected: boolean;
   isSidebarOpen: boolean;
+  localStorage: ILocalStorage;
 }
 
 type RemoteContent = 'indicators' | 'ministriesStats' | 'countiesStats';

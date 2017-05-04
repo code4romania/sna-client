@@ -9,6 +9,7 @@ import {ChartIcon} from '../ChartIcon/index';
 import {Ministry} from '../../models/ministry';
 import {ApplicationState} from '../../redux/application_state';
 import {areMinistriesStatsLoaded, ministries} from '../../selectors/index';
+import SidebarWrapper from '../sidebarWrapper/index';
 
 const style = require('./style.css');
 
@@ -25,7 +26,7 @@ interface Props {
     ministries: ministries(state),
   }),
 )
-export class MinistriesSidebar extends React.Component<Props, {}> {
+class MinistriesSidebar extends React.Component<Props, {}> {
   public render() {
     const indId = parseInt(this.props.params.id, 10);
 
@@ -56,3 +57,5 @@ export class MinistriesSidebar extends React.Component<Props, {}> {
     );
   }
 }
+
+export default SidebarWrapper(MinistriesSidebar);

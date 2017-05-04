@@ -1,9 +1,11 @@
 import * as React from 'react';
 import {Link} from 'react-router';
+
 import {BackLink} from '../BackLink/index';
 import {selAdminPath, MyLocation, creportPath} from '../../helpers/url_helper';
 import {ChartIcon} from '../ChartIcon/index';
 import {County} from '../../models/county';
+import SidebarWrapper from '../sidebarWrapper/index';
 
 const style = require('./style.css');
 export const COUNTIES = require('./counties.json').map((json, idx) => new County(idx + 1, json.code, json.name));
@@ -17,7 +19,7 @@ interface Props {
   location?: MyLocation;
 }
 
-export class CountiesSidebar extends React.Component<Props, {}> {
+class CountiesSidebar extends React.Component<Props, {}> {
   public render() {
     const indId = parseInt(this.props.params.id, 10);
 
@@ -50,3 +52,5 @@ export class CountiesSidebar extends React.Component<Props, {}> {
     );
   }
 }
+
+export default SidebarWrapper(CountiesSidebar);
