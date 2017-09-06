@@ -16,7 +16,7 @@ export function LineChart(props: Props) {
       <div className={s.circle} style={{left: `${props.value}%`}}/>
       <div className={s.avg_tick}  style={{left: `${props.avg}%`}}/>
       <div className={s.avg_title} style={{left: `${props.avg}%`}}>
-        <div className={s.avg_text}>media<br/>ministere</div>
+        <div className={s.avg_text}>media<br/>instituții</div>
       </div>
     </div>
   );

@@ -1,27 +1,28 @@
 import * as React from 'react';
-const { asyncConnect } = require('redux-connect');
-const { connect } = require('react-redux');
 import {Set} from 'immutable';
 import {Dispatch} from 'react-redux';
+const {asyncConnect} = require('redux-connect');
+const {connect} = require('react-redux');
 
 import {ContentHeader} from '../../components/ContentHeader/index';
-import {loadIndicatorsConfig} from '../../redux/modules/indicator/index';
+import {loadIndicatorsConfig} from '../../redux/modules/indicators/index';
 import {ApplicationState} from '../../redux/application_state';
 import {loadMinistriesStatsConfig} from '../../redux/modules/stats/index';
 import {
-  currentIndicatorTitle,
+  currentCategoryTitle,
   areIndicatorsLoaded,
-  areMinistriesStatsLoaded,
+  areMinistryStatsLoaded,
   selectedMinistries,
   ministriesFilterData,
 } from '../../selectors/index';
-import {MinistryBarChart} from '../../components/BarChart/ministries_bar_chart';
-import {MinistriesScatterChart} from '../../components/ScatterChart/ministries_scatter_chart';
+import {AdministrationBarChart} from '../../components/BarChart/ministries_bar_chart';
+import {AdministrationsScatterChart} from '../../components/ScatterChart/ministries_scatter_chart';
 import {CommonFilters, DispatchProps} from '../../components/Section/filters';
 import {MyLocation, RouteParams} from '../../helpers/url_helper';
 import {CheckBoxOptions} from '../../components/CheckboxGroup/index';
 import {AdminFilter} from '../CountyOverview/admin_filter';
-import {reset, selectMinistry, deselectMinistry} from '../../redux/modules/filters/selected_ministries';
+import {resetMinistry, selectMinistry, deselectMinistry} from '../../redux/modules/filters/selected_ministries';
+import {ADMINISTRATION_TYPE} from "../../constants/index";
 
 const style = require('./style.css');
 
@@ -31,34 +32,43 @@ interface Props {
   areIndicatorsLoaded: boolean;
   areMinistriesStatsLoaded: boolean;
   indicatorTitle: string;
-  ministriesFilterData: CheckBoxOptions[];
   selectedMinistries: Set<number>;
+  ministriesFilterData: CheckBoxOptions[];
   params: RouteParams;
   location: MyLocation;
 }
 
 @asyncConnect([
-  loadIndicatorsConfig(), loadMinistriesStatsConfig(),
+  loadIndicatorsConfig(),
+  loadMinistriesStatsConfig(),
 ])
 @connect(
-  (state: ApplicationState, ownProps: Props): Props => ({...ownProps,
+  (state: ApplicationState, ownProps: Props): Props => ({
+    ...ownProps,
     areIndicatorsLoaded: areIndicatorsLoaded(state),
-    areMinistriesStatsLoaded: areMinistriesStatsLoaded(state),
-    indicatorTitle: currentIndicatorTitle(state),
+    areMinistriesStatsLoaded: areMinistryStatsLoaded(state),
+    indicatorTitle: currentCategoryTitle(state),
     selectedMinistries: selectedMinistries(state),
     ministriesFilterData: ministriesFilterData(state),
   }),
   (dispatch: Dispatch<ApplicationState>) => ({ onAction: dispatch }),
 )
-export class MinistryOverview extends React.Component<Props & DispatchProps, any> {
+export class  MinistryOverview extends React.Component<Props & DispatchProps, any> {
   public static contextTypes = {
     router: React.PropTypes.object,
   };
 
+  constructor(props) {
+    super(props);
+    this.onSelectMinistry = this.onSelectMinistry.bind(this);
+    this.onSelectAll = this.onSelectAll.bind(this);
+  }
+
   public render() {
     return (
       <div className={style.MinistryOverview}>
-        <ContentHeader parentTitle="Prezentare generală ministere" title={this.props.indicatorTitle} />
+        <ContentHeader parentTitle="Prezentare generală ministere"
+                       title={this.props.indicatorTitle} />
 
         <div className={style.main}>
 
@@ -68,11 +78,12 @@ export class MinistryOverview extends React.Component<Props & DispatchProps, any
             <div className={"col-md-5 " + style.ministry_filter}>
               <div className={style.title}>Date afișate</div>
               <div>
-                <AdminFilter type="ministerele" areAllChecked={this.props.selectedMinistries.size === 0}
+                <AdminFilter type="ministerele"
+                             areAllChecked={this.props.selectedMinistries.size === 0}
                              columns={1}
                              data={this.props.ministriesFilterData}
-                             onSelectOne={this.onSelectMinistry.bind(this)}
-                             onSelectAll={this.onSelectAll.bind(this)} />
+                             onSelectOne={this.onSelectMinistry}
+                             onSelectAll={this.onSelectAll} />
               </div>
             </div>
             <div className={"col-md-7 " + style.chart_display}>
@@ -99,14 +110,14 @@ export class MinistryOverview extends React.Component<Props & DispatchProps, any
     }
 
     if (chart === "bar") {
-      return <MinistryBarChart />;
+      return <AdministrationBarChart type={ADMINISTRATION_TYPE.MINISTRY} />;
     } else {
-      return <MinistriesScatterChart />;
+      return <AdministrationsScatterChart type={ADMINISTRATION_TYPE.MINISTRY}/>;
     }
   }
 
   private onSelectAll() {
-    this.props.onAction(reset());
+    this.props.onAction(resetMinistry());
   }
 
   private onSelectMinistry(option: CheckBoxOptions) {

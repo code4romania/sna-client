@@ -19,6 +19,7 @@ const initialState: IndicatorState = {
   isFetching: true,
 };
 
+// TODO remove?
 /** Reducer */
 export function indicatorsReducer(state = initialState, action: IndicatorAction) {
   switch (action.type) {
@@ -48,6 +49,7 @@ export function indicatorsReducer(state = initialState, action: IndicatorAction)
   }
 }
 
+// TODO remove?
 export function loadIndicatorsConfig(): AsyncLoaderEntry {
   return {
     key: 'indicators',
@@ -57,6 +59,7 @@ export function loadIndicatorsConfig(): AsyncLoaderEntry {
   };
 }
 
+// TODO remove?
 /** Async Action Creator */
 export function loadIndicators(context: AsyncContext) {
   const {store} = context;

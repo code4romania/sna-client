@@ -49,7 +49,7 @@
 
   & ul.adminType {
     padding: 0;
-    height: calc(100% - 108px);
+    /*height: calc(100% - 108px);*/
     overflow-y: auto;
   }
 

@@ -2,14 +2,16 @@ import * as React from 'react';
 import {Link} from 'react-router';
 import {OrderedMap} from 'immutable';
 const {connect} = require('react-redux');
+const {asyncConnect} = require('redux-connect');
 
 import {BackLink} from '../BackLink/index';
 import {selAdminPath, MyLocation, RouteParams, mreportPath} from '../../helpers/url_helper';
 import {ChartIcon} from '../ChartIcon/index';
 import {Ministry} from '../../models/ministry';
 import {ApplicationState} from '../../redux/application_state';
-import {areMinistriesStatsLoaded, ministries} from '../../selectors/index';
+import {areMinistryStatsLoaded, ministryAdmins} from '../../selectors/index';
 import SidebarWrapper from '../sidebarWrapper/index';
+import {loadMinistriesConfig} from '../../redux/modules/institutions/ministry';
 
 const style = require('./style.css');
 
@@ -20,14 +22,21 @@ interface Props {
   areMinistriesStatsLoaded?: boolean;
 }
 
+@asyncConnect([
+  loadMinistriesConfig(),
+])
 @connect(
   (state: ApplicationState): Props => ({
-    areMinistriesStatsLoaded: areMinistriesStatsLoaded(state),
-    ministries: ministries(state),
+    areMinistriesStatsLoaded: areMinistryStatsLoaded(state),
+    ministries: ministryAdmins(state),
   }),
 )
 class MinistriesSidebar extends React.Component<Props, {}> {
   public render() {
+    if (!this.props.areMinistriesStatsLoaded) {
+      return (<div>Loading</div>);
+    }
+
     const indId = parseInt(this.props.params.id, 10);
 
     const menus = this.props.ministries.toIndexedSeq().map((i) => (

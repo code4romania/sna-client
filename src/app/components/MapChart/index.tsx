@@ -1,9 +1,10 @@
 import * as React from 'react';
-import {ApplicationState} from "../../redux/application_state";
-import {areCountiesStatsLoaded} from "../../selectors/index";
-import {countyMapChartData} from "../../selectors/counties";
-import {CountyColorMap, RomaniaMap} from "../RomaniaMap/index";
 const { connect } = require('react-redux');
+
+import {ApplicationState} from '../../redux/application_state';
+import {areCountiesStatsLoaded} from '../../selectors/index';
+import {countyMapChartData} from '../../selectors/counties';
+import {CountyColorMap, RomaniaMap} from '../RomaniaMap/index';
 
 interface Props {
   areStatsLoaded?: boolean;

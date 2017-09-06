@@ -1,14 +1,11 @@
 import {Action} from 'redux';
 
-export interface Category {
-  id: number;
-  name: string;
-}
-
 export interface Indicator {
   id: number;
-  name: string;
-  categories: Category[];
+  text: string;
+  answerType: string;
+  maxLength: number;
+  step: number;
 }
 
 export interface IndicatorState {

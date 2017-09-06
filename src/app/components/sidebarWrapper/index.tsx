@@ -29,6 +29,7 @@ function SidebarWrapper(SidebarComponent) {
       super(props);
 
       this.handleDocumentClickEvent = this.handleDocumentClickEvent.bind(this);
+      this.openMenu = this.openMenu.bind(this);
     }
 
     public componentDidMount() {
@@ -135,7 +136,7 @@ function SidebarWrapper(SidebarComponent) {
         <div className={sidebarClasses}>
           {text ? <div className={style.tooltip}>{text}</div> : null}
           {sidebar}
-          <CollapseSidebarButton isOpen={isSidebarOpen} openMenu={this.openMenu.bind(this)}/>
+          <CollapseSidebarButton isOpen={isSidebarOpen} openMenu={this.openMenu}/>
         </div>
       );
     }

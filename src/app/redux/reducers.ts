@@ -3,8 +3,9 @@ import { routerReducer } from 'react-router-redux';
 const { reducer } = require('redux-connect');
 
 import { ApplicationState } from './application_state';
-import {selectedCountiesReducer} from './modules/filters/selected_counties';
 import {selectedMinistriesReducer} from './modules/filters/selected_ministries';
+import {selectedAnticorruptionAdminsReducer} from './modules/filters/selected_anticorruption_admins';
+import {selectedCountiesReducer} from './modules/filters/selected_counties';
 import {localStorageReducer} from './modules/localStorage/index';
 
 interface ChangeAllYearsStateAction {
@@ -56,6 +57,7 @@ const rootReducer: Redux.Reducer<ApplicationState> = combineReducers<Application
   reduxAsyncConnect: reducer,
   selectedCounties: selectedCountiesReducer,
   selectedMinistries: selectedMinistriesReducer,
+  selectedAnticorruptionAdmins: selectedAnticorruptionAdminsReducer,
   areAllYearsSelected: allYearsReducer,
   isSidebarOpen: isSidebarOpenReducer,
   localStorage: localStorageReducer,

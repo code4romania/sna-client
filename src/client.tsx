@@ -16,9 +16,10 @@ import { loadFromLocalStorage } from './app/redux/modules/localStorage/localStor
 
 const store = configureStore(
   browserHistory,
-  ({...window.__INITIAL_STATE__,
+  ({...(window as any).__INITIAL_STATE__,
     selectedCounties: Set<number>(),
     selectedMinistries: Set<number>(),
+    selectedAnticorruptionAdmins: Set<number>(),
     localStorage: loadFromLocalStorage(),
   } as ApplicationState),
 );

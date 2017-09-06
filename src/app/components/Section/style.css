@@ -19,6 +19,10 @@
       background-image: none;
       box-shadow: none;
     }
+
+    & :global(.slider-tick-label-container) {
+      margin-right: -32.8px;
+    }
   }
 
   & :global(.slider-tick) {
@@ -33,7 +37,7 @@
 .Filters {
   text-align: left;
 
-  & .category {
+  & .indicator {
     & :global(.dropdown) {
       width: 100%;
 
@@ -43,11 +47,14 @@
         align-items: center;
       }
 
-      & .select_category {
+      & .select_indicator {
         font-size: 20px;
         padding: 10px 10px 12px 16px;
         width: 100%;
         text-align: left;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
 
       & :global(.dropdown-menu) {

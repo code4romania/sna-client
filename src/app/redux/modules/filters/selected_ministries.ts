@@ -20,25 +20,17 @@ interface Reset {
 
 /** Action Creator */
 export function selectMinistry(id: number): SelectMinistry {
-  return {
-    type: 'ministry-filter-add',
-    id,
-  };
+  return {type: 'ministry-filter-add', id};
 }
 
 /** Action Creator */
 export function deselectMinistry(id: number): DeselectMinistry {
-  return {
-    type: 'ministry-filter-remove',
-    id,
-  };
+  return {type: 'ministry-filter-remove', id};
 }
 
 /** Action Creator */
-export function reset(): Reset {
-  return {
-    type: 'ministry-filter-reset',
-  };
+export function resetMinistry(): Reset {
+  return {type: 'ministry-filter-reset'};
 }
 
 /** Reducer */

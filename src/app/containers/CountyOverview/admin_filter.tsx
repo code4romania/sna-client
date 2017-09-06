@@ -5,7 +5,7 @@ import {Checkbox} from "../../components/Checkbox/index";
 const style = require('./style.css');
 
 interface AdminFilterProps {
-  type: "județele" | "ministerele";
+  type: "județele" | "ministerele" | "administrațiile";
   areAllChecked: boolean;
   data: CheckBoxOptions[];
   columns: number;

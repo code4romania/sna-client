@@ -20,12 +20,12 @@
       text-align: center;
       font-size: 20px;
       color: #516178;
-      font-family: Roboto Slab;
+      font-family: Roboto Slab, sans-serif;
       margin-bottom: 10px;
     }
 
     & :global(.note) {
-      font-family: Roboto Slab;
+      font-family: Roboto Slab, sans-serif;
       text-align: center;
       font-size: 16px;
       color: #93A6B1;
@@ -58,7 +58,7 @@
     flex-direction: row;
 
     & :global(.legend) {
-      font-family: Roboto;
+      font-family: Roboto, sans-serif;
       font-size: 15px;
       color: #0D2B3E;
       letter-spacing: 0;
@@ -94,7 +94,7 @@
   }
 
   & :global(.big_value) {
-    font-family: Roboto Slab;
+    font-family: Roboto Slab, sans-serif;
     font-weight: 300;
     font-size: 62px;
     line-height: 62px;
@@ -103,7 +103,7 @@
   }
 
   & :global(.big_value_desc) {
-    font-family: Roboto-Regular;
+    font-family: Roboto-Regular, sans-serif;
     font-size: 15px;
     color: #516178;
     text-align: center;
@@ -135,7 +135,7 @@
     margin-bottom: 16px;
 
     & :global(.value) {
-      font-family: Roboto Slab;
+      font-family: Roboto Slab, sans-serif;
       font-weight: 300;
       font-size: 62px;
       color: #0D2B3E;
@@ -145,7 +145,7 @@
     }
 
     & :global(.percent) {
-      font-family: Roboto Slab;
+      font-family: Roboto Slab, sans-serif;
       font-size: 26px;
       color: #0D2B3E;
     }
@@ -162,12 +162,12 @@
       margin-top: 20px;
 
       & :global(.number) {
-        font-family: Roboto-Bold;
+        font-family: Roboto-Bold, sans-serif;
         font-size: 40px;
       }
 
       & :global(.desc) {
-        font-family: Roboto-Regular;
+        font-family: Roboto-Regular, sans-serif;
         font-size: 15px;
         color: #0D2B3E;
         line-height: 16px;

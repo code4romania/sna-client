@@ -10,13 +10,13 @@
 
   & .title {
     font-size: 40px;
-    font-family: Roboto Slab;
+    font-family: Roboto Slab, sans-serif;
     color: #0D2B3E;
     letter-spacing: 0;
   }
 
   & .parentTitle {
-    font-family: Roboto-Regular;
+    font-family: Roboto-Regular, sans-serif;
     font-size: 24px;
     color: #93A6B1;
 

@@ -13,6 +13,10 @@ let config = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/redux'],
+    alias: {
+      // 'jquery': path.join(__dirname, './jquery-stub.js')
+      'jquery': path.resolve(__dirname, 'jquery-stub.js')
+    },
   },
 
   entry: {

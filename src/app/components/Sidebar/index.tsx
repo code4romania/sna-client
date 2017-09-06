@@ -5,30 +5,31 @@ import {Dispatch} from 'react-redux';
 const {connect} = require('react-redux');
 const {asyncConnect} = require('redux-connect');
 
-import {Indicator} from '../../models/indicator';
+// import {Indicator} from '../../models/indicator';
 import {Badge} from '../Badge/index';
 import {ApplicationState} from '../../redux/application_state';
-import {loadIndicatorsConfig} from '../../redux/modules/indicator/index';
 import {selAdminPath, MyLocation} from '../../helpers/url_helper';
-import {areIndicatorsLoaded, indicators /* location */} from '../../selectors/index';
+import {areCategoriesLoaded, categories /* location */} from '../../selectors/index';
 import {DispatchProps} from '../Section/filters';
 import SidebarWrapper from '../sidebarWrapper/index';
+import {loadCategoriesConfig} from "../../redux/modules/categories/index";
+import {Category} from "../../models/category";
 
 const style = require('./style.css');
 
 interface SidebarProps {
-  areIndicatorsLoaded?: boolean;
-  indicators?: List<Indicator>;
+  areCategoriesLoaded?: boolean;
+  categories?: List<Category>;
   location?: MyLocation;
 }
 
 @asyncConnect([
-  loadIndicatorsConfig(),
+  loadCategoriesConfig(),
 ])
 @connect(
   (state: ApplicationState): SidebarProps  => ({
-    areIndicatorsLoaded: areIndicatorsLoaded(state),
-    indicators: indicators(state),
+    areCategoriesLoaded: areCategoriesLoaded(state),
+    categories: categories(state),
   }),
   (dispatch: Dispatch<ApplicationState>) => ({ onAction: dispatch }),
 )
@@ -38,22 +39,22 @@ export class HomeSidebar extends React.Component<SidebarProps & DispatchProps, {
   }
 
   public render() {
-    const { areIndicatorsLoaded } = this.props;
+    const { areCategoriesLoaded } = this.props;
 
     let content = null;
     /* tslint:disable:no-unused-expression */
-    this.props.location && this.props.location.query && delete this.props.location.query.category_id; // TODO ~
+    this.props.location && this.props.location.query && delete this.props.location.query.indicator_id; // TODO ~
     /* tslint:enable:no-unused-expression */
 
     const link = (indicator) => selAdminPath(indicator.id, this.props.location && this.props.location.query); // TODO ~
 
-    if (!areIndicatorsLoaded) {
+    if (!areCategoriesLoaded) {
       content = <li key='0'>Se încarcă</li>;
     } else {
-      content = this.props.indicators.map((indicator: Indicator) => {
+      content = this.props.categories.map((category: Category) => {
         return (
-          <li key={indicator.id}><Badge text={indicator.id.toString()}/>
-            <Link to={link(indicator)}>{indicator.name}</Link>
+          <li key={category.id}><Badge text={category.id.toString()}/>
+            <Link to={link(category)}>{category.name}</Link>
           </li>
         );
       });

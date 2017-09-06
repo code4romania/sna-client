@@ -1,5 +1,5 @@
 export const ADMIN_TYPE_MINISTRIES = 1;
-export const ADMIN_TYPE_OTHER = 2;
+export const ADMIN_TYPE_ANTICORRUPTION_ADMINS = 2;
 export const ADMIN_TYPE_COUNTIES = 3;
 
 export interface MyLocation {
@@ -25,7 +25,7 @@ export function mreportPath(indicatorId: number, itemId?: number, query?: any): 
 
 // path for Independence, prefix i
 export function ireportPath(indicatorId: number, itemId?: number, query?: any): MyLocation {
-  let pathname = `/report/${indicatorId}/${ADMIN_TYPE_OTHER}`;
+  let pathname = `/report/${indicatorId}/${ADMIN_TYPE_ANTICORRUPTION_ADMINS}`;
 
   if (itemId) {
     pathname += `/${itemId}`;
@@ -53,7 +53,7 @@ export function routePath(pathname, query?): MyLocation {
   return {pathname, query};
 }
 
-export function parseIndicatorId(path: string): number {
+export function parseCategoryId(path: string): number {
   const result = path.match(/\/report\/(\d+)/);
 
   if (result) {
@@ -73,7 +73,7 @@ export function parseAdminTypeId(path: string): number {
   }
 }
 
-export function parseMinistryId(path: string): number {
+export function parseAdminId(path: string): number {
   const result = path.match(/\/report\/(\d+)\/(\d+)\/(\d+)/);
 
   if (result) {

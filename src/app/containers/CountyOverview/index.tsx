@@ -1,24 +1,31 @@
 import * as React from 'react';
 import {Set} from 'immutable';
 import {Dispatch} from 'react-redux';
+const { asyncConnect } = require('redux-connect');
+const { connect } = require('react-redux');
+
 import {ContentHeader} from '../../components/ContentHeader/index';
 import {CommonFilters, DispatchProps} from '../../components/Section/filters';
 import {MyLocation, RouteParams} from '../../helpers/url_helper';
-import {loadIndicatorsConfig} from '../../redux/modules/indicator/index';
+import {loadIndicatorsConfig} from '../../redux/modules/indicators/index';
 import {ApplicationState} from '../../redux/application_state';
-import {currentIndicatorTitle, areCountiesStatsLoaded, paramChart} from '../../selectors/index';
+import {
+  currentCategoryTitle,
+  areCountiesStatsLoaded,
+  paramChart,
+  selectedCounties,
+  countiesFilterData,
+} from '../../selectors/index';
 import {loadCountiesStatsConfig} from '../../redux/modules/stats/index';
 import {CheckBoxOptions} from '../../components/CheckboxGroup/index';
 import {MapChart} from '../../components/MapChart/index';
 import {ChartType} from '../MinistryOverview/index';
-import {countyMapChartData, countiesFilterData, selectedCounties} from '../../selectors/counties';
+import {countyMapChartData} from '../../selectors/counties';
 import {CountyColorMap} from '../../components/RomaniaMap/index';
 import {reset, selectCounty, deselectCounty} from '../../redux/modules/filters/selected_counties';
 import {CountyBarChart} from '../../components/BarChart/counties_bar_chart';
 import {CountiesScatterChart} from '../../components/ScatterChart/counties_scatter_chart';
 import {AdminFilter} from './admin_filter';
-const { asyncConnect } = require('redux-connect');
-const { connect } = require('react-redux');
 
 const style = require('./style.css');
 
@@ -34,12 +41,13 @@ interface Props {
 }
 
 @asyncConnect([
-  loadIndicatorsConfig(), loadCountiesStatsConfig(),
+  loadIndicatorsConfig(),
+  loadCountiesStatsConfig(),
 ])
 @connect(
   (state: ApplicationState): Props => ({
     areStatsLoaded: areCountiesStatsLoaded(state),
-    indicatorTitle: currentIndicatorTitle(state),
+    indicatorTitle: currentCategoryTitle(state),
     countiesFilterData: countiesFilterData(state),
     selectedCounties: selectedCounties(state),
     mapData: countyMapChartData(state),
@@ -48,13 +56,21 @@ interface Props {
   (dispatch: Dispatch<ApplicationState>) => ({ onAction: dispatch }),
 )
 export class CountyOverview extends React.Component<Props & DispatchProps, any> {
+  constructor(props) {
+    super(props);
+    this.onSelectCounty = this.onSelectCounty.bind(this);
+    this.onSelectAll = this.onSelectAll.bind(this);
+  }
+
   public render(): JSX.Element {
     return (
       <div className={style.CountyOverview}>
-        <ContentHeader parentTitle='Prezentare generală administrații locale' title={this.props.indicatorTitle} />
+        <ContentHeader parentTitle='Prezentare generală administrații locale'
+                       title={this.props.indicatorTitle} />
 
         <div className={style.main}>
-          <CommonFilters location={this.props.location} showMapIcon={true} />
+          <CommonFilters location={this.props.location}
+                         showMapIcon={true} />
           {this.renderMap()}
           {this.renderContent()}
         </div>
@@ -109,10 +125,12 @@ export class CountyOverview extends React.Component<Props & DispatchProps, any> 
       <div className='row'>
         <div className='col-md-5'>
           <div className={style.title}>Date afișate</div>
-          <AdminFilter type='județele' areAllChecked={this.props.selectedCounties.size === 0} columns={2}
+          <AdminFilter type='județele'
+                       areAllChecked={this.props.selectedCounties.size === 0}
+                       columns={2}
                        data={this.props.countiesFilterData}
-                       onSelectOne={this.onSelectCounty.bind(this)}
-                       onSelectAll={this.onSelectAll.bind(this)} />
+                       onSelectOne={this.onSelectCounty}
+                       onSelectAll={this.onSelectAll} />
         </div>
         <div className='col-md-7'>
           <div className={style.title}>Număr sesizări</div>

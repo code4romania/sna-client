@@ -1,179 +1,259 @@
-import * as React from "react";
-import {connect} from "react-redux";
-import {Map} from "immutable";
-import {Box} from "../../components/Section/box";
-import {SimplePieChart, PieValue} from "../../components/Charts/simple_pie_chart";
-import {LineChart} from "../../components/Charts/line_chart";
-import {ApplicationState} from "../../redux/application_state";
-import {categoryStatsForYear, categoryMaxAvgStatsForYear, CategoryId, MaxAvg} from "../../selectors/indicators";
+import * as React from 'react';
+import * as _ from 'lodash';
+const {connect} = require('react-redux');
+import {Map} from 'immutable';
+
+// import {Box} from '../../components/Section/box';
+// import {PieValue, SimplePieChart} from '../../components/Charts/simple_pie_chart';
+// import {LineChart} from '../../components/Charts/line_chart';
+import {ApplicationState} from '../../redux/application_state';
+import {
+  anticorruptionAdminCategoryStatsForYear,
+  IndicatorId,
+  MaxAvg,
+  ministryCategoryStatsForYear,
+  ministryCategoryMaxAvgStatsForYear,
+  anticorruptionAdminCategoryMaxAvgStatsForYear,
+  countyCategoryStatsForYear,
+  countyCategoryMaxAvgStatsForYear,
+} from '../../selectors/indicators';
+// import {Ministry} from '../../models/ministry';
+import {currentCategory} from '../../selectors/index';  // , currentIndicators, currentMinistry
+import {Category} from '../../models/category';
+// import {Indicator} from '../../models/indicator';
+import {
+  INDICATOR1_ONE_YEAR_GROUPING,
+  DptDoughnutChartLabels,
+  MediumReferenceLinearScaleLabels,
+} from './indicator1_one_year_grouping';
+import {INDICATOR1_TYPES} from './indicator1_types';
+import {
+  DptDoughnutChart,
+  DptDoughnutChartProps,
+} from '../../components/Indicators/dpt_doughnut_chart';
+import {
+  MediumReferenceLinearScale,
+  MediumReferenceLinearScaleProps,
+} from '../../components/Indicators/medium_reference_linear_scale';
+import {
+  MixedVerticalBarChartMediumReferenceLinearScale,
+  MixedVerticalBarChartMediumReferenceLinearScaleProps,
+} from '../../components/Indicators/mixed_vertical_bar_chart_medium_reference_linear_scale';
+import {
+  NominalScale,
+  NominalScaleProps,
+} from '../../components/Indicators/nominal_scale';
+import {chooseByAdministrationType} from "../../helpers/administration_helper";
 
 interface Props {
-  categoryStats?: Map<CategoryId, number>;
-  categoryMaxAvgStats?: Map<CategoryId, MaxAvg>;
+  type?: string;
+  currentCategory?: Category;
+  // currentIndicators?: Indicator[];
+  // selectedMinistry?: Ministry;
+  categoryStats?: Map<IndicatorId, number>;
+  categoryMaxAvgStats?: Map<IndicatorId, MaxAvg>;
 }
 
 @connect(
-  (state: ApplicationState): Props => ({
-    categoryStats: categoryStatsForYear(state),
-    categoryMaxAvgStats: categoryMaxAvgStatsForYear(state),
+  (state: ApplicationState, ownProps: Props): Props => ({
+    currentCategory: currentCategory(state),
+    // currentIndicators: currentIndicators(state),
+    // selectedMinistry: currentMinistry(state),
+    categoryStats: chooseByAdministrationType([
+       ministryCategoryStatsForYear(state),
+       anticorruptionAdminCategoryStatsForYear(state),
+       countyCategoryStatsForYear(state),
+     ], ownProps.type),
+    categoryMaxAvgStats: chooseByAdministrationType([
+       ministryCategoryMaxAvgStatsForYear(state),
+       anticorruptionAdminCategoryMaxAvgStatsForYear(state),
+       countyCategoryMaxAvgStatsForYear(state),
+     ], ownProps.type),
   }),
 )
-export class Indicator1OneYear extends React.Component<Props, any> {
-  public render(): JSX.Element {
-    const {categoryStats, categoryMaxAvgStats} = this.props;
-    const cat1 = categoryStats.get(1);
-    const cat2 = categoryStats.get(2);
-    const cat3 = categoryStats.get(3);
-    const cat4 = categoryStats.get(4);
-    const cat4MaxAvg = categoryMaxAvgStats.get(4);
+export class Indicator1OneYear extends React.Component<Props, any> {  // TODO rename to IndicatorsOneYear
+  // public getNoOfOccupiedCols(buffer, idx, indicatorGroup) {
+  //   const pastOccupiedColIds = Array(buffer.length)
+  //     .fill(1)
+  //     .map((n, i) => idx - n - i);
+  //
+  //   return pastOccupiedColIds
+  //     .reduce((accum, id) => {
+  //       return accum += indicatorGroup.indicatorGrouping[id].indicatorType === INDICATOR1_TYPES.DPT_DOUGHNUT_CHART
+  //         ? 2
+  //         : 1;
+  //     }, 0);
+  // }
 
-    if (!cat4MaxAvg) {
+  public render(): JSX.Element {
+    const {
+      currentCategory,
+      // currentIndicators,
+      // selectedMinistry,
+      categoryStats,
+      categoryMaxAvgStats,
+    } = this.props;
+
+    if (!(categoryStats && categoryStats.size)) {
       return null;
     }
 
-    const cat4AvgPerc = cat4MaxAvg.avg * 100 / cat4MaxAvg.max;
-    const cat4Perc = cat4 * 100 / cat4MaxAvg.max;
+    const indicatorGroup = INDICATOR1_ONE_YEAR_GROUPING.find((ig) => ig.categoryId === currentCategory.id);
+
+    if (!indicatorGroup) {
+      return null;
+    }
+
+    const indicatorMappings = indicatorGroup.indicatorGrouping.map((indicator, idx) => {
+      switch (indicator.indicatorType) {
+
+        case INDICATOR1_TYPES.DPT_DOUGHNUT_CHART: {
+          const labels = (indicator.labels as DptDoughnutChartLabels);
+          const props: DptDoughnutChartProps = {
+            title: labels.title,
+            desc1: labels.desc1,
+            valueTitle: labels.valueTitle,
+            desc2: labels.desc2,
+            leftValue: categoryStats.get(indicator.indicators[0]),
+            centerValue: categoryStats.get(indicator.indicators[1]),
+            rightValue: indicator.indicators[2]
+              ? categoryStats.get(indicator.indicators[2])
+              : (categoryStats.get(indicator.indicators[1]) - categoryStats.get(indicator.indicators[0])),
+          };
+
+          return <DptDoughnutChart {...props} key={idx}/>;
+        }
+
+        case INDICATOR1_TYPES.BINOMINAL_SCALE:
+        case INDICATOR1_TYPES.MEDIUM_REFERENCE_LINEAR_SCALE:
+        case INDICATOR1_TYPES.BIMEDIUM_REFERENCE_LINEAR_SCALE: {
+          const value = categoryStats.get(indicator.indicators[0]);
+          const catMaxAvg = categoryMaxAvgStats.get(indicator.indicators[0]);
+
+          if (!catMaxAvg) {
+            return null;
+          }
+
+          const percentAverage = catMaxAvg.avg * 100 / catMaxAvg.max;
+          const percentValue = value * 100 / catMaxAvg.max;
+          const labels = (indicator.labels as MediumReferenceLinearScaleLabels);
+
+          const props: MediumReferenceLinearScaleProps = {
+            title: labels.title,
+            note: labels.note,
+            desc: labels.desc,
+            value,
+            percentValue,
+            percentAverage,
+            big: indicator.indicatorType === INDICATOR1_TYPES.BIMEDIUM_REFERENCE_LINEAR_SCALE,
+          };
+
+          return <MediumReferenceLinearScale {...props} key={idx}/>;
+        }
+
+        case INDICATOR1_TYPES.MIXED_VERTICAL_BAR_CHART_MEDIUM_REFERENCE_LINEAR_SCALE: {
+          const value = categoryStats.get(indicator.indicators[0]);
+          const catMaxAvg = categoryMaxAvgStats.get(indicator.indicators[0]);
+
+          if (!catMaxAvg) {
+            return null;
+          }
+
+          const average = catMaxAvg.avg;
+
+          const props: MixedVerticalBarChartMediumReferenceLinearScaleProps = {
+            title: indicator.labels.title,
+            value,
+            average,
+          };
+
+          return <MixedVerticalBarChartMediumReferenceLinearScale {...props} key={idx}/>;
+        }
+
+        case INDICATOR1_TYPES.NOMINAL_SCALE: {
+          const value = categoryStats.get(indicator.indicators[0]) + '';
+
+          const props: NominalScaleProps = {
+            title: indicator.labels.title,
+            value,
+          };
+
+          return <NominalScale {...props} key={idx}/>;
+        }
+
+        default: {
+          return null;
+        }
+      }
+    });
+
+    const wrappedIndicatorMappings = wrapIndicators(indicatorMappings, indicatorGroup);
 
     return (
       <div>
-        <div className="top_align">
-          <Box className="big_box">
-            <div className="title">Număr de sesizări privind încălcări ale normelor</div>
-            <div className="pie_row">
-              <div className="pie_desc blue">
-                <div className="number">{cat3}</div>
-                <div className="desc">sesizări soluționate</div>
-              </div>
-              <SimplePieChart width={150} height={150} valueTitle="decizii"
-                              data={pieData(cat3, cat2)}
-                              total={cat1}
-              />
-              <div className="pie_desc green">
-                <div className="number">{cat2}</div>
-                <div className="desc">sesizări soluționate</div>
-              </div>
-            </div>
-          </Box>
-          <Box className="small_box">
-            <div className="title">
-              Număr măsuri dispuse
-            </div>
-            <div className="note">
-              (fără a fi diferențiate pe tipuri)
-            </div>
-            <div>
-              <div className="big_value">22</div>
-              <div className="big_value_desc">măsuri</div>
-              <LineChart width={230} height={46} value={80} avg={20}/>
-            </div>
-          </Box>
-        </div>
-        {/* --- */}
-
-        <div className="top_align">
-          <Box className="big_box">
-            <div className="title">Număr de decizii prin care s-a confirmat încălcarea normei</div>
-            <div className="pie_row">
-              <div className="pie_desc blue">
-                <div className="number">6</div>
-                <div className="desc">decizii ale comisiei anulate sau modificate în instanță</div>
-              </div>
-              <SimplePieChart width={150} height={150} valueTitle="decizii"
-                              data={pieData(6, 2)}
-                              total={8}/>
-              <div className="pie_desc green">
-                <div className="number">2</div>
-                <div className="desc">decizii neanulate sau modificate în instanță</div>
-              </div>
-            </div>
-          </Box>
-          <Box className="small_box">
-            <div className="title">
-              Gradul de cunoaștere de către angajați a normelor
-            </div>
-            <div>
-              <div className="box_bar">
-                <div className="stacked_bar">
-                  <div className="bar">
-                    <div className="value" style={{height: '25%'}}/>
-                  </div>
-                </div>
-                <span className="value">25</span>
-                <span className="percent">%</span>
-              </div>
-              <LineChart width={230} height={46} value={80} avg={20}/>
-            </div>
-          </Box>
-        </div>
-        {/* --- */}
-
-        <div className="top_align">
-          <Box className="small_box">
-            <div className="title">
-              Număr de activități de formare privind normele de conduită
-            </div>
-            <div>
-              <div className="big_value">14</div>
-              <div className="big_value_desc">activități</div>
-              <LineChart width={230} height={46} value={80} avg={20}/>
-            </div>
-          </Box>
-          <Box className="small_box">
-            <div className="title">
-              Număr persoane care au fost instruite prin formarea profesională
-            </div>
-            <div>
-              <div className="big_value">34</div>
-              <div className="big_value_desc">persoane</div>
-              <LineChart width={230} height={46} value={80} avg={20}/>
-            </div>
-          </Box>
-          <Box className="small_box">
-            <div className="title">
-              Nr. măsuri adopdate pentru înlăturarea cauzelor încălcării normelor
-            </div>
-            <div>
-              <div className="big_value">22</div>
-              <div className="big_value_desc">măsuri</div>
-              <LineChart width={230} height={46} value={80} avg={20}/>
-            </div>
-          </Box>
-        </div>
-        {/* --- */}
-
-        <div className="top_align">
-          <Box className="big_box">
-            <div className="title">Număr persoane/instituție care au săvârșit abateri disciplinare</div>
-            <div className="pie_row">
-              <div className="pie_desc blue">
-                <div className="number">14</div>
-                <div className="desc">persoane care au săvârșit repetate abateri</div>
-              </div>
-              <SimplePieChart width={150} height={150} valueTitle="persoane"
-                              data={pieData(14, 4)}
-                              total={18}/>
-              <div className="pie_desc green">
-                <div className="number">4</div>
-                <div className="desc">persoane care au săvârșit nerepetate abateri</div>
-              </div>
-            </div>
-          </Box>
-          <Box className="small_box">
-            <div className="title">
-              Durata medie a procedurilor
-            </div>
-            <div>
-              <div className="big_value">{cat4}</div>
-              <div className="big_value_desc">zile</div>
-              <LineChart width={230} height={46} value={cat4Perc} avg={cat4AvgPerc}/>
-            </div>
-          </Box>
-        </div>
+        {wrappedIndicatorMappings}
       </div>
     );
   }
 }
 
-function pieData(max: number, min: number): PieValue[] {
-  return [{name: "A", value: max}, {name: "B", value: min}];
+export function getNoOfOccupiedCols(buffer, idx, indicatorGroup) {
+  const pastOccupiedColIds = Array(buffer.length)
+    .fill(1)
+    .map((n, i) => idx - n - i);
+
+  return pastOccupiedColIds
+    .reduce((accum, id) => {
+      return accum += indicatorGroup.indicatorGrouping[id].indicatorType === INDICATOR1_TYPES.DPT_DOUGHNUT_CHART
+        ? 2
+        : 1;
+    }, 0);
+}
+
+export function wrapIndicators(indicatorMappings, indicatorGroup) {
+  indicatorMappings = _.filter(indicatorMappings, (i) => !_.isEmpty(i));
+
+  const wrappedIndicatorMappings = [];
+  indicatorMappings.reduce((buffer, indicator, idx, arr) => {
+    let alreadyIncluded = false;
+    if (buffer.length === 0) {
+      buffer.push(indicator);
+      alreadyIncluded = true;
+
+      if (idx !== arr.length - 1) {
+        return buffer;
+      }
+    }
+
+    const noOfOccupiedCols = getNoOfOccupiedCols(buffer, idx, indicatorGroup);
+
+    if (noOfOccupiedCols === 1 && !alreadyIncluded) {
+      buffer.push(indicator);
+
+      if (idx !== arr.length - 1 && getNoOfOccupiedCols(buffer, idx + 1, indicatorGroup) < 3) {
+        return buffer;
+      }
+    } else if (noOfOccupiedCols === 2 && !alreadyIncluded) {
+      const indicatorMeta = indicatorGroup.indicatorGrouping[idx];
+      if (indicatorMeta.indicatorType !== INDICATOR1_TYPES.DPT_DOUGHNUT_CHART) {
+        buffer.push(indicator);
+
+        if (idx !== arr.length - 1 && getNoOfOccupiedCols(buffer, idx + 1, indicatorGroup) < 3) {
+          return buffer;
+        }
+      } else {
+        console.error('Please check the grid row\'s items.', idx);
+      }
+    }
+
+    wrappedIndicatorMappings.push((
+      <div className="top_align" key={'lev2_' + idx}>
+        {buffer}
+      </div>
+    ));
+
+    return [];
+  }, []);
+
+  return wrappedIndicatorMappings;
 }

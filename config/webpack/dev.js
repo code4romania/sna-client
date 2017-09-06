@@ -1,6 +1,6 @@
 let path = require('path');
 let webpack = require('webpack');
-let atImport = require("postcss-import");
+let atImport = require('postcss-import');
 let postcssAssets = require('postcss-assets');
 let postcssNext = require('postcss-cssnext');
 let stylelint = require('stylelint');
@@ -15,6 +15,10 @@ let config = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/redux'],
+    alias: {
+      // 'jquery': path.join(__dirname, './jquery-stub.js')
+      'jquery': path.resolve(__dirname, 'jquery-stub.js')
+    },
   },
 
   entry: {
@@ -107,7 +111,7 @@ let config = {
             stylelint({
               files: '../../src/app/**/*.css',
               rules: {
-                "unit-blacklist": []
+                'unit-blacklist': []
               }
             }),
             postcssNext(),

@@ -2,8 +2,8 @@ import * as React from 'react';
 import {Bar, Tooltip, YAxis, XAxis, BarChart} from "recharts";
 import {BarLabel} from "../BarLabel/index";
 import {ApplicationState} from "../../redux/application_state";
-import {countyBarChartData} from "../../selectors/counties";
-import {areCountiesStatsLoaded} from "../../selectors/index";
+// import {countyBarChartData} from "../../selectors/counties";
+import {areCountiesStatsLoaded, countyBarChartData} from "../../selectors/index";
 const { connect } = require('react-redux');
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
   data?: any;
 }
 
+// TODO port settings to abstract bar_chart.tsx file
 @connect(
   (state: ApplicationState): Props => ({
     areStatsLoaded: areCountiesStatsLoaded(state),
@@ -35,7 +36,7 @@ export class CountyBarChart extends React.Component<Props, any> {
         {/*<CartesianGrid strokeDasharray="3 3"/>*/}
         <Tooltip/>
         {/*<Legend />*/}
-        <Bar dataKey="value" fill="#4990E2" label={<BarLabel />} name="număr de sesizări"/>
+        <Bar dataKey="value" fill="#4990E2" label={<BarLabel />} name="Număr de sesizări"/>
       </BarChart>
     );
   }
