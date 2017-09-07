@@ -3,7 +3,9 @@ import {Bar, Tooltip, YAxis, XAxis, BarChart} from "recharts";
 import {BarLabel} from "../BarLabel/index";
 import {ApplicationState} from "../../redux/application_state";
 import {
-  anticorruptionAdminsBarChartData, areAnticorruptionStatsLoaded, areMinistryStatsLoaded,
+  anticorruptionAdminsBarChartData,
+  areAnticorruptionStatsLoaded,
+  areMinistryStatsLoaded,
   ministryBarChartData,
 } from "../../selectors/index";
 const { connect } = require('react-redux');
