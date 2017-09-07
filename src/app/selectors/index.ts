@@ -46,8 +46,8 @@ const ministryAdminsState = (state) => state.reduxAsyncConnect.ministryAdmins;
 const anticorruptionAdminsState = (state) => state.reduxAsyncConnect.anticorruptionAdmins;
 const countyAdminsState = (state) => state.reduxAsyncConnect.countyAdmins;
 
-const mstatsData = (state: ApplicationState): MStats => state.reduxAsyncConnect.ministriesStats;
-const astatsData = (state: ApplicationState): AStats => state.reduxAsyncConnect.anticorruptionStats;
+export const mstatsData = (state: ApplicationState): MStats => state.reduxAsyncConnect.ministriesStats;
+export const astatsData = (state: ApplicationState): AStats => state.reduxAsyncConnect.anticorruptionStats;
 export const cstatsData = (state: ApplicationState): CStats => state.reduxAsyncConnect.countiesStats;
 
 export const paramCategoryId = (state) => parseCategoryId(state.routing.locationBeforeTransitions.pathname);
@@ -204,7 +204,7 @@ export const years = createSelector(
       }
     }
 
-    if (loaded) {  //  && mRows
+    if (loaded && rows) {  //  && mRows
       // const rows = adminTypeId === ADMIN_TYPE_COUNTIES ? cRows : mRows;
       // console.log(rows);
       // return rows[0].employees.map((e) => parseInt(e.year, 10));
@@ -299,7 +299,7 @@ function getBarChartData(loaded,
                          year,
                          rows,
                          selectedIds) {  // ministries: OrderedMap<number, Ministry>
-  if (!loaded || !currentIndicator) {
+  if (!loaded || !currentIndicator || !rows) {
     return [];
   }
 

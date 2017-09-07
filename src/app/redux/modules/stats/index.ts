@@ -56320,7 +56320,7 @@ function loadAnticorruptionStats(context: AsyncContext) {
         if (res.ok) {
           return res.json()
             .then((res) => {
-              return Promise.resolve(res.data);
+              return Promise.resolve(res);
             });
         } else {
           return res.json()
