@@ -1,0 +1,17 @@
+.footer {
+  margin: 0 auto;
+  display: inline-block;
+}
+
+.byline {
+  font-family: "Source Code Pro", Courier New, Courier, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+.logo {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
