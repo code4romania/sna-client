@@ -13,6 +13,7 @@
     "xpostbuild": "npm run build:server",
     "prestart": "npm run build && npm run build:server",
     "start": "node build/server.js",
+    "start:dev": "cross-env NODE_ENV=development npm start",
     "start:prod": "cross-env NODE_ENV=production npm start",
     "test": "karma start config/test/karma.conf.js",
     "lint": "tslint \"src/**/**.ts*\" --fix --cache"

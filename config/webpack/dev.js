@@ -129,7 +129,7 @@ let config = {
       'process.env': {
         BROWSER: JSON.stringify(true),
         NODE_ENV: JSON.stringify('development'),
-        API_URL: JSON.stringify('http://' + appConfig.host + ':' + appConfig.port)
+        API_URL: JSON.stringify(process.env.API_URL || 'http://' + appConfig.host + ':' + appConfig.port)
       }
     }),
     new webpack.HotModuleReplacementPlugin(),

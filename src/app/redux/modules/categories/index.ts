@@ -68,6 +68,7 @@ export function loadCategories(context: AsyncContext) {
     return Promise.resolve(store.getState().reduxAsyncConnect.categories);
   }
 
+  console.log('ENV: ', process.env.NODE_ENV);
   if (process.env.NODE_ENV === 'development') {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -128,8 +129,6 @@ export function loadCategories(context: AsyncContext) {
       }, 500);
     });
   } else {
-    // TODO uncomment after CORS is enabled
-    // return fetch((process.env.API_URL || 'http://localhost:8889') + '/public/data/categories.json')
     return fetch((process.env.API_URL || 'http://localhost:8889') + '/api/v1/categories')
       .then((res) => {
         if (res.ok) {
