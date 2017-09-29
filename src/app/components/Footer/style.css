@@ -1,0 +1,21 @@
+.footer {
+  position: fixed;
+  right: 1.5em;
+  bottom: 0;
+  height: 2em;
+  background-color: #fff;
+  border-radius: 2px;
+  overflow: hidden;
+  padding: 0 0.3em 0 0.2em;
+}
+
+.byline {
+  font-family: "Source Code Pro", Courier New, Courier, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+.logo {
+  height: 100%;
+}

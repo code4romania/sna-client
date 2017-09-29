@@ -3,7 +3,7 @@ import * as Helmet from 'react-helmet';
 const {connect} = require('react-redux');
 import {Dispatch} from 'react-redux';
 
-import {Header, Content} from 'components';
+import {Header, Content, Footer} from 'components';
 import {ApplicationState} from '../../redux/application_state';
 import {DispatchProps} from '../../components/Section/filters';
 
@@ -40,6 +40,7 @@ class App extends React.Component<AppProps & DispatchProps, any> {
             {main || this.props.children}
           </Content>
         </div>
+        <Footer />
       </section>
     );
   }

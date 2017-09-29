@@ -125,7 +125,7 @@ All commands defaults to development environment. You can set `NODE_ENV` to `pro
     # STARTING
     
     # This starts the app in development mode
-    $ npm start
+    $ npm start:dev
     
     
     # Starting it with the production build
@@ -137,7 +137,7 @@ All commands defaults to development environment. You can set `NODE_ENV` to `pro
     # BUILDING
     
     # This builds the app in development mode(client)
-    $ npm build
+    $ npm build:dev
     
     # Commands below builds the production build(client)
     $ NODE_ENV=production npm build 
