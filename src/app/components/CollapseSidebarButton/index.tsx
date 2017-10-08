@@ -10,8 +10,8 @@ interface Props {
 /* tslint:disable:max-line-length jsx-self-close */
 export const CollapseSidebarButton = (props: Props) => {
   const btnLabel = props.isOpen
-    ? 'Ascunde navigație'
-    : '';
+    ? 'Ascunde Navigație'
+    : 'Deschide Navigație';
   const svgRotate = props.isOpen
     ? ''
     : 'rotate(180) translate(-16, -17)';
@@ -20,7 +20,9 @@ export const CollapseSidebarButton = (props: Props) => {
 
   return (
     <div onClick={props.openMenu} className={style.collapseExpandContainer}>
-      <span className={style.collapseExpandContainerLabel}>{btnLabel}</span>
+      <span
+        className={`${props.isOpen ? style.collapseExpandContainerLabel : style.rotateContainerLabel}`}
+      >{btnLabel}</span>
       <svg className={style.collapseExpandContainerIcon} width='16' height='17' viewBox='0 0 16 17'>
         {/*svgIcon*/}
         <title>Group 25</title>

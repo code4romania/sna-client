@@ -26,7 +26,7 @@ export class MapChart extends React.Component<Props, any> {
     }
 
     return (
-      <RomaniaMap width={700} colorMap={data.colorMap} />
+      <RomaniaMap width={100} colorMap={data.colorMap} />
     );
   }
 }

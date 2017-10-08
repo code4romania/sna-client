@@ -16,6 +16,7 @@
   & .title {
     font-size: 15px;
     color: #0D2B3E;
+    margin-bottom: 1em;
   }
 
   & :global(.main_content) {

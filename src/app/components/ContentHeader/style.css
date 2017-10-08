@@ -9,7 +9,7 @@
   justify-content: flex-end;
 
   & .title {
-    font-size: 40px;
+    font-size: 3rem;
     font-family: Roboto Slab, sans-serif;
     color: #0D2B3E;
     letter-spacing: 0;
@@ -17,7 +17,7 @@
 
   & .parentTitle {
     font-family: Roboto-Regular, sans-serif;
-    font-size: 24px;
+    font-size: 2.2rem;
     color: #93A6B1;
 
     &:empty {

@@ -89,10 +89,10 @@ export class CountyOverview extends React.Component<Props & DispatchProps, any> 
 
     return (
       <div className='row'>
-        <div className='col-md-10'>
+        <div className='col-md-10 col-sm-10'>
           <MapChart />
         </div>
-        <div className='col-md-2'>
+        <div className='col-md-2 col-sm-2'>
           {this.renderLegend()}
           <div className={style.valueType}>Număr sesizări</div>
         </div>

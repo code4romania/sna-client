@@ -13,7 +13,8 @@
   align-items: center;
   justify-content: flex-end;
 
-  & .collapseExpandContainerLabel {
+  & .collapseExpandContainerLabel,
+  & .rotateContainerLabel {
       font-family: Roboto-Bold, sans-serif;
       font-size: 13px;
       color: #516178;
@@ -21,6 +22,13 @@
       line-height: 8px;
       vertical-align: middle;
       padding-right: 8px;
+  }
+
+  & .rotateContainerLabel {
+    position: relative;
+    bottom: 130px;
+    right: -90px;
+    transform: rotate(-90deg);
   }
 
   & .collapseExpandContainerIcon {
