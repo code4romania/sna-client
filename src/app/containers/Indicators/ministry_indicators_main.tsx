@@ -81,7 +81,12 @@ export class MinistriesIndicatorsMain extends React.Component<Props & DispatchPr
                         onChange={this.fireAllYearSelected} />
             </div>
           </div>
-          {this.renderContent()}
+
+          <div className="row">
+            <div className="col-md-12 col-sm-12">
+              {this.renderContent()}
+            </div>
+          </div>
         </div>
       </div>
     );

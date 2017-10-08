@@ -9,6 +9,7 @@
   }
 
   & :global(.top_align) {
+    width: 100%;
     display: flex;
     align-items: stretch;
   }
@@ -154,11 +155,15 @@
   & :global(.pie_row) {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: center;
+    width: 100%;
 
     & :global(.pie_desc) {
       display: flex;
       flex-direction: column;
+      flex-basis: 0;
+      flex-grow: 1;
       margin-top: 20px;
 
       & :global(.number) {

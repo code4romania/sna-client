@@ -247,7 +247,7 @@ export function wrapIndicators(indicatorMappings, indicatorGroup) {
     }
 
     wrappedIndicatorMappings.push((
-      <div className="top_align" key={'lev2_' + idx}>
+      <div className="row top_align" key={'lev2_' + idx}>
         {buffer}
       </div>
     ));
