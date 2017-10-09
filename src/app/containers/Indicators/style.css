@@ -12,6 +12,8 @@
     width: 100%;
     display: flex;
     align-items: stretch;
+    flex-direction: row;
+    flex-basis: 0;
   }
 
   & :global(.big_box), & :global(.small_box) {
@@ -40,7 +42,9 @@
   }
 
   & :global(.big_box) {
-    width: 576px;
+    /* width: 576px; */
+    min-width: 42rem;
+    max-width: 100%;
 
     & :global(.title) {
       padding: 0 20px;
@@ -48,10 +52,12 @@
   }
 
   & :global(.small_box) {
-    width: 274px;
+    /* width: 274px; */
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex-wrap: nowrap;
   }
 
   & :global(.two_cols) {
