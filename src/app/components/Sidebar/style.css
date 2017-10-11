@@ -1,18 +1,18 @@
 .Sidebar {
   background-color: #f7f9fa;
-  height: calc(100% - 45px);
+  height: calc(100vh - 118px);
   font-family: Roboto-Regular, sans-serif;
   overflow: hidden;
 
   & .spacer {
-    padding-top: 70px;
+    padding-top: 61px;
   }
 
   & .title {
     text-align: left;
     color: #a5b5be;
     font-size: 1.1em;
-    margin: 0 25px 10px 45px;
+    margin: 0 25px 10px 35px;
     padding-bottom: 10px;
     border-bottom: 1px solid #eef2f4;
 
@@ -26,18 +26,22 @@
         left: -5px;
         top: 5px;
       }
+
+      & a {
+        color: #0D2B3E;
+      }
     }
   }
 
   & ul {
-    margin: 0 25px 10px 45px;
+    margin: 0 25px 10px 35px;
     list-style-type: none;
     height: calc(100% - 122px);
     overflow-y: auto;
+    padding-left: 27px;
 
     & li {
       text-align: left;
-      color: #0D2B3E;
       margin-bottom: 0.7em;
       font-size: 15px;
 
@@ -57,5 +61,11 @@
     padding: 0;
     height: calc(100% - 142px);
     overflow-y: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .Sidebar {
+    height: calc(100% - 45px);
   }
 }

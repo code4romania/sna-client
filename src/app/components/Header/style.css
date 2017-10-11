@@ -8,15 +8,19 @@
   padding: 0 20px;
 
   & .Logo {
-    display: flex;
-    align-items: center;
-    font-family: Roboto Slab, sans-serif;
-    font-size: 18px;
-    line-height: 24px;
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*font-family: Roboto Slab, sans-serif;*/
+    /*font-size: 18px;*/
+    /*line-height: 24px;*/
+    height: 100%;
 
     & img {
-      width: 64px;
-      height: 64px;
+      /*height: 50px;*/
+      height: 45%;
+      /*margin-top: 8%;*/
+      margin-top: 20px;
+      padding-right: 1em;
     }
 
     & span {

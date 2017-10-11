@@ -1,18 +1,11 @@
 import * as React from 'react';
 
-// import {DptDoughnutChartLabels} from '../../containers/Indicators/indicator1_one_year_grouping';
-// import {PieValue, SimplePieChart} from '../Charts/simple_pie_chart';
 import {Box} from '../Section/box';
 import {AreaChartValue, SimpleAreaChart} from '../Charts/simple_area_chart';
-// import {MediumReferenceLinearScaleProps} from './medium_reference_linear_scale';
-import {MediumReferenceLinearScaleLabels} from "../../containers/Indicators/indicator1_one_year_grouping";
-//
-// // const style = require('./style.css');
-//
+import {MediumReferenceLinearScaleLabels} from '../../containers/Indicators/indicator1_one_year_grouping';
+
 export interface OneAreaLineChartProps extends MediumReferenceLinearScaleLabels {
   value: AreaChartValue[];
-  // percentValue: number;
-  // percentAverage: number;
   big: boolean;
 }
 

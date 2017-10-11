@@ -19,7 +19,7 @@ interface IProps {
 @connect(
   (state) => ({ stars: state.stars }),
 )
-class Stars extends React.Component<IProps, {}> {
+class Stars extends React.Component<IProps, {}> {  // TODO remove class & related
   public render() {
     const { stars } = this.props;
 

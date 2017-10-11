@@ -64,7 +64,7 @@ export class CommonFilters extends React.Component<FiltersProps & DispatchProps,
     const { chartType } = this.props;
 
     return (
-      <div className={filterStyle.Filters}>
+      <div className={'col-xs-12 ' + filterStyle.Filters}>
         <div className={filterStyle.indicator}>
           <div className={commonStyle.title}>Indicator vizualizat</div>
           {this.renderCategoryDropdown()}

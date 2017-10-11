@@ -3,7 +3,8 @@
   text-align: left;
 
   & .main {
-    padding: 40px 65px;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 
     & .title {
       font-size: 15px;
@@ -16,7 +17,10 @@
       justify-content: space-between;
     }
 
-    & .year_slider, & .chart_type, & .ministry_filter, & .chart_display {
+    & .year_slider,
+    & .chart_type,
+    & .ministry_filter,
+    & .chart_display {
       display: flex;
       flex-direction: column;
     }
@@ -52,8 +56,19 @@
     }
 
     & .content {
-      display: flex;
-      flex-direction: row;
+      display: block;
+    }
+  }
+
+  @media (min-width: 768px) {
+    & .main {
+      padding-top: 40px;
+      padding-bottom: 40px;
+
+      & .content {
+        display: flex;
+        flex-direction: row;
+      }
     }
   }
 }

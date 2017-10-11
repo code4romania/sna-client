@@ -1,29 +1,42 @@
 import * as React from 'react';
+import sizeMe from 'react-sizeme';
 
 import {Box} from '../Section/box';
 import {LineChart} from '../Charts/line_chart';
-import { MediumReferenceLinearScaleLabels } from '../../containers/Indicators/indicator1_one_year_grouping';
-
-// const style = require('./style.css');
+import {MediumReferenceLinearScaleLabels} from '../../containers/Indicators/indicator1_one_year_grouping';
+import {ResizeMeData} from '../../models/resizeMeData';
 
 export interface MediumReferenceLinearScaleProps extends MediumReferenceLinearScaleLabels {
   value: number;
   percentValue: number;
   percentAverage: number;
   big: boolean;
+  size?: ResizeMeData;
 }
 
-export const MediumReferenceLinearScale = (props: MediumReferenceLinearScaleProps) => (
-  <Box className={props.big ? "big_box" : "small_box"}>
-    <div className="title">{props.title}</div>
-    <div className="note">{props.note}</div>
-    <div>
-      <div className="big_value">{props.value}</div>
-      <div className="big_value_desc">{props.desc}</div>
-      <LineChart width={230}
-                 height={46}
-                 value={props.percentValue}
-                 avg={props.percentAverage}/>
-    </div>
-  </Box>
-);
+function MediumReferenceLinearScale(props: MediumReferenceLinearScaleProps) {
+  const {big, title, note, value, desc, percentValue, percentAverage, size} = props;
+
+  const width = (size && size.width)
+    ? (size.width - 40 < 230)
+      ? size.width - 40
+      : 230
+    : 230;
+
+  return (
+      <Box className={big ? 'big_box' : 'small_box'}>
+        <div className='title'>{title}</div>
+        <div className='note'>{note}</div>
+        <div>
+          <div className='big_value'>{value}</div>
+          <div className='big_value_desc'>{desc}</div>
+          <LineChart width={width}
+                     height={46}
+                     value={percentValue}
+                     avg={percentAverage}/>
+        </div>
+      </Box>
+  );
+}
+
+export default sizeMe({ noPlaceholder: true })(MediumReferenceLinearScale);

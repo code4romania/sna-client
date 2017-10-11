@@ -15,69 +15,69 @@ import {
 } from '../../../selectors/index';
 
 // HELPERS(TODO remove/comment out for prod)
-function generateRandomValue(initValue: number, relativeValue: number = 0.5) {
-  const halfValue = Math.round(initValue * relativeValue);
+// function generateRandomValue(initValue: number, relativeValue: number = 0.5) {
+//   const halfValue = Math.round(initValue * relativeValue);
+//
+//   return initValue + Math.pow(-1, Math.round(Math.random())) * Math.round(halfValue * Math.random());
+// }
 
-  return initValue + Math.pow(-1, Math.round(Math.random())) * Math.round(halfValue * Math.random());
-}
-
-function addingMockupDataToAnswers(res /* MStats/AStats/CStats */) {
-  console.log(res);
-  // TODO adding mockup data for 2012-2016
-  const addedYears = [
-    // 2016,
-    // 2015,
-    // 2014,
-    // 2013,
-    // 2012,
-  ];
-  console.log(addedYears);
-  console.log(typeof generateRandomValue);
-
-  // res.forEach((mStat) => {
-    // // adding employees mockup data
-    // if (!mStat.employees[0]) {
-    //   mStat.employees.push({value: null, year: 2017});
-    // }
-    //
-    // const EmployeesStats2017 = mStat.employees[0];
-    //
-    // if (EmployeesStats2017) {
-    //   const EmployeesStats2017Value = parseInt(EmployeesStats2017.value, 10) || null;
-    //
-    //   addedYears.forEach((y) => {
-    //     mStat.employees.unshift({
-    //       value: generateRandomValue(EmployeesStats2017Value) || null,
-    //       year: y,
-    //     } as MStatEmployee);
-    //   });
-    // }
-    //
-    // // adding indicator mockup data
-    // mStat.answers.forEach((answer) => {
-    //   answer.indicators.forEach((indicator) => {
-    //     if (!indicator.values[0]) {
-    //       indicator.values.push({value: null, year: 2017});
-    //     }
-    //
-    //     const IndicatorStats2017 = indicator.values[0];
-    //
-    //     if (IndicatorStats2017) {
-    //       const IndicatorStats2017Value = isNaN(parseInt(IndicatorStats2017.value, 10))
-    //         ? IndicatorStats2017.value
-    //         : parseInt(IndicatorStats2017.value, 10);
-    //
-    //       addedYears.forEach((y) => {
-    //         indicator.values.unshift({
-    //           value: generateRandomValue(IndicatorStats2017Value) || null,
-    //           year: y,
-    //         } as IndicatorValue);
-    //       });
-    //     }
-    //   });
-    // });
-  // });
-}
+// function addingMockupDataToAnswers(res /* MStats/AStats/CStats */) {
+//   // console.log(res);
+//   // TODO adding mockup data for 2012-2016
+//   const addedYears = [
+//     // 2016,
+//     // 2015,
+//     // 2014,
+//     // 2013,
+//     // 2012,
+//   ];
+//   // console.log(addedYears);
+//   // console.log(typeof generateRandomValue);
+//
+//   // res.forEach((mStat) => {
+//     // // adding employees mockup data
+//     // if (!mStat.employees[0]) {
+//     //   mStat.employees.push({value: null, year: 2017});
+//     // }
+//     //
+//     // const EmployeesStats2017 = mStat.employees[0];
+//     //
+//     // if (EmployeesStats2017) {
+//     //   const EmployeesStats2017Value = parseInt(EmployeesStats2017.value, 10) || null;
+//     //
+//     //   addedYears.forEach((y) => {
+//     //     mStat.employees.unshift({
+//     //       value: generateRandomValue(EmployeesStats2017Value) || null,
+//     //       year: y,
+//     //     } as MStatEmployee);
+//     //   });
+//     // }
+//     //
+//     // // adding indicator mockup data
+//     // mStat.answers.forEach((answer) => {
+//     //   answer.indicators.forEach((indicator) => {
+//     //     if (!indicator.values[0]) {
+//     //       indicator.values.push({value: null, year: 2017});
+//     //     }
+//     //
+//     //     const IndicatorStats2017 = indicator.values[0];
+//     //
+//     //     if (IndicatorStats2017) {
+//     //       const IndicatorStats2017Value = isNaN(parseInt(IndicatorStats2017.value, 10))
+//     //         ? IndicatorStats2017.value
+//     //         : parseInt(IndicatorStats2017.value, 10);
+//     //
+//     //       addedYears.forEach((y) => {
+//     //         indicator.values.unshift({
+//     //           value: generateRandomValue(IndicatorStats2017Value) || null,
+//     //           year: y,
+//     //         } as IndicatorValue);
+//     //       });
+//     //     }
+//     //   });
+//     // });
+//   // });
+// }
 
 // ===== Ministries Stats =====
 
@@ -30730,7 +30730,7 @@ function loadMinistriesStats(context: AsyncContext) {
           },
         ];
 
-        addingMockupDataToAnswers(res);
+        // addingMockupDataToAnswers(res);
 
         resolve(res);
       }, 500);
@@ -30760,7 +30760,7 @@ function loadMinistriesStats(context: AsyncContext) {
   }
 }
 
-// ===== Anticorruption Admin Stats TODO =====
+// ===== Anticorruption Admin Stats =====
 
 /** Async Action Creator */
 export function loadAnticorruptionStatsConfig(): AsyncLoaderEntry {
@@ -56307,7 +56307,7 @@ function loadAnticorruptionStats(context: AsyncContext) {
           },
         ];
 
-        addingMockupDataToAnswers(res);
+        // addingMockupDataToAnswers(res);
 
         resolve(res);
       }, 500);
@@ -56388,7 +56388,7 @@ function loadCountiesStats(context: AsyncContext) {
   //
   //   return initValue + Math.pow(-1, Math.round(Math.random())) * Math.round(halfValue * Math.random());
   // }
-
+  //
   // function addingMockupDataToCountyAnswers(res: CStats) {
   //   // TODO adding mockup data for 2012-2016; remove for prod
   //   const addedYears = [
@@ -108441,7 +108441,7 @@ function loadCountiesStats(context: AsyncContext) {
         ];
 
         // addingMockupDataToCountyAnswers(res);
-        addingMockupDataToAnswers(res);
+        // addingMockupDataToAnswers(res);
 
         resolve(res);
       }, 500);

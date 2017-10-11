@@ -134,7 +134,7 @@ export const currentCategory = createSelector(
 
 export const currentCategoryTitle = createSelector(
   areCategoriesLoaded, currentCategory,
-  (loaded, category) => ( (loaded && category) ?  `${category.id}. ${category.name}` : 'Loading'),
+  (loaded, category) => ( (loaded && category) ?  `${category.id}. ${category.name}` : 'Se încarcă'),
 );
 
 export const currentIndicators = createSelector(

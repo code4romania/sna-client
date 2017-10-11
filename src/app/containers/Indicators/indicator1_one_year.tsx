@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as _ from 'lodash';
-const {connect} = require('react-redux');
 import {Map} from 'immutable';
+const {connect} = require('react-redux');
 
 // import {Box} from '../../components/Section/box';
 // import {PieValue, SimplePieChart} from '../../components/Charts/simple_pie_chart';
@@ -24,26 +24,27 @@ import {Category} from '../../models/category';
 import {
   INDICATOR1_ONE_YEAR_GROUPING,
   DptDoughnutChartLabels,
-  MediumReferenceLinearScaleLabels,
+  MediumReferenceLinearScaleLabels, BinominalScaleLabels,
 } from './indicator1_one_year_grouping';
 import {INDICATOR1_TYPES} from './indicator1_types';
 import {
   DptDoughnutChart,
   DptDoughnutChartProps,
 } from '../../components/Indicators/dpt_doughnut_chart';
-import {
-  MediumReferenceLinearScale,
+import MediumReferenceLinearScale,
+  {
   MediumReferenceLinearScaleProps,
 } from '../../components/Indicators/medium_reference_linear_scale';
-import {
-  MixedVerticalBarChartMediumReferenceLinearScale,
+import MixedVerticalBarChartMediumReferenceLinearScale,
+  {
   MixedVerticalBarChartMediumReferenceLinearScaleProps,
 } from '../../components/Indicators/mixed_vertical_bar_chart_medium_reference_linear_scale';
 import {
   NominalScale,
   NominalScaleProps,
 } from '../../components/Indicators/nominal_scale';
-import {chooseByAdministrationType} from "../../helpers/administration_helper";
+import {chooseByAdministrationType} from '../../helpers/administration_helper';
+import BinominalScale, {BinominalScaleProps} from '../../components/Indicators/binominal_scale';
 
 interface Props {
   type?: string;
@@ -124,7 +125,6 @@ export class Indicator1OneYear extends React.Component<Props, any> {  // TODO re
           return <DptDoughnutChart {...props} key={idx}/>;
         }
 
-        case INDICATOR1_TYPES.BINOMINAL_SCALE:
         case INDICATOR1_TYPES.MEDIUM_REFERENCE_LINEAR_SCALE:
         case INDICATOR1_TYPES.BIMEDIUM_REFERENCE_LINEAR_SCALE: {
           const value = categoryStats.get(indicator.indicators[0]);
@@ -149,6 +149,23 @@ export class Indicator1OneYear extends React.Component<Props, any> {  // TODO re
           };
 
           return <MediumReferenceLinearScale {...props} key={idx}/>;
+        }
+
+        case INDICATOR1_TYPES.BINOMINAL_SCALE: {
+          const value = categoryStats.get(indicator.indicators[0]);
+
+          if (!value) {
+            return null;
+          }
+
+          const labels = (indicator.labels as BinominalScaleLabels);
+
+          const props: BinominalScaleProps = {
+            title: labels.title,
+            value: value + '',
+          };
+
+          return <BinominalScale {...props} key={idx}/>;
         }
 
         case INDICATOR1_TYPES.MIXED_VERTICAL_BAR_CHART_MEDIUM_REFERENCE_LINEAR_SCALE: {

@@ -21,6 +21,10 @@ export interface NominalScaleLabels {
   title: string;
 }
 
+export interface BinominalScaleLabels {
+  title: string;
+}
+
 export const INDICATOR1_ONE_YEAR_GROUPING: Array<{
   categoryId: number;
   indicatorGrouping: Array<{
@@ -29,7 +33,8 @@ export const INDICATOR1_ONE_YEAR_GROUPING: Array<{
     labels: (DptDoughnutChartLabels
       | MediumReferenceLinearScaleLabels
       | MixedVerticalBarChartMediumReferenceLinearScaleLabels
-      | NominalScaleLabels);
+      | NominalScaleLabels
+      | BinominalScaleLabels);
   }>
 }> = [
   {
@@ -173,7 +178,7 @@ export const INDICATOR1_ONE_YEAR_GROUPING: Array<{
     //     indicatorType: INDICATOR1_TYPES.BINOMINAL_SCALE,
     //     labels: ({
     //       title: '-Scurtă descriere a măsurilor dispuse',
-    //     } as NominalScaleLabels),
+    //     } as BinominalScaleLabels),
     //   },
     // ]
   },
@@ -281,7 +286,7 @@ export const INDICATOR1_ONE_YEAR_GROUPING: Array<{
         indicatorType: INDICATOR1_TYPES.BINOMINAL_SCALE,
         labels: ({
           title: 'Publicarea anuală a inventarului pe site-ul institutiei',
-        } as NominalScaleLabels),
+        } as BinominalScaleLabels),
       },
       {
         indicators: [39],
@@ -945,7 +950,7 @@ export const INDICATOR1_ONE_YEAR_GROUPING: Array<{
         indicatorType: INDICATOR1_TYPES.BINOMINAL_SCALE,
         labels: ({
           title: 'Exista raportul de implementare a legii 544/2001 pentru ultimul an?',
-        } as NominalScaleLabels),
+        } as BinominalScaleLabels),
       },
       {
         indicators: [114],

@@ -11,9 +11,17 @@
   & :global(.top_align) {
     display: flex;
     align-items: stretch;
+    flex-direction: column;
   }
 
-  & :global(.big_box), & :global(.small_box) {
+  @media (min-width: 768px) {
+    & :global(.top_align) {
+      flex-direction: row;
+    }
+  }
+
+  & :global(.big_box),
+  & :global(.small_box) {
     margin-bottom: 30px;
 
     & :global(.title) {
@@ -34,12 +42,13 @@
     }
   }
 
-  & :global(.big_box):not(:first-child), & :global(.small_box):not(:first-child) {
-    margin-left: 30px;
+  & :global(.big_box):not(:first-child),
+  & :global(.small_box):not(:first-child) {
+    margin-left: 0;
   }
 
   & :global(.big_box) {
-    width: 576px;
+    width: auto;
 
     & :global(.title) {
       padding: 0 20px;
@@ -47,15 +56,32 @@
   }
 
   & :global(.small_box) {
-    width: 274px;
+    width: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
+  @media (min-width: 768px) {
+    & :global(.big_box):not(:first-child),
+    & :global(.small_box):not(:first-child) {
+      margin-left: 30px;
+    }
+
+    & :global(.big_box) {
+      width: calc((100% - 2 * 30px) / 3 * 2 + 30px);
+      max-width: 576px;
+    }
+
+    & :global(.small_box) {
+      width: calc((100% - 2 * 30px) / 3);
+      max-width: 274px;
+    }
+  }
+
   & :global(.two_cols) {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
     & :global(.legend) {
       font-family: Roboto, sans-serif;
@@ -74,7 +100,14 @@
     }
   }
 
-  & :global(.circle1), & :global(.circle2) {
+  @media (min-width: 768px) {
+    & :global(.two_cols) {
+      flex-direction: row;
+    }
+  }
+
+  & :global(.circle1),
+  & :global(.circle2) {
     width: 14px;
     height: 14px;
     border-radius: 100px;
@@ -175,7 +208,8 @@
     }
 
     & :global(.pie_desc):global(.blue) {
-      margin-right: 10px;
+      margin-right: 0;
+      padding-left: 5px;
       text-align: right;
 
       & :global(.number) {
@@ -184,10 +218,23 @@
     }
 
     & :global(.pie_desc):global(.green) {
-      margin-left: 10px;
+      margin-left: 0;
+      padding-right: 5px;
 
       & :global(.number) {
         color: #4DD6D0;
+      }
+    }
+
+    @media (min-width: 768px) {
+      & :global(.pie_desc):global(.blue) {
+        margin-right: 10px;
+        padding-left: 0;
+      }
+
+      & :global(.pie_desc):global(.blue) {
+        margin-right: 10px;
+        padding-right: 0;
       }
     }
   }

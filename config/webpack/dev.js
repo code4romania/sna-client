@@ -87,7 +87,7 @@ let config = {
       },
       {
         test: /\.svg(\?.*)?$/,
-        loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=fonts/[hash].[ext]'
+        loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=images/[hash].[ext]'
       },
       {
         test: /\.(jpe?g|png|gif)$/i,

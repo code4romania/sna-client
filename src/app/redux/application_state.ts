@@ -7,8 +7,9 @@ import {Indicator} from '../models/indicator';
 import {ILocalStorage} from '../models/localStorage';
 import {AnticorruptionAdmin} from '../models/anticorruption';
 import {County, CountyAdmin} from '../models/county';
-import {Ministry} from "../models/ministry";
-import {Category} from "../models/category";
+import {Ministry} from '../models/ministry';
+import {Category} from '../models/category';
+import {ResponsiveBrowser} from '../models/responsiveBrowser';
 
 export interface ApplicationState {
   routing: RouterState;
@@ -19,6 +20,7 @@ export interface ApplicationState {
   areAllYearsSelected: boolean;
   isSidebarOpen: boolean;
   localStorage: ILocalStorage;
+  browser: ResponsiveBrowser;
 }
 
 type RemoteContent = 'categories'

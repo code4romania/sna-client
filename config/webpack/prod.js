@@ -5,6 +5,7 @@ let postcssNext = require('postcss-cssnext');
 let stylelint = require('stylelint');
 let ManifestPlugin = require('webpack-manifest-plugin');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 let appConfig = require('../main');
 
 let config = {
@@ -95,7 +96,7 @@ let config = {
       },
       {
         test: /\.svg(\?.*)?$/,
-        loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=fonts/[hash].[ext]'
+        loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=images/[hash].[ext]'
       },
       {
         test: /\.(jpe?g|png|gif)$/i,
@@ -134,7 +135,7 @@ let config = {
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: false,
       compress: { warnings: true }
-}),
+    }),
     new ExtractTextPlugin('css/[name].[hash].css'),
     new ManifestPlugin({
       fileName: '../manifest.json'

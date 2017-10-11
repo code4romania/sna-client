@@ -1,4 +1,4 @@
-import {Set} from "immutable";
+import {Set} from 'immutable';
 import * as e6p from 'es6-promise';
 (e6p as any).polyfill();
 import 'isomorphic-fetch';
@@ -6,6 +6,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
+import {calculateResponsiveState} from 'redux-responsive';
 const { Router, browserHistory } = require('react-router');
 const { ReduxAsyncConnect } = require('redux-connect');
 
@@ -27,7 +28,7 @@ const history = syncHistoryWithStore(browserHistory, store);
 const connectedCmp = (props) => <ReduxAsyncConnect {...props} />;
 
 ReactDOM.render(
-  <Provider store={store} key="provider">
+  <Provider store={store} key='provider'>
     <Router
       history={history}
       render={connectedCmp}>
@@ -36,3 +37,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app'),
 );
+
+// calculate the initial state after server-side rendering
+store.dispatch(calculateResponsiveState(window));

@@ -13,6 +13,22 @@ a:hover {
   text-decoration: none;
 }
 
+@media (min-width: 768px) {
+  :global(.container) {
+    width: 730px;
+  }
+}
+@media (min-width: 992px) {
+  :global(.container) {
+    width: 950px;
+  }
+}
+@media (min-width: 1200px) {
+  :global(.container) {
+    width: 1150px;
+  }
+}
+
 .App {
   /*max-width: 1280px;*/
   font-family: Roboto, sans-serif;

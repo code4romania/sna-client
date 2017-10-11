@@ -42,14 +42,15 @@ interface Props {
 class AnticorruptionAdminsSidebar extends React.Component<Props, {}> {
   public render() {
     if (!this.props.areAnticorruptionAdminsLoaded) {
-      return (<div>Loading</div>);
+      return (<div>Se încarcă</div>);
     }
 
     const indId = parseInt(this.props.params.id, 10);
 
     const menus = this.props.anticorruptionAdmins.toIndexedSeq().map((i) => (
       <li key={`item-${i.id}`}>
-        <Link to={ireportPath(indId, i.id, this.props.location.query)}>
+        <Link to={ireportPath(indId, i.id, this.props.location.query)}
+              activeStyle={{color: '#337ab7', textDecoration: 'none'}}>
           {i.name}
         </Link>
       </li>
@@ -62,7 +63,8 @@ class AnticorruptionAdminsSidebar extends React.Component<Props, {}> {
           <div>Instituție</div>
           <div className={style.viewAll}>
             <ChartIcon />
-            <Link to={ireportPath(indId, null, this.props.location.query)}>
+            <Link to={ireportPath(indId, null, this.props.location.query)}
+                  activeStyle={{color: '#337ab7', textDecoration: 'none'}}>
               Prezentare Generală
             </Link>
           </div>

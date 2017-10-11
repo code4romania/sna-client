@@ -1,4 +1,4 @@
-import {ADMINISTRATION_TYPE} from "../constants/index";
+import {ADMINISTRATION_TYPE} from '../constants/index';
 
 export function chooseByAdministrationType(optionsArr: any[], currentOption: string) {
   if (!optionsArr || optionsArr.length !== 3) {

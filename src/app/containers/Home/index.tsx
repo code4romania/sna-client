@@ -5,9 +5,9 @@ const style = require('./style.css');
 export class Home extends React.Component<any, any> {
   public render() {
     return (
-      <div className={style.Home}>
-        <ContentHeader title="Prezentare indicatori SNA"/>
-        <div className={style.main}>
+      <div className={'container ' + style.Home}>
+        <ContentHeader title='Prezentare indicatori SNA'/>
+        <div className={'row col-xs-12 ' + style.main}>
           <img src={require('./intro.png')} />
         </div>
       </div>

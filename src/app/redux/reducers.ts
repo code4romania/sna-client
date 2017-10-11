@@ -1,5 +1,8 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
+// import { responsiveStateReducer } from 'redux-responsive';
+import { createResponsiveStateReducer } from 'redux-responsive';
+import * as _ from 'lodash';
 const { reducer } = require('redux-connect');
 
 import { ApplicationState } from './application_state';
@@ -61,6 +64,23 @@ const rootReducer: Redux.Reducer<ApplicationState> = combineReducers<Application
   areAllYearsSelected: allYearsReducer,
   isSidebarOpen: isSidebarOpenReducer,
   localStorage: localStorageReducer,
+  browser: createResponsiveStateReducer({  // or use responsiveStateReducer for defaults(or null object in here)
+    extraSmall: 480,
+    small: 768,
+    medium: 992,
+    large: 1200,
+  }, {
+    extraFields: ({ greaterThan, is }) => ({
+      // greaterThanOrEqual is built by transforming greaterThan
+      greaterThanOrEqual: _.transform(greaterThan, (result, value, mediaType) => {
+        // and combining the value with the `is` field
+        result[mediaType] = value || is[mediaType];
+      }, {}),
+      width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    }),
+    initialMediaType: 'small',
+    infinity: 'extraLarge',
+  }),
 });
 
 export default rootReducer;

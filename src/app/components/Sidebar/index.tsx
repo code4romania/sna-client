@@ -12,8 +12,9 @@ import {selAdminPath, MyLocation} from '../../helpers/url_helper';
 import {areCategoriesLoaded, categories /* location */} from '../../selectors/index';
 import {DispatchProps} from '../Section/filters';
 import SidebarWrapper from '../sidebarWrapper/index';
-import {loadCategoriesConfig} from "../../redux/modules/categories/index";
-import {Category} from "../../models/category";
+import {loadCategoriesConfig} from '../../redux/modules/categories/index';
+import {Category} from '../../models/category';
+// import {ResponsiveBrowser} from '../../models/responsiveBrowser';
 
 const style = require('./style.css');
 
@@ -53,7 +54,8 @@ export class HomeSidebar extends React.Component<SidebarProps & DispatchProps, {
     } else {
       content = this.props.categories.map((category: Category) => {
         return (
-          <li key={category.id}><Badge text={category.id.toString()}/>
+          <li key={category.id}>
+            <Badge text={category.id.toString()}/>
             <Link to={link(category)}>{category.name}</Link>
           </li>
         );
@@ -62,13 +64,9 @@ export class HomeSidebar extends React.Component<SidebarProps & DispatchProps, {
 
     return (
       <div className={style.Sidebar}>
-        <div className={style.spacer} />
-        <div className={style.title}>
-          Indicatori SNA
-        </div>
-        <ul>
-          {content}
-        </ul>
+        <div className={style.spacer}/>
+        <div className={style.title}>Indicatori SNA</div>
+        <ul>{content}</ul>
       </div>
     );
   }

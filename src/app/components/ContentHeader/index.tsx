@@ -9,15 +9,17 @@ interface Props {
 }
 
 export const ContentHeader = (props: Props) => (
-  <div className={style.ContentHeader}>
-    <div className={style.parentTitle}>{props.parentTitle}</div>
-    <div className={style.title}>{props.title}</div>
-  </div>
+    <div className={'row ' + style.ContentHeader}>
+      <div className={'col-xs-12 ' + style.parentTitle}>{props.parentTitle}</div>
+      <div className={'col-xs-12 ' + style.title}>{props.title}</div>
+      <div className={style.divider} />
+    </div>
 );
 
 export const CustomContentHeader = (props: Props) => (
-  <div className={style.ContentHeader}>
-    <div className={style.parentTitle}>{props.parentTitle}</div>
-    <div className={style.title}>{props.children}</div>
-  </div>
+    <div className={'row ' + style.ContentHeader}>
+      <div className={'col-xs-12 ' + style.parentTitle}>{props.parentTitle}</div>
+      <div className={'col-xs-12 ' + style.title}>{props.children}</div>
+      <div className={style.divider} />
+    </div>
 );

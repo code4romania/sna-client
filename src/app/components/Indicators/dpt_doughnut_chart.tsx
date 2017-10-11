@@ -18,7 +18,7 @@ function getFormattedNumber(value) {
     return value;
   }
 
-  return _.round(value, 2);
+  return _.round(value, 2);  // noOfDigits
 }
 
 export const DptDoughnutChart = (props: DptDoughnutChartProps) => (
@@ -29,11 +29,11 @@ export const DptDoughnutChart = (props: DptDoughnutChartProps) => (
         <div className="number">{getFormattedNumber(props.leftValue)}</div>
         <div className="desc">{props.desc1}</div>
       </div>
-      <SimplePieChart width={150}
-                      height={150}
+      <SimplePieChart width={145}
+                      height={145}
                       valueTitle={props.valueTitle}
                       data={pieData(getFormattedNumber(props.leftValue), getFormattedNumber(props.rightValue))}
-                      total={props.centerValue}/>
+                      total={getFormattedNumber(props.centerValue)}/>
       <div className="pie_desc green">
         <div className="number">{getFormattedNumber(props.rightValue)}</div>
         <div className="desc">{props.desc2}</div>

@@ -13,6 +13,7 @@ import {CollapseSidebarButton} from '../CollapseSidebarButton/index';
 import {HomeSidebar} from 'components';
 import {saveToLocalStorageAction} from '../../redux/modules/localStorage/index';
 import {ILocalStorage} from '../../models/localStorage';
+import {ResponsiveBrowser} from '../../models/responsiveBrowser';
 
 const style = require('./style.css');
 
@@ -21,6 +22,7 @@ interface SidebarWrapperProps {
   localStorage: ILocalStorage;
   params: any;
   isSidebarOpen: boolean;
+  browser: ResponsiveBrowser;
 }
 
 function SidebarWrapper(SidebarComponent) {
@@ -112,10 +114,10 @@ function SidebarWrapper(SidebarComponent) {
     }
 
     public render() {
-      const {isSidebarOpen} = this.props;
-      const sidebar = isSidebarOpen
+      const {isSidebarOpen, browser} = this.props;
+      const sidebar = (isSidebarOpen || (browser.lessThan.medium && browser.width !== browser.breakpoints.small))
         ? (!SidebarComponent
-          ? <HomeSidebar {...this.state} {...this.props} />
+          ? <HomeSidebar  {...this.state} {...this.props} />
           : <SidebarComponent {...this.state} {...this.props} />)
         : null;
       const sidebarClasses = [
@@ -126,16 +128,28 @@ function SidebarWrapper(SidebarComponent) {
           : style.closed,
       ].join(' ');
 
-      // console.log(this.props.location);
-      // console.log(this.props.params);
-      // console.log(this.props.localStorage);
+      const sidebarContentClasses = [
+        style.collapsibleSidebarContent,
+        isSidebarOpen
+          ? style.openContent
+          : style.closedContent,
+      ].join(' ');
 
-      const text = this.getTooltipText();
+      const tooltipText = this.getTooltipText();
+
+      const tooltipElement = tooltipText
+        ? (
+          <div className={style.tooltip}>
+              <span className={style.tooltipStep}>{this.getRouteLevel()}/3</span>
+              <span className={style.tooltipText}>{tooltipText}</span>
+            </div>
+        )
+        : null;
 
       return (
         <div className={sidebarClasses}>
-          {text ? <div className={style.tooltip}>{text}</div> : null}
-          {sidebar}
+          {tooltipElement}
+          <div className={sidebarContentClasses}>{isSidebarOpen ? sidebar : null}</div>
           <CollapseSidebarButton isOpen={isSidebarOpen} openMenu={this.openMenu}/>
         </div>
       );
@@ -147,6 +161,7 @@ function SidebarWrapper(SidebarComponent) {
       location: location(state),
       isSidebarOpen: state.isSidebarOpen,
       localStorage: state.localStorage,
+      browser: state.browser,
     };
   }
 

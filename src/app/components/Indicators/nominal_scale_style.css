@@ -1,3 +1,8 @@
+.boxWrapper {
+  min-height: 250px;
+  justify-content: space-around;
+}
+
 .btn {
   background-color: #4990E2;
   color: white;
@@ -19,9 +24,9 @@
 }
 
 .overlayTextBox {
-  width: 70%;
-  height: 85%;
-  margin: 5% 15%;
+  width: 90%;
+  height: 94.5%;
+  margin: 5%;
   padding: 7%;
   background-color: rgba(255, 255, 255, 1);
   position: absolute;
@@ -29,7 +34,14 @@
   color: black;
   top: 0;
   left: 0;
-  overflow: auto;
+}
+
+@media (min-width: 768px) {
+  .overlayTextBox {
+    width: 70%;
+    height: 85%;
+    margin: 5% 15%;
+  }
 }
 
 .closeBtn {
@@ -45,4 +57,9 @@
   font-family: Roboto Slab, sans-serif;
   color: #0D2B3E;
   letter-spacing: 0;
+}
+
+.textContent {
+  height: 96%;
+  overflow: auto;
 }

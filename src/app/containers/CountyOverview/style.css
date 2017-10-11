@@ -2,17 +2,23 @@
 
 .countyFilter {
   background-color: #F7F9FA; /*var(--grey-light);*/
-  padding: 20px 0 20px 31px;
+  padding: 8px;
+}
+
+@media (min-width: 768px) {
+  .countyFilter {
+    padding: 20px;
+  }
 }
 
 .selectAll {
-  & :global(.checkbox_label) {
-    font-weight: bold;
-  }
-
   padding-bottom: 15px;
   border-bottom: 1px solid #EBF0F2;
   margin-right: 15px;
+
+  & :global(.checkbox_label) {
+    font-weight: bold;
+  }
 }
 
 .select_one_txt {
@@ -25,7 +31,15 @@
 
 .CountyOverview {
   & .main {
-    padding: 40px 65px;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+
+    & .legendGroup {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
 
     /* Map content */
     & .legendRow {
@@ -44,6 +58,7 @@
     & .legendLabel {
       font-size: 14px;
       color: #516178;
+      white-space: nowrap;
     }
 
     & .valueType {
@@ -51,6 +66,29 @@
       font-size: 14px;
       font-weight: bold;
       color: #0D2B3E;
+    }
+
+    & .content {
+      display: block;
+    }
+  }
+
+  @media (min-width: 768px) {
+    & .main {
+      padding-top: 40px;
+      padding-bottom: 40px;
+
+      & .legendGroup {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-wrap: nowrap;
+      }
+
+      & .content {
+        display: flex;
+        flex-direction: row;
+      }
     }
   }
 }

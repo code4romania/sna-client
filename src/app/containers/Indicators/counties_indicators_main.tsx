@@ -16,6 +16,8 @@ import {
   areCountiesStatsLoaded,
   currentCounty,
   currentCategory,
+  areCategoriesLoaded,
+  areIndicatorsLoaded,
 } from '../../selectors/index';
 import {changeAllYears} from '../../redux/reducers';
 import {DispatchProps} from '../../components/Section/filters';
@@ -23,12 +25,16 @@ import {Indicator1AllYears} from './indicator1_all_years';
 import {loadCountiesStatsConfig} from '../../redux/modules/stats/index';
 import {loadIndicatorsConfig} from '../../redux/modules/indicators/index';
 import {Indicator1OneYear} from './indicator1_one_year';
-import {Category} from "../../models/category";
-import {ADMINISTRATION_TYPE} from "../../constants/index";
+import {Category} from '../../models/category';
+import {ADMINISTRATION_TYPE} from '../../constants/index';
+import {loadCategoriesConfig} from '../../redux/modules/categories/index';
 
 export const s = require('./style.css');
 
 interface Props {
+  areCategoriesLoaded: boolean;
+  areIndicatorsLoaded: boolean;
+  areMinistriesStatsLoaded: boolean;
   location?: MyLocation;
   params?: RouteParams;
   selectedCounty: CountyAdmin;
@@ -39,11 +45,15 @@ interface Props {
 }
 
 @asyncConnect([
+  loadCategoriesConfig(),
   loadIndicatorsConfig(),
   loadCountiesStatsConfig(),
 ])
 @connect(
-  (state: ApplicationState): Props => ({
+  (state: ApplicationState, ownProps: Props): Props => ({
+    ...ownProps,
+    areCategoriesLoaded: areCategoriesLoaded(state),
+    areIndicatorsLoaded: areIndicatorsLoaded(state),
     areStatsLoaded: areCountiesStatsLoaded(state),
     categoryTitle: currentCategoryTitle(state),
     selectedCounty: currentCounty(state),
@@ -60,24 +70,24 @@ export class CountiesIndicatorsMain extends React.Component<Props & DispatchProp
 
   public render() {
     if (!this.props.areStatsLoaded) {
-      return (<div>Loading</div>);
+      return (<div>Se încarcă</div>);
     }
 
     const {areAllYearsSelected} = this.props;
 
     /* tslint:disable:max-line-length */
     return (
-      <div className={s.Indicators}>
+      <div className={'container ' + s.Indicators}>
         <CustomContentHeader parentTitle={this.props.selectedCounty && this.props.selectedCounty.name}>
           {this.props.categoryTitle}
         </CustomContentHeader>
 
         <div className="main_content">
           <div className="row filters">
-            <div className="col-md-8">
+            <div className="col-sm-8">
               <YearFilters location={this.props.location} disabled={areAllYearsSelected} />
             </div>
-            <div className="col-md-4">
+            <div className="col-sm-4">
               <Checkbox value="0" label="Afișează toți anii" checked={areAllYearsSelected}
                         onChange={this.fireAllYearSelected} />
             </div>
@@ -90,13 +100,8 @@ export class CountiesIndicatorsMain extends React.Component<Props & DispatchProp
   }
 
   private renderContent(): JSX.Element {
-    // console.log(this.props.currentCategory);
-    // console.log(this.props.currentCategory.id);
-    if (!this.props.currentCategory) {  //  || this.props.currentCategory.id !== 1
+    if (!this.props.currentCategory) {
       return null;
-      // (
-      //   <Box>TODO</Box>
-      // );
     }
 
     if (this.props.areAllYearsSelected) {

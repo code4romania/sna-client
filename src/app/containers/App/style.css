@@ -7,8 +7,8 @@
   height: 100vh;
 
   & .body {
-    display: flex;
-    flex-direction: row;
+    display: block;
+    flex-direction: column;
     flex-grow: 1;
     height: calc(100vh - 80px);
   }
@@ -19,6 +19,18 @@
   }
 
   & :global(.main_content) {
-    padding: 40px 65px;
+    padding: 1.5rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    & .body {
+      display: flex;
+      flex-direction: row;
+    }
+
+    & :global(.main_content) {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
   }
 }

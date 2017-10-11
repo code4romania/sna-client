@@ -38,13 +38,15 @@ export class NominalScale extends React.Component<Props, {}> {
               <path fill="#a5b5be" d="M10 946.2L945.7 10.6 990 54.9 54.3 990.6 10 946.2 10 946.2z"/>
             </svg>
           </div>
-          <div className={style.textBoxTitle}>{this.props.title}</div>
-          <br/>
-          <p>{this.props.value}</p>
+          <div className={style.textContent}>
+            <div className={style.textBoxTitle}>{this.props.title}</div>
+            <br/>
+            <p>{this.props.value}</p>
+          </div>
         </div>
       </div>
     );
-    window.addEventListener("keyup", this.onKeyupHandler);
+    window.addEventListener('keyup', this.onKeyupHandler);
     this.forceUpdate();
   }
 
@@ -64,7 +66,7 @@ export class NominalScale extends React.Component<Props, {}> {
     const props = this.props;
 
     return (
-      <Box className="small_box">
+      <Box className={'small_box ' + style.boxWrapper}>
         <div className="title">{props.title}</div>
         <div className="text-center">
           <button className={style.btn} onClick={this.onOpenBtnClick}>Vezi text</button>
