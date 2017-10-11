@@ -222,3 +222,50 @@
     }
   }
 }
+
+@media (max-width: 1024px) {
+  .Indicators {
+    & :global(.top_align) {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+      align-content: stretch;
+
+      & :global(.big_box),
+      & :global(.small_box) {
+        .flex-basis: fill;
+      }
+
+      & :global(.pie-row) {
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+      }
+
+      & :global(.pie_desc) {
+        align-items: center;
+      }
+
+      & :global(.desc) {
+        text-align: center;
+      }
+
+      & :global(.pie_desc):global(.blue) {
+        margin-right: 0;
+      }
+
+      & :global(.pie_desc):global(.green) {
+        margin-left: 0;
+      }
+
+      & :global(.big_box):not(:first-child), & :global(.small_box):not(:first-child) {
+        margin-left: 0;
+      }
+    }
+  }
+}
