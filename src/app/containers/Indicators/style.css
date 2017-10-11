@@ -43,8 +43,7 @@
 
   & :global(.big_box) {
     /* width: 576px; */
-    min-width: 42rem;
-    max-width: 100%;
+    width: 100%;
 
     & :global(.title) {
       padding: 0 20px;
@@ -199,6 +198,26 @@
 
       & :global(.number) {
         color: #4DD6D0;
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .Indicators {
+    & :global(.top_align) {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: stretch;
+      align-content: stretch;
+
+      & :global(.big_box),
+      & :global(.small_box) {
+        .flex-basis: fill;
       }
     }
   }
