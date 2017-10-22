@@ -46,5 +46,13 @@
         font-size: 15px;
       }
     }
+
+    & .oldSite {
+      margin-left: 5px;
+      padding: 5px;
+      border-radius: 3px;
+      color: #93A6B1;
+      background-color: #3e42b6;
+    }
   }
 }
