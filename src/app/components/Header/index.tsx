@@ -43,6 +43,7 @@ export class Header extends React.Component<HeaderProps & DispatchProps, {}> {
         <ul>
           <li><Link to="about">Despre aplicație</Link></li>
           <li><Link to="help">Ajutor</Link></li>
+          <li className={style.oldSite}><a href="http://sna.just.ro/" target="_blank">sna.just.ro</a></li>
         </ul>
       </nav>
     );
