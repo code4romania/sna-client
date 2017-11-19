@@ -5,8 +5,44 @@ const style = require('./style.css');
 class About extends React.Component<any, any> {
   public render() {
     return (
-      <div className={style.About}>
-        <h4>About</h4>
+      <div className={'container ' + style.About}>
+        <div className='row'>
+          <div className={'col-md-6 col-md-offset-3 ' + style.title}>
+            <h2>Despre Aplicație</h2>
+          </div>
+        </div>
+
+        <div className='row'>
+          <div className={'col-xs-12 col-sm-12 col-md-8 col-md-offset-2 ' + style.content}>
+            <p>
+              Strategia Națională Anticorupție (SNA) 2016-2020, adoptată prin Hotărârea Guvernului nr. 583/2016,
+              este rezultatul unui îndelungat proces de consultare, care a avut în vedere concluziile auditului
+              extern independent al SNA 2012-2015. Documentul strategic preia bunele practici implementate în
+              cadrul SNA 2012-2015, respectiv misiunile de evaluare și platformele de cooperare,
+              propunându-și totodată să îmbunătățească și să dezvolte unele aspecte.
+            </p>
+
+            <p>
+              Scopul principal al acesteia este promovarea integrității în administrația publică, prin aplicarea
+              riguroasă a cadrului normativ şi instituțional de prevenire și combatere a corupției în România.
+            </p>
+
+            <p>
+              În acest context, pentru a înțelege mai bine procedura de monitorizare a implementării strategiei și
+              rezultatele acesteia, a fost construită o aplicație interactivă prin intermediul căreia este evidențiată
+              evoluția indicatorilor de evaluare într-un mod clar și util publicului interesat. Aplicația utilizează
+              date cu caracter public, menite să creeze o imagine de ansamblu prin evidențierea informațiilor reale
+              referitoare la evoluția indicatorilor de referință privind fenomenul de corupției din țara noastră,
+              prin prisma laturii de prevenire a acesteia.
+            </p>
+
+            <p>
+              De exemplu, pot fi vizualizate informațiile vizând respectarea cadrului normativ consultând evoluția
+              indicatorilor de referință evidențiați pentru instituțiile din administrația publică la nivel
+              național, local sau central.
+            </p>
+          </div>
+        </div>
       </div>
     );
   }
