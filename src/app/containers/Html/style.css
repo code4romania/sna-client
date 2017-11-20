@@ -15,17 +15,17 @@ a:hover {
 
 @media (min-width: 768px) {
   :global(.container) {
-    width: 730px;
+    width: 100%;             /* 730px */
   }
 }
 @media (min-width: 992px) {
   :global(.container) {
-    width: 950px;
+    width: 100%;             /* 950px */
   }
 }
 @media (min-width: 1200px) {
   :global(.container) {
-    width: 1150px;
+    width: 100%;            /* 1150px */
   }
 }
 
