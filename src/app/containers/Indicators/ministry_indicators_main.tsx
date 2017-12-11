@@ -70,7 +70,15 @@ export class MinistriesIndicatorsMain extends React.Component<Props & DispatchPr
 
   public render() {
     if (!this.props.areStatsLoaded) {
-      return (<div>Se încarcă</div>);
+      return (
+        <div className={s.Indicators + ' ' + s.loading_indicator}>
+          {/* <p>Se încarcă</p> */}
+          <div className='spinner'>
+            <div className='double-bounce1' />
+            <div className='double-bounce2' />
+          </div>
+        </div>
+      );
     }
 
     const {areAllYearsSelected} = this.props;
