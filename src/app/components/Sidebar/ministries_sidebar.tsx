@@ -20,6 +20,9 @@ import {
 import SidebarWrapper from '../sidebarWrapper/index';
 import {Ministry} from '../../models/ministry';
 import {loadMinistriesConfig} from '../../redux/modules/institutions/ministry';
+import {DispatchProps} from "../Section/filters";
+import {openSidebar} from "../../redux/reducers";
+import {ResponsiveBrowser} from "../../models/responsiveBrowser";
 
 const style = require('./style.css');
 
@@ -28,6 +31,7 @@ interface Props {
   location?: MyLocation;
   ministries?: OrderedMap<number, Ministry>;
   areMinistriesStatsLoaded?: boolean;
+  browser: ResponsiveBrowser;
 }
 
 @asyncConnect([
@@ -37,9 +41,25 @@ interface Props {
   (state: ApplicationState): Props => ({
     areMinistriesStatsLoaded: areMinistryStatsLoaded(state),
     ministries: ministryAdmins(state),
+    browser: state.browser,
   }),
 )
-class MinistriesSidebar extends React.Component<Props, {}> {
+class MinistriesSidebar extends React.Component<Props & DispatchProps, {}> {
+  constructor(props) {
+    super(props);
+    this.closeSidebar = this.closeSidebar.bind(this);
+  }
+
+  private closeSidebar(event: any) {
+    const {browser} = this.props;
+    const smaller = (browser.lessThan.medium && browser.width !== browser.breakpoints.small);
+
+    if (smaller) {
+      event.preventDefault();
+      this.props.onAction(openSidebar(false));
+    }
+  }
+
   public render() {
     if (!this.props.areMinistriesStatsLoaded) {
       return (<div>Se încarcă</div>);
@@ -50,6 +70,7 @@ class MinistriesSidebar extends React.Component<Props, {}> {
     const menus = this.props.ministries.toIndexedSeq().map((i) => (
       <li key={`item-${i.id}`}>
         <Link to={mreportPath(indId, i.id, this.props.location.query)}
+              onClick={this.closeSidebar}
               activeStyle={{color: '#337ab7', textDecoration: 'none'}}>
           {i.name}
         </Link>
