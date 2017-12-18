@@ -26,6 +26,8 @@ import {
 } from '../../models/county';
 import {loadCountiesConfig} from '../../redux/modules/counties/index';
 import {loadCountyAdminsConfig} from '../../redux/modules/institutions/county';
+import {openSidebar} from "../../redux/reducers";
+import {DispatchProps} from "../Section/filters";
 
 const style = require('./style.css');
 
@@ -36,6 +38,7 @@ interface Props {
   countyAdmins?: OrderedMap<number, CountyAdmin>;
   areCountiesLoaded?: boolean;
   areCountyAdminsLoaded?: boolean;
+  browser;
 }
 
 @asyncConnect([
@@ -48,9 +51,25 @@ interface Props {
     counties: counties(state),
     areCountyAdminsLoaded: areCountyAdminsLoaded(state),
     countyAdmins: countyAdmins(state),
+    browser: state.browser,
   }),
 )
-class CountiesSidebar extends React.Component<Props, {}> {
+class CountiesSidebar extends React.Component<Props & DispatchProps, {}> {
+  constructor(props) {
+    super(props);
+    this.closeSidebar = this.closeSidebar.bind(this);
+  }
+
+  private closeSidebar(event: any) {
+    const {browser} = this.props;
+    const smaller = (browser.lessThan.medium && browser.width !== browser.breakpoints.small);
+
+    if (smaller) {
+      event.preventDefault();
+      this.props.onAction(openSidebar(false));
+    }
+  }
+
   public render() {
     if (!this.props.areCountiesLoaded) {
       return (<div>Se încarcă</div>);
@@ -58,9 +77,11 @@ class CountiesSidebar extends React.Component<Props, {}> {
 
     const indId = parseInt(this.props.params.id, 10);
 
-    const menus = this.props.counties.map((c) => (  // TODO replace counties with countyAdmins.toIndexedSeq().
+    // TODO replace counties with countyAdmins.toIndexedSeq().
+    const menus = this.props.counties.map((c) => (
       <li key={`item-${c.id}`}>
         <Link to={creportPath(indId, c.id, this.props.location.query)}
+              onClick={this.closeSidebar}
               activeStyle={{color: '#337ab7', textDecoration: 'none'}}>
           {c.name}
         </Link>
