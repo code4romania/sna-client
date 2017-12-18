@@ -20,7 +20,7 @@ class AdministrationSidebar extends React.Component<Props, {}> {
       <div className={style.Sidebar}>
         <BackLink link={{...this.props.location, pathname: '/'}} />
         <div className={style.title}>
-          Tip administrare
+          Tipul instituției
         </div>
         <ul className={style.adminType}>
           <li>
