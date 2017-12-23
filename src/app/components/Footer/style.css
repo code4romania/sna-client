@@ -1,21 +1,45 @@
-.footer {
-  position: fixed;
-  right: 1.5em;
-  bottom: 0;
-  height: 2em;
-  background-color: #fff;
-  border-radius: 2px;
-  overflow: hidden;
-  padding: 0 0.3em 0 0.2em;
+#bottom {
+  position: relative;
+  background-color: #272a7e;
+  padding: 1.5rem 0;
+  margin: 6rem 0 0;
+  display: block;
+  height: 12%;
 }
 
-.byline {
-  font-family: "Source Code Pro", Courier New, Courier, monospace;
-  font-size: 12px;
-  font-weight: 700;
-  opacity: 0.6;
+.container {
+  max-width: 1200px;
+  margin: 0 25px;
+  width: 100%;
+}
+
+.footer:before {
+  content: " ";
+  display: table;
+  box-sizing: border-box;
+}
+
+.footer:after {
+  clear: both;
+  content: " ";
+  display: table;
+  box-sizing: border-box;
 }
 
 .logo {
-  height: 100%;
+  transition: opacity .3s;
+  display: inline-block;
+  max-width: 10rem;
+  opacity: .7;
+}
+
+.logo img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.mono {
+  font-size: 1.3rem;
+  color: white;
 }
