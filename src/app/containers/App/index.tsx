@@ -38,9 +38,9 @@ class App extends React.Component<AppProps & DispatchProps, any> {
           {sidebar}
           <Content>
             {main || this.props.children}
+            <Footer />
           </Content>
         </div>
-        <Footer />
       </section>
     );
   }
