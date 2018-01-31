@@ -9,6 +9,9 @@ var config = {
   // This part goes to React-Helmet for Head of our HTML
   app: {
     head: {
+      // If you're not using SSR, when changing these values,
+      // update the /src/index.html manually(or generate a new index.html version using SSR,
+      // then stripping the state <script> section and <main>'s contents)
       title: 'Portalul Strategiei Naționale Anticorupție',
       titleTemplate: 'PSNA: %s',
       meta: [
