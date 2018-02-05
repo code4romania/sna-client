@@ -11,7 +11,8 @@ var config = {
     head: {
       // If you're not using SSR, when changing these values,
       // update the /src/index.html manually(or generate a new index.html version using SSR,
-      // then stripping the state <script> section and <main>'s contents)
+      // then stripping React's state <script> section and <main>'s contents)
+      base: { href: process.env.BASE_URL || '/' },
       title: 'Portalul Strategiei Naționale Anticorupție',
       titleTemplate: 'PSNA: %s',
       meta: [

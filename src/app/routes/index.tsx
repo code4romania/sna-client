@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {IndexRoute, Route} from 'react-router';
 
-import {App, Home, About, Help} from 'containers';
+import {App, Home, About} from 'containers';
 import AdministrationSidebar from '../components/Sidebar/administration_sidebar';
 import MinistriesSidebar from '../components/Sidebar/ministries_sidebar';
 import AnticorruptionAdminsSidebar from '../components/Sidebar/anticorruption_sidebar';
@@ -13,15 +13,12 @@ import {AnticorruptionAdminsOverview} from '../containers/AnticorruptionAdminsOv
 import {MinistriesIndicatorsMain} from '../containers/Indicators/ministry_indicators_main';
 import {AnticorruptionAdminsIndicatorsMain} from '../containers/Indicators/anticorruption_admins_indicators_main';
 import {CountiesIndicatorsMain} from '../containers/Indicators/counties_indicators_main';
-// import {Report} from '../containers/Report/index';
-// import EmptySidebar from '../components/Sidebar/empty';
 
 /* tslint:disable:max-line-length */
 export default (
-  <Route path='/' component={App}>
+  <Route path={process.env.BASE_URL} component={App}>
     <IndexRoute components={{main: Home, sidebar: Sidebar}} />
-    <Route path='about' component={About} />
-    <Route path='help' component={Help} />
+    <Route path='about' components={{main: About, sidebar: Sidebar}} />
     <Route path='selectAdministration/:id' components={{main: Home, sidebar: AdministrationSidebar}} />
     <Route path='report/:id/1' components={{main: MinistryOverview, sidebar: MinistriesSidebar}} />
     <Route path='report/:id/1/:mid' components={{main: MinistriesIndicatorsMain, sidebar: MinistriesSidebar}} />

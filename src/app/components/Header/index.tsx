@@ -34,15 +34,15 @@ export class Header extends React.Component<HeaderProps & DispatchProps, {}> {
     return (
       <nav className={style.Nav}>
         <div className={style.Logo}>
-          <Link to="/">
+          <Link to={process.env.BASE_URL}>
             <img src={logo}
                  title="Strategia Națională Anticorupție - Vizualizare Date"/>
           </Link>
         </div>
 
         <ul>
-          <li><Link to="about">Despre aplicație</Link></li>
-          <li className={style.oldSite}><a href="http://sna.just.ro/" target="_blank">sna.just.ro</a></li>
+          <li><Link to={process.env.BASE_URL + "about"}>Despre aplicație</Link></li>
+          <li className={style.oldSite}><a href="https://sna.just.ro/" target="_blank">sna.just.ro</a></li>
         </ul>
       </nav>
     );

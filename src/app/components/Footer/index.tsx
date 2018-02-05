@@ -5,7 +5,7 @@ const style = require('./style.css');
 export const Footer = () => (
   <footer>
     <div>
-      <a href="http://sna.code4.ro/">
+      <a href={process.env.BASE_URL}>
         <img id={style.sna_footer_logo} className={style.logo} src={require('./brand-sna.svg')}
           title="Strategia Națională Anticorupție - Vizualizare Date"
           alt="Strategia Națională Anticorupție - Vizualizare Date"/>

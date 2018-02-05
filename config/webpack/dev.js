@@ -33,7 +33,7 @@ let config = {
 
   output: {
     path: path.resolve('./build/public'),
-    publicPath: '/public/',
+    publicPath: appConfig.app.head.base.href + 'public/',
     filename: 'js/[name].js',
     pathinfo: true
   },
@@ -129,7 +129,8 @@ let config = {
       'process.env': {
         BROWSER: JSON.stringify(true),
         NODE_ENV: JSON.stringify('development'),
-        API_URL: JSON.stringify(process.env.API_URL || 'http://' + appConfig.host + ':' + appConfig.port)
+        API_URL: JSON.stringify(process.env.API_URL || 'http://' + appConfig.host + ':' + appConfig.port),
+        BASE_URL: JSON.stringify(appConfig.app.head.base.href)
       }
     }),
     new webpack.HotModuleReplacementPlugin(),

@@ -18,7 +18,7 @@ class AdministrationSidebar extends React.Component<Props, {}> {
 
     return (
       <div className={style.Sidebar}>
-        <BackLink link={{...this.props.location, pathname: '/'}} />
+        <BackLink link={{...this.props.location, pathname: process.env.BASE_URL}} />
         <div className={style.title}>
           Tipul instituției
         </div>
