@@ -139,18 +139,18 @@ All commands defaults to development environment. You can set `NODE_ENV` to `pro
     
     # Commands below builds the production build(client):
     ## When using SSR
-    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production npm run build:prod
+    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/vizualizare-date/ npm run build:prod
     ## When not using SSR
-    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production npm run build:prod && node ./script/add-and-replace-in-index.js
+    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/vizualizare-date/ npm run build:prod && cross-env BASE_URL=/vizualizare-date/ node ./script/add-and-replace-in-index.js
     
     # Server build:
     $ npm run build:server
     
     # Commands below builds the production build(client & server):
     ## When using SSR
-    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production npm run build:prodserver
+    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/vizualizare-date/ npm run build:prodserver
     ## When not using SSR
-    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production npm run build:prodserver && node ./script/add-and-replace-in-index.js
+    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/vizualizare-date/ npm run build:prodserver && cross-env BASE_URL=/vizualizare-date/ node ./script/add-and-replace-in-index.js
     
     
     # LINTING

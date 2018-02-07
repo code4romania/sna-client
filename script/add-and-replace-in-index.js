@@ -1,4 +1,5 @@
 let fs = require('fs');
+let appConfig = require('../config/main');
 
 if (!fs.existsSync('./build') || !fs.existsSync('./build/manifest.json')) {
   console.error('No /build folder or no /build/manifest.json file present.');
@@ -26,10 +27,11 @@ if (!(manifest['vendor.css'] && manifest['app.css'])) {
   process.exit(1);
 }
 
-indexFile = indexFile.replace('css/vendor.css', manifest['vendor.css']);
-indexFile = indexFile.replace('css/app.css', manifest['app.css']);
-indexFile = indexFile.replace('js/vendor.js', manifest['vendor.js']);
-indexFile = indexFile.replace('js/app.js', manifest['app.js']);
+indexFile = indexFile.replace('href="/$vizualizare-date/"', 'href="' + appConfig.app.head.base.href + '"');
+indexFile = indexFile.replace('$css/$vendor.css', manifest['vendor.css']);
+indexFile = indexFile.replace('$css/$app.css', manifest['app.css']);
+indexFile = indexFile.replace('$js/$vendor.js', manifest['vendor.js']);
+indexFile = indexFile.replace('$js/$app.js', manifest['app.js']);
 
 writeFileSync(indexFile, './build/index.html', true);
 console.info('index.html added and edited successfully.');

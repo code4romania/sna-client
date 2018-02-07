@@ -20,9 +20,9 @@ import {
 import SidebarWrapper from '../sidebarWrapper/index';
 import {AnticorruptionAdmin} from '../../models/anticorruption';
 import {loadAnticorruptionAdminsConfig} from '../../redux/modules/institutions/anticorruption';
-import {DispatchProps} from "../Section/filters";
-import {openSidebar} from "../../redux/reducers";
-import {ResponsiveBrowser} from "../../models/responsiveBrowser";
+import {DispatchProps} from '../Section/filters';
+import {openSidebar} from '../../redux/reducers';
+import {ResponsiveBrowser} from '../../models/responsiveBrowser';
 
 const style = require('./style.css');
 
