@@ -346,7 +346,7 @@ export const INDICATOR1_ONE_YEAR_GROUPING: Array<{
         labels: ({
           title: 'Situatii in care superiorul ierarhic a dispus inlocuirea persoanei in potential conflict de interese',
           note: null,
-          desc: 'EUR',
+          desc: 'situatii',
         } as MediumReferenceLinearScaleLabels),
       },
       {
