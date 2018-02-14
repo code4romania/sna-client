@@ -66,7 +66,7 @@ export class CommonFilters extends React.Component<FiltersProps & DispatchProps,
     return (
       <div className={'col-xs-12 ' + filterStyle.Filters}>
         <div className={filterStyle.indicator}>
-          <div className={commonStyle.title}>Indicator vizualizat</div>
+          <div className={commonStyle.title}>Statistici pentru întrebarea</div>
           {this.renderCategoryDropdown()}
         </div>
 

@@ -11,6 +11,7 @@
     "build:server": "webpack --progress --config config/webpack/server.js",
     "build:prodserver": "npm run build:prod && npm run build:server",
     "build:server:w": "npm run build:server -- --watch",
+    "bundle": "cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/vizualizare-date/ npm run build:prod && cross-env BASE_URL=/vizualizare-date/ node ./script/add-and-replace-in-index.js",
     "xpostbuild": "npm run build:server",
     "prestart": "npm run build && npm run build:server",
     "start": "node build/server.js",

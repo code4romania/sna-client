@@ -68,7 +68,6 @@ export function loadCategories(context: AsyncContext) {
     return Promise.resolve(store.getState().reduxAsyncConnect.categories);
   }
 
-  console.log('ENV: ', process.env.NODE_ENV);
   if (process.env.NODE_ENV === 'development') {
     return new Promise((resolve) => {
       setTimeout(() => {

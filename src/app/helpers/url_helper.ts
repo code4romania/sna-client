@@ -14,7 +14,7 @@ export interface RouteParams {
 
 // path for ministry, prefix m
 export function mreportPath(indicatorId: number, itemId?: number, query?: any): MyLocation {
-  let pathname = `/report/${indicatorId}/${ADMIN_TYPE_MINISTRIES}`;
+  let pathname = `${process.env.BASE_URL}report/${indicatorId}/${ADMIN_TYPE_MINISTRIES}`;
 
   if (itemId) {
     pathname += `/${itemId}`;
@@ -25,7 +25,7 @@ export function mreportPath(indicatorId: number, itemId?: number, query?: any): 
 
 // path for Independence, prefix i
 export function ireportPath(indicatorId: number, itemId?: number, query?: any): MyLocation {
-  let pathname = `/report/${indicatorId}/${ADMIN_TYPE_ANTICORRUPTION_ADMINS}`;
+  let pathname = `${process.env.BASE_URL}report/${indicatorId}/${ADMIN_TYPE_ANTICORRUPTION_ADMINS}`;
 
   if (itemId) {
     pathname += `/${itemId}`;
@@ -36,7 +36,7 @@ export function ireportPath(indicatorId: number, itemId?: number, query?: any): 
 
 // path for county, prefix c
 export function creportPath(indicatorId: number, itemId?: number, query?: any): MyLocation {
-  let pathname = `/report/${indicatorId}/${ADMIN_TYPE_COUNTIES}`;
+  let pathname = `${process.env.BASE_URL}report/${indicatorId}/${ADMIN_TYPE_COUNTIES}`;
 
   if (itemId) {
     pathname += `/${itemId}`;
@@ -46,7 +46,7 @@ export function creportPath(indicatorId: number, itemId?: number, query?: any): 
 }
 
 export function selAdminPath(indId: number, query?: any): MyLocation {
-  return {pathname: `/selectAdministration/${indId}`, query};
+  return {pathname: `${process.env.BASE_URL}selectAdministration/${indId}`, query};
 }
 
 export function routePath(pathname, query?): MyLocation {

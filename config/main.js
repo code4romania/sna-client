@@ -9,6 +9,10 @@ var config = {
   // This part goes to React-Helmet for Head of our HTML
   app: {
     head: {
+      // If you're not using SSR, when changing these values,
+      // update the /src/index.html manually(or generate a new index.html version using SSR,
+      // then stripping React's state <script> section and <main>'s contents)
+      base: { href: process.env.BASE_URL || '/' },
       title: 'Portalul Strategiei Naționale Anticorupție',
       titleTemplate: 'PSNA: %s',
       meta: [

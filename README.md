@@ -125,32 +125,32 @@ All commands defaults to development environment. You can set `NODE_ENV` to `pro
     # STARTING
     
     # This starts the app in development mode
-    $ npm start:dev
+    $ npm run start:dev
     
     
     # Starting it with the production build
-    $ NODE_ENV=production npm start 
-    # or
-    $ npm run start:prod
+    $ cross-env API_URL=http://sna.code4.ro npm run start:prod
     
     
     # BUILDING
     
-    # This builds the app in development mode(client)
+    # This builds the app in development mode(client):
     $ npm build:dev
     
-    # Commands below builds the production build(client)
-    $ NODE_ENV=production npm build 
-    # or
-    $ npm run build:prod
+    # Commands below builds the production build(client):
+    ## When using SSR
+    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/vizualizare-date/ npm run build:prod
+    ## When not using SSR
+    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/vizualizare-date/ npm run build:prod && cross-env BASE_URL=/vizualizare-date/ node ./script/add-and-replace-in-index.js
     
-    # Server build
+    # Server build:
     $ npm run build:server
     
-    # Commands below builds the production build(client & server)
-    $ NODE_ENV=production npm build && npm run build:server
-    # or
-    $ npm run build:prodserver
+    # Commands below builds the production build(client & server):
+    ## When using SSR
+    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/vizualizare-date/ npm run build:prodserver
+    ## When not using SSR
+    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/vizualizare-date/ npm run build:prodserver && cross-env BASE_URL=/vizualizare-date/ node ./script/add-and-replace-in-index.js
     
     
     # LINTING

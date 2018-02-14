@@ -122,13 +122,6 @@ export const INDICATOR1_ONE_YEAR_GROUPING: Array<{
           desc: 'zile',
         } as MediumReferenceLinearScaleLabels),
       },
-      {
-        indicators: [16],
-        indicatorType: INDICATOR1_TYPES.NOMINAL_SCALE,
-        labels: ({
-          title: 'Scurtă descriere a măsurilor dispuse',
-        } as NominalScaleLabels),
-      },
     ],
     // examples: [
     //   {
@@ -353,7 +346,7 @@ export const INDICATOR1_ONE_YEAR_GROUPING: Array<{
         labels: ({
           title: 'Situatii in care superiorul ierarhic a dispus inlocuirea persoanei in potential conflict de interese',
           note: null,
-          desc: 'EUR',
+          desc: 'situatii',
         } as MediumReferenceLinearScaleLabels),
       },
       {
