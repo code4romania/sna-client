@@ -66,28 +66,17 @@ interface Props {
   (dispatch: Dispatch<ApplicationState>) => ({ onAction: dispatch }),
 )
 export class MinistryOverview extends React.Component<Props & DispatchProps, any> {
-  // public static contextTypes = {
-  //   router: React.PropTypes.object,
-  // };
-  // private chartColumnElement: HTMLElement;
-  // private refHandlers = {
-  //   chartColumn: (ref) => this.chartColumnElement = ref,
-  // };
-
   constructor(props) {
     super(props);
     this.onSelectMinistry = this.onSelectMinistry.bind(this);
     this.onSelectAll = this.onSelectAll.bind(this);
   }
 
-  // public componentWillMount() {
-  //   // needed for computing the chart column's suitable width
-  //   setTimeout(() => {
-  //     this.forceUpdate();
-  //   }, 10);
-  // }
-
   public render(): JSX.Element {
+    if (!this.props.areMinistriesStatsLoaded) {
+      return null;
+    }
+
     const {indicatorTitle, location, selectedMinistries, ministriesFilterData, browser} = this.props;
 
     const displayedData = (
@@ -103,7 +92,7 @@ export class MinistryOverview extends React.Component<Props & DispatchProps, any
         </div>
       </div>
     );
-    //  ref={this.refHandlers.chartColumn}
+
     const noOfNotices = (
       <div key='1' className={'col-xs-12 col-sm-7 ' + style.chart_display}>
         <div className={style.title}>Număr sesizări</div>
@@ -136,11 +125,9 @@ export class MinistryOverview extends React.Component<Props & DispatchProps, any
     );
   }
 
-  // { /* columnWidth={this.chartColumnElement && this.chartColumnElement.offsetWidth} */ }
-  // { /* columnWidth={this.chartColumnElement && this.chartColumnElement.offsetWidth} */ }
   private chartElement(): JSX.Element {
     if (!this.props.areMinistriesStatsLoaded) {
-      return <div>Se încarcă</div>;
+      return null;
     }
 
     let chart = this.props.location.query.chart;

@@ -62,7 +62,7 @@ class MinistriesSidebar extends React.Component<Props & DispatchProps, {}> {
 
   public render() {
     if (!this.props.areMinistriesStatsLoaded) {
-      return (<div>Se încarcă</div>);
+      return null;
     }
 
     const indId = parseInt(this.props.params.id, 10);

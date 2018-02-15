@@ -15,8 +15,8 @@
     "xpostbuild": "npm run build:server",
     "prestart": "npm run build && npm run build:server",
     "start": "node build/server.js",
-    "start:dev": "cross-env NODE_ENV=development npm start",
-    "start:prod": "cross-env NODE_ENV=production npm start",
+    "start:dev": "cross-env API_URL=http://sna.code4.ro NODE_ENV=development BASE_URL=/ npm start",
+    "start:prod": "cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/ npm start",
     "test": "karma start config/test/karma.conf.js",
     "lint": "tslint \"src/**/**.ts*\" --fix --cache"
   },

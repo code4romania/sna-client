@@ -7,9 +7,7 @@ import {MyLocation, RouteParams} from '../../helpers/url_helper';
 import {YearFilters} from '../../components/Section/year_filter';
 import {CustomContentHeader} from '../../components/ContentHeader/index';
 import {AnticorruptionAdmin} from '../../models/anticorruption';
-// import {Box} from '../../components/Section/box';
 import {Checkbox} from '../../components/Checkbox/index';
-// import {Indicator} from '../../models/indicator';
 import {ApplicationState} from '../../redux/application_state';
 import {
   currentCategoryTitle,
@@ -70,7 +68,7 @@ export class AnticorruptionAdminsIndicatorsMain extends React.Component<Props & 
 
   public render() {
     if (!this.props.areStatsLoaded) {
-      return (<div>Se încarcă</div>);
+      return null;
     }
 
     const {areAllYearsSelected} = this.props;

@@ -166,13 +166,7 @@ function SidebarWrapper(SidebarComponent) {
   }
 
   function mapDispatchToProps(dispatch: Dispatch<ApplicationState>) {
-    return {
-      onAction: dispatch,
-    };
-
-    // return {
-    //   ...bindActionCreators(actions, dispatch)
-    // };
+    return {onAction: dispatch};
   }
 
   if (SidebarComponent.reduxAsyncConnect) {

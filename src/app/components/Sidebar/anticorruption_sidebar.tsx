@@ -62,7 +62,7 @@ class AnticorruptionAdminsSidebar extends React.Component<Props & DispatchProps,
 
   public render() {
     if (!this.props.areAnticorruptionAdminsLoaded) {
-      return (<div>Se încarcă</div>);
+      return null;
     }
 
     const indId = parseInt(this.props.params.id, 10);

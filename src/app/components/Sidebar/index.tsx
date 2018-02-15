@@ -50,7 +50,7 @@ export class HomeSidebar extends React.Component<SidebarProps & DispatchProps, {
     const link = (indicator) => selAdminPath(indicator.id, this.props.location && this.props.location.query); // TODO ~
 
     if (!areCategoriesLoaded) {
-      content = <li key='0'>Se încarcă</li>;
+      content = <li key='0' />;
     } else {
       content = this.props.categories.map((category: Category) => {
         return (

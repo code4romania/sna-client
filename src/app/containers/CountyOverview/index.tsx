@@ -17,6 +17,8 @@ import {
   selectedCounties,
   countiesFilterData,
   areCategoriesLoaded,
+  areCountyAdminsLoaded,
+  areCountiesLoaded,
 } from '../../selectors/index';
 import {loadCountiesStatsConfig} from '../../redux/modules/stats/index';
 import {CheckBoxOptions} from '../../components/CheckboxGroup/index';
@@ -36,6 +38,8 @@ const style = require('./style.css');
 interface Props {
   areCategoriesLoaded: boolean;
   areIndicatorsLoaded: boolean;
+  areCountiesLoaded: boolean;
+  areCountyAdminsLoaded: boolean;
   areStatsLoaded: boolean;
   indicatorTitle: string;
   params?: RouteParams;
@@ -57,6 +61,8 @@ interface Props {
     ...ownProps,
     areCategoriesLoaded: areCategoriesLoaded(state),
     areIndicatorsLoaded: areIndicatorsLoaded(state),
+    areCountiesLoaded: areCountiesLoaded(state),
+    areCountyAdminsLoaded: areCountyAdminsLoaded(state),
     areStatsLoaded: areCountiesStatsLoaded(state),
     indicatorTitle: currentCategoryTitle(state),
     countiesFilterData: countiesFilterData(state),
@@ -68,25 +74,17 @@ interface Props {
   (dispatch: Dispatch<ApplicationState>) => ({ onAction: dispatch }),
 )
 export class CountyOverview extends React.Component<Props & DispatchProps, any> {
-  // private chartColumnElement: HTMLElement;
-  // private refHandlers = {
-  //   chartColumn: (ref) => this.chartColumnElement = ref,
-  // };
-
   constructor(props) {
     super(props);
     this.onSelectCounty = this.onSelectCounty.bind(this);
     this.onSelectAll = this.onSelectAll.bind(this);
   }
 
-  // public componentWillReceiveProps() {
-  //   // needed for computing the chart column's suitable width
-  //   setTimeout(() => {
-  //     this.forceUpdate();
-  //   }, 10);
-  // }
-
   public render(): JSX.Element {
+    if (!(this.props.areCountiesLoaded && this.props.areCountyAdminsLoaded && this.props.areStatsLoaded)) {
+      return null;
+    }
+
     const {indicatorTitle, location} = this.props;
 
     return (
@@ -105,12 +103,8 @@ export class CountyOverview extends React.Component<Props & DispatchProps, any> 
   }
 
   private renderMap(): JSX.Element | null {
-    if (this.props.chartType !== 'map') {
+    if (this.props.chartType !== 'map' || !this.props.areStatsLoaded) {
       return null;
-    }
-
-    if (!this.props.areStatsLoaded) {
-      return <div>Se încarcă</div>;
     }
 
     return (
@@ -164,9 +158,7 @@ export class CountyOverview extends React.Component<Props & DispatchProps, any> 
                      onSelectAll={this.onSelectAll} />
       </div>
     );
-    //  ref={this.refHandlers.chartColumn}
-    //  className={style.title}
-    //  className={style.chart}
+
     const noOfNotices = (
       <div key='1' className={'col-xs-12 col-sm-7'}>
         <div>Număr sesizări</div>
@@ -204,13 +196,13 @@ export class CountyOverview extends React.Component<Props & DispatchProps, any> 
 
   private chartElement(): JSX.Element {
     if (!this.props.areStatsLoaded) {
-      return <div>Se încarcă</div>;
+      return null;
     }
 
     if (this.props.chartType === 'bar') {
-      return <CountyBarChart />;  //  columnWidth={this.chartColumnElement && this.chartColumnElement.offsetWidth}
+      return <CountyBarChart />;
     } else {
-      return <CountiesScatterChart />;  // columnWidth={this.chartColumnElement && this.chartColumnElement.offsetWidth}
+      return <CountiesScatterChart />;
     }
   }
 }
