@@ -32,8 +32,6 @@ import {loadCategoriesConfig} from '../../redux/modules/categories/index';
 
 const style = require('../MinistryOverview/style.css');
 
-// export type ChartType = 'bar' | 'scatter' | 'map';
-
 interface Props {
   areCategoriesLoaded: boolean;
   areIndicatorsLoaded: boolean;
@@ -63,28 +61,12 @@ interface Props {
   (dispatch: Dispatch<ApplicationState>) => ({ onAction: dispatch }),
 )
 export class  AnticorruptionAdminsOverview extends React.Component<Props & DispatchProps, any> {
-  // public static contextTypes = {
-  //   router: React.PropTypes.object,
-  // };
-  // private chartColumnElement: HTMLElement;
-  // private refHandlers = {
-  //   chartColumn: (ref) => this.chartColumnElement = ref,
-  // };
-
   constructor(props) {
     super(props);
     this.onSelectAnticorruptionAdmin = this.onSelectAnticorruptionAdmin.bind(this);
     this.onSelectAll = this.onSelectAll.bind(this);
   }
 
-  // public componentWillMount() {
-  //   // needed for computing the chart column's suitable width
-  //   setTimeout(() => {
-  //     this.forceUpdate();
-  //   }, 10);
-  // }
-
-  //  ref={this.refHandlers.chartColumn}
   public render() {
     return (
       <div className={'container ' + style.AnticorruptionAdminsOverview}>
@@ -122,7 +104,7 @@ export class  AnticorruptionAdminsOverview extends React.Component<Props & Dispa
 
   private chartElement(): JSX.Element {
     if (!this.props.areAnticorruptionAdminsStatsLoaded) {
-      return <div>Se încarcă</div>;
+      return null;
     }
 
     let chart = this.props.location.query.chart;
@@ -131,13 +113,11 @@ export class  AnticorruptionAdminsOverview extends React.Component<Props & Dispa
       chart = 'bar';
     }
 
-    // columnWidth={this.chartColumnElement && this.chartColumnElement.offsetWidth}
     if (chart === 'bar') {
       return (
         <AdministrationBarChart type={ADMINISTRATION_TYPE.ANTICORRUPTION_ADMIN}/>
       );
     } else {
-      // columnWidth={this.chartColumnElement && this.chartColumnElement.offsetWidth}
       return (
         <AdministrationsScatterChart type={ADMINISTRATION_TYPE.ANTICORRUPTION_ADMIN}/>
       );

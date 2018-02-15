@@ -7,9 +7,7 @@ import {MyLocation, RouteParams} from '../../helpers/url_helper';
 import {YearFilters} from '../../components/Section/year_filter';
 import {CustomContentHeader} from '../../components/ContentHeader/index';
 import {Ministry} from '../../models/ministry';
-// import {Box} from '../../components/Section/box';
 import {Checkbox} from '../../components/Checkbox/index';
-// import {Indicator} from '../../models/indicator';
 import {ApplicationState} from '../../redux/application_state';
 import {
   currentCategoryTitle,
@@ -70,12 +68,11 @@ export class MinistriesIndicatorsMain extends React.Component<Props & DispatchPr
 
   public render() {
     if (!this.props.areStatsLoaded) {
-      return (<div>Se încarcă</div>);
+      return null;
     }
 
     const {areAllYearsSelected} = this.props;
 
-    /* tslint:disable:max-line-length */
     return (
       <div className={'container ' + s.Indicators}>
         <CustomContentHeader parentTitle={this.props.selectedMinistry && this.props.selectedMinistry.name}>
@@ -96,7 +93,6 @@ export class MinistriesIndicatorsMain extends React.Component<Props & DispatchPr
         </div>
       </div>
     );
-    /* tslint:enable:max-line-length */
   }
 
   private renderContent(): JSX.Element {

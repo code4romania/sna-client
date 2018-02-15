@@ -3,7 +3,7 @@ import * as Helmet from 'react-helmet';
 const {connect} = require('react-redux');
 import {Dispatch} from 'react-redux';
 
-import {Header, Content, Footer} from 'components';
+import {Header, Content, Footer, Loader} from 'components';
 import {ApplicationState} from '../../redux/application_state';
 import {DispatchProps} from '../../components/Section/filters';
 
@@ -12,10 +12,8 @@ const appConfig = require('../../../../config/main');
 export const commonStyle = require('./style.css');
 
 interface AppProps {
-  // location: Location;
   sidebar: JSX.Element;
   main: JSX.Element;
-  // isSidebarOpen: boolean;
 }
 
 @connect(
@@ -41,9 +39,10 @@ class App extends React.Component<AppProps & DispatchProps, any> {
             <Footer />
           </Content>
         </div>
+        <Loader />
       </section>
     );
   }
 }
 
-export { App };
+export {App};

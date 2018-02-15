@@ -66,7 +66,6 @@ export function loadIndicators(context: AsyncContext) {
   const {dispatch} = store;
 
   const loader = store.getState().reduxAsyncConnect.loadState.indicators;
-
   if (isContentLoaded(loader)) {
     return Promise.resolve(store.getState().reduxAsyncConnect.indicators);
   }
@@ -75,17 +74,15 @@ export function loadIndicators(context: AsyncContext) {
     .then((res) => {
       if (res.ok) {
         return res.json()
-          .then((res) => {
-            return Promise.resolve(res.data);
-          });
+          .then((res) => Promise.resolve(res.data));
       } else {
-        return res.json()
-          .then((res) => dispatch(indicatorsFailure(res)));
+        dispatch(indicatorsFailure(res));
+        return Promise.reject('Eroare de server.');
       }
     })
     .catch((err) => {
-      console.log('main failure', err);
       dispatch(indicatorsFailure(err));
+      return Promise.reject('Eroare de retea.');
   });
 }
 

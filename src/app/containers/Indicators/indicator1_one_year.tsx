@@ -3,9 +3,6 @@ import * as _ from 'lodash';
 import {Map} from 'immutable';
 const {connect} = require('react-redux');
 
-// import {Box} from '../../components/Section/box';
-// import {PieValue, SimplePieChart} from '../../components/Charts/simple_pie_chart';
-// import {LineChart} from '../../components/Charts/line_chart';
 import {ApplicationState} from '../../redux/application_state';
 import {
   anticorruptionAdminCategoryStatsForYear,
@@ -17,10 +14,8 @@ import {
   countyCategoryStatsForYear,
   countyCategoryMaxAvgStatsForYear,
 } from '../../selectors/indicators';
-// import {Ministry} from '../../models/ministry';
-import {currentCategory} from '../../selectors/index';  // , currentIndicators, currentMinistry
+import {currentCategory} from '../../selectors/index';
 import {Category} from '../../models/category';
-// import {Indicator} from '../../models/indicator';
 import {
   INDICATOR1_ONE_YEAR_GROUPING,
   DptDoughnutChartLabels,
@@ -49,8 +44,6 @@ import BinominalScale, {BinominalScaleProps} from '../../components/Indicators/b
 interface Props {
   type?: string;
   currentCategory?: Category;
-  // currentIndicators?: Indicator[];
-  // selectedMinistry?: Ministry;
   categoryStats?: Map<IndicatorId, number>;
   categoryMaxAvgStats?: Map<IndicatorId, MaxAvg>;
 }
@@ -58,8 +51,6 @@ interface Props {
 @connect(
   (state: ApplicationState, ownProps: Props): Props => ({
     currentCategory: currentCategory(state),
-    // currentIndicators: currentIndicators(state),
-    // selectedMinistry: currentMinistry(state),
     categoryStats: chooseByAdministrationType([
        ministryCategoryStatsForYear(state),
        anticorruptionAdminCategoryStatsForYear(state),
@@ -73,24 +64,9 @@ interface Props {
   }),
 )
 export class Indicator1OneYear extends React.Component<Props, any> {  // TODO rename to IndicatorsOneYear
-  // public getNoOfOccupiedCols(buffer, idx, indicatorGroup) {
-  //   const pastOccupiedColIds = Array(buffer.length)
-  //     .fill(1)
-  //     .map((n, i) => idx - n - i);
-  //
-  //   return pastOccupiedColIds
-  //     .reduce((accum, id) => {
-  //       return accum += indicatorGroup.indicatorGrouping[id].indicatorType === INDICATOR1_TYPES.DPT_DOUGHNUT_CHART
-  //         ? 2
-  //         : 1;
-  //     }, 0);
-  // }
-
   public render(): JSX.Element {
     const {
       currentCategory,
-      // currentIndicators,
-      // selectedMinistry,
       categoryStats,
       categoryMaxAvgStats,
     } = this.props;
