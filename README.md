@@ -1,194 +1,77 @@
-SNA Web Client
-=========================
+# Strategia Națională Anticorupție: Data Visualization - Client 
 
-# Seed docs
+[![GitHub contributors](https://img.shields.io/github/contributors/code4romania/sna-client.svg?style=for-the-badge)]() [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/sna-client.svg?style=for-the-badge)]() [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-**Vortigern** is our opinionated boilerplate for crafting universal web applications by using modern technologies like TypeScript, React and Redux.
+This portal makes the implementation of the 2016-2020 National Anticorruption Strategy more transparent for everybody involved, from citizens to stakeholders. The information and data sets (corruption indicators, integrity warnings, ethics counselling) developed through this new strategy will be accessible to everyone in an easily parseable and explainable format. As the new anticorruption strategy emphasises education and prevention, citizen involvement in fighting corruption starts with this portal.
 
-## Libraries
-Vortigern uses the following libraries and tools:
+[Built with](#built-with) | [Repos and projects](#repos-and-projects) | [Deployment](#deployment) | [Contributing](#contributing) | [Feedback](#feedback) | [License](#license) | [About Code4Ro](#about-code4ro)
 
-#### Core
-* [TypeScript](https://www.typescriptlang.org/)
-* [React](https://github.com/facebook/react) and [React DOM](https://github.com/facebook/react) for views.
-* [React Router](https://github.com/reactjs/react-router) to handle in-app routing.
-* [Redux](https://github.com/reactjs/redux) for managing application state.
-* [React-Redux](https://github.com/reactjs/react-redux) to use React-Redux bindings.
-* [React-Router-Redux](https://github.com/reactjs/react-router-redux) to keep application state sync with route changes.
+## Built With
 
-#### Utilities
-* [Isomorphic Fetch](https://github.com/matthew-andrews/isomorphic-fetch) with [ES6-Promise](https://github.com/stefanpenner/es6-promise) for using fetch api on both client & server side.
-* [Redux Thunk](https://github.com/gaearon/redux-thunk) for dispatching async actions.
-* [Redux Connect](https://github.com/makeomatic/redux-connect) for resolving async props in react-router.
-* [React Helmet](https://github.com/nfl/react-helmet)
-* [classnames](https://github.com/JedWatson/classnames)
+### Programming languages
 
-#### Build System
-* [Webpack](https://github.com/webpack/webpack) for bundling.
-  * [Awesome TypeScript Loader](https://github.com/s-panferov/awesome-typescript-loader) as ts loader.
-  * [Babel Loader](https://github.com/babel/babel-loader) as js loader.
-  * [React Hot Loader](https://github.com/gaearon/react-hot-loader) for providing hot reload capability to our development server
-  * [Isomorphic Style Loader](https://github.com/kriasoft/isomorphic-style-loader) for loading styles on server-side.
-  * [Style Loader](https://github.com/webpack/style-loader)
-  * [CSS Loader](https://github.com/webpack/css-loader)
-  * [PostCSS Loader](https://github.com/postcss/postcss)
-    * [PostCSS cssnext](https://github.com/MoOx/postcss-cssnext)
-    * [PostCSS Assets](https://github.com/assetsjs/postcss-assets)
-  * [JSON Loader](https://github.com/webpack/json-loader)
-  * [File Loader](https://github.com/webpack/file-loader)
-  * [URL Loader](https://github.com/webpack/url-loader)
-  * [Sourcemap Loader](https://github.com/webpack/source-map-loader)
-  * [Manifest Plugin](https://github.com/danethurber/webpack-manifest-plugin)
-  * [Extract Text Plugin](https://github.com/webpack/extract-text-webpack-plugin) for exporting bundled css. 
-  * [tslint Loader](https://github.com/wbuchwalter/tslint-loader) for using tslint as preloader on build process.
-  * [stylelint Loader](https://github.com/adrianhall/stylelint-loader) for using stylelint as preloader on build process.
-  * [Istanbul Instrumenter Loader](https://github.com/deepsweet/istanbul-instrumenter-loader) for using istanbul on postload process while generating code coverage reports.
+Typescript
 
-#### Dev & Prod Server
-* [Webpack Dev Server](https://github.com/webpack/webpack-dev-server)
-  * [Webpack Dev Middleware](https://github.com/webpack/webpack-dev-middleware)
-  * [Webpack Hot Middleware](https://github.com/webpack/webpack-hot-middleware)
-* [Express](https://github.com/expressjs/express) for running server both on client and server side.
-* [Compression](https://github.com/expressjs/compression) for gzip compression
-* [Serve Favicon](https://github.com/expressjs/serve-favicon) for serving favicon.
+### Platforms
 
-#### Developer Experience
-* [Typings](https://github.com/typings/typings) for installing type definitions of external libraries.
-* [tslint](https://github.com/palantir/tslint) for linting TypeScript files.
-* [stylelint](https://github.com/stylelint/stylelint) for linting styles.
-* [Redux Logger](https://github.com/theaqua/redux-logger)
-* [Redux DevTools](https://github.com/gaearon/redux-devtools)
-* [Chalk](https://github.com/chalk/chalk) for colored terminal logs.
+React, Vortigern boilerplate
 
-#### Testing
-* [Karma](https://github.com/karma-runner/karma) as test runner with following plugins
-  * [Karma-Webpack](https://github.com/webpack/karma-webpack)
-  * [Karma-Mocha](https://github.com/karma-runner/karma-mocha)
-  * [Karma-Chai](https://github.com/xdissent/karma-chai)
-  * [Karma-Coverage](https://github.com/karma-runner/karma-coverage)
-  * [Karma-PhantomJS Launcher](https://github.com/karma-runner/karma-phantomjs-launcher)
-* [Mocha](https://github.com/mochajs/mocha) as testing framework.
-* [Chai](https://github.com/chaijs/chai) as assertion library.
-* [Enzyme](https://github.com/jquery/jquery) for rendering React Components.
-* [Fetch Mock](https://github.com/wheresrhys/fetch-mock) for testing async actions.
-* [Redux Mock Store](https://github.com/arnaudbenard/redux-mock-store) for creating mock stores.
+### Frontend framework
 
-## Directory Structure
+React
 
-    .
-    ├── build                       # Built, ready to serve app.
-    ├── config                      # Root folder for configurations.
-    │   ├── test                    # Test configurations.
-    │   ├── types                   # Global type definitions, written by us.
-    │   ├── webpack                 # Webpack configurations.
-    │   └── main.ts                 # Generic App configurations.
-    ├── node_modules                # Node Packages.
-    ├── src                         # Source code.
-    │   ├── app                     # App folder.
-    │   │ ├── components            # React Components.
-    │   │ ├── containers            # React/Redux Containers.
-    │   │ ├── helpers               # Helper Functions & Components.
-    │   │ ├── redux                 # Redux related code aka data layer of the app.
-    │   │ │   ├── modules           # Redux modules.   
-    │   │ │   ├── reducers.ts       # Main reducers file to combine them.  
-    │   │ │   └── store.ts          # Redux store, contains global app state.    
-    │   │ └── routes.tsx            # Routes.
-    │   ├── client.tsx              # Entry point for client side rendering.
-    │   └── server.tsx              # Entry point for server side rendering.
-    ├── typings                     # Type definitions installed with typings.              
-    ├── .dockerignore               # Tells docker which files to ignore.
-    ├── .gitignore                  # Tells git which files to ignore.
-    ├── .stylelintrc                # Configures stylelint.
-    ├── Dockerfile                  # Dockerfile.
-    ├── favicon.ico                 # Favicon.
-    ├── package.json                # Package configuration.
-    ├── README.md                   # This file
-    ├── tsconfig.json               # TypeScript transpiler configuration.
-    ├── tslint.json                 # Configures tslint.
-    └── typings.json                # Typings package configuration.
+### Package managers
 
+Webpack
 
-## Installation
+## Repos and projects
 
-You can clone from this repository or [install the latest version](https://github.com/barbar/vortigern/releases) as a zip file or a tarball. 
+https://github.com/code4romania/sna-client
 
+related to https://github.com/code4romania/sna-api
 
-    $ git clone https://github.com/barbar/vortigern
-    $ cd vortigern
-    $ npm install
+## Deployment
 
+### Installation process
 
-## Usage
-
-All commands defaults to development environment. You can set `NODE_ENV` to `production` or use the shortcuts below.
-
-    # STARTING
+   - install node `v7.0.0` and npm `v5.5.1`. It's important to install the specified versions!!!
+   - open a terminal and go to the project. to install dependencies, run:
+   ```
+   npm i
+   ```
+   - if you want to deploy to production, you want a bundle. for that, run:
+   ```
+   npm run bundle
+   ```
+   - deploy the generated bundle
     
-    # This starts the app in development mode
-    $ npm run start:dev
-    
-    
-    # Starting it with the production build
-    $ cross-env API_URL=http://sna.code4.ro npm run start:prod
-    
-    
-    # BUILDING
-    
-    # This builds the app in development mode(client):
-    $ npm build:dev
-    
-    # Commands below builds the production build(client):
-    ## When using SSR
-    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/vizualizare-date/ npm run build:prod
-    ## When not using SSR
-    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/vizualizare-date/ npm run build:prod && cross-env BASE_URL=/vizualizare-date/ node ./script/add-and-replace-in-index.js
-    
-    # Server build:
-    $ npm run build:server
-    
-    # Commands below builds the production build(client & server):
-    ## When using SSR
-    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/vizualizare-date/ npm run build:prodserver
-    ## When not using SSR
-    $ cross-env API_URL=http://sna.code4.ro NODE_ENV=production BASE_URL=/vizualizare-date/ npm run build:prodserver && cross-env BASE_URL=/vizualizare-date/ node ./script/add-and-replace-in-index.js
-    
-    
-    # LINTING
-    $ npm run lint
-    
-    
-    # TESTING
-    $ npm test
+### Software dependencies
 
-For Windows users, we recommend using the shortcuts instead of setting environment variables because they work a little different on Windows.
+   Listed in the `package.json` file of the project.
 
-## Notes
-If you want install additional libraries, you can also install their typings like so
-    
-    $ npm install @types/<package> --save
+## Contributing
 
-or if no types are available define yours under `/config/types/` like so
-      
-    declare module 'Foo' {
-        // The type side
-        export type cls = any;
-        // The value side
-        export var cls: any;
-    }
+If you would like to contribute to one of our repositories, first identify the scale of what you would like to contribute. If it is small (grammar/spelling or a bug fix) feel free to start working on a fix. If you are submitting a feature or substantial code contribution, please discuss it with the team and ensure it follows the product roadmap. 
 
-## Credits
+* Fork it (https://github.com/code4romania/sna-client)
+* Create your feature branch (git checkout -b feature/fooBar)
+* Commit your changes (git commit -am 'Add some fooBar')
+* Push to the branch (git push origin feature/fooBar)
+* Create a new Pull Request
 
-Vortigern is released under the [MIT license](LICENSE). 
+## Feedback
 
-The image in this README belongs to [hhvferry.com](http://www.hhvferry.com/vortscrap.html).
+* Request a new feature on GitHub.
+* Vote for popular feature requests.
+* File a bug in GitHub Issues.
+* Email us with other feedback contact@code4.ro
 
+## License
 
-## [Barbar Startup Factory](https://www.barbar.com.tr/?ref=vortigern)
+This project is licensed under the MPL 2.0 License - see the [LICENSE](LICENSE) file for details
 
-<a target="_blank" href="https://barbar.digital/?ref=vortigern-barbar-logo"><img src="https://barbaruploads.s3.amazonaws.com/bicoz/logo2x.png" height="55px" /></a>
+## About Code4Ro
 
-We help startups start and stay started by helping them plan, strategize, fund and execute their vision. 
+Started in 2016, Code for Romania is a civic tech NGO, official member of the Code for All network. We have a community of over 500 volunteers (developers, ux/ui, communications, data scientists, graphic designers, devops, it security and more) who work pro-bono for developing digital solutions to solve social problems. #techforsocialgood. If you want to learn more details about our projects [visit our site](https://www.code4.ro/en/) or if you want to talk to one of our staff members, please e-mail us at contact@code4.ro.
 
-You can contact us at [hey@barbar.digital](mailto:hey@barbar.digital)
-
-Be sure to check out available [jobs at Barbar](https://github.com/barbar/hr).
+Last, but not least, we rely on donations to ensure the infrastructure, logistics and management of our community that is widely spread accross 11 timezones, coding for social change to make Romania and the world a better place. If you want to support us, [you can do it here](https://code4.ro/en/donate/).
